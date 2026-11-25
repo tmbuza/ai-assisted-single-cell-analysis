@@ -1,4 +1,3 @@
-/* Add CDI typography and card styles here. */
 /* =========================================
    CDI minimal styling (Quarto) — v2.1
    Focus: readable defaults + hardened figure caption centering
@@ -167,9 +166,3 @@ pre{
 .quarto-title-meta {
   display: none !important;
 }
-                bbox=dict(
-                    facecolor="white",
-                    edgecolor="none",
-                    alpha=0.85,
-                    pad=1,
-                ),
