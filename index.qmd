@@ -6,8 +6,6 @@ format:
     body-classes: front-page
 ---
 
-# From counts to a result you understand {.unnumbered}
-
 Start with synthetic practice, repeat the workflow with published mouse-brain data, then bring your own study.
 
 1. **Define** a question the data can answer.
