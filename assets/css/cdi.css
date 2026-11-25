@@ -166,3 +166,9 @@ pre{
 .quarto-title-meta {
   display: none !important;
 }
+                bbox=dict(
+                    facecolor="white",
+                    edgecolor="none",
+                    alpha=0.85,
+                    pad=1,
+                ),

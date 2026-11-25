@@ -1,6 +1,7 @@
 project:
   type: book
   output-dir: docs
+
 book:
   title: "AI-Assisted Single-Cell Analysis with R"
   author: "Teresia Mrema Buza | Complex Data Insights"
@@ -9,6 +10,7 @@ book:
     - 00-setup.qmd
     - 01-run-the-workflow.qmd
     - 02-write-the-report.qmd
+
     - part: "Synthetic practice"
       chapters:
         - examples/synthetic/00-define.qmd
@@ -18,6 +20,7 @@ book:
         - examples/synthetic/04-run.qmd
         - examples/synthetic/05-verify-and-explain.qmd
         - examples/synthetic/06-write.qmd
+
     - part: "Real data: Zeisel mouse brain"
       chapters:
         - examples/zeisel/00-define.qmd
@@ -27,6 +30,7 @@ book:
         - examples/zeisel/04-run.qmd
         - examples/zeisel/05-verify-and-explain.qmd
         - examples/zeisel/06-write.qmd
+
     - part: "Your own study"
       chapters:
         - examples/your-study/00-define.qmd
@@ -36,10 +40,21 @@ book:
         - examples/your-study/04-run.qmd
         - examples/your-study/05-verify-and-explain.qmd
         - examples/your-study/06-write.qmd
-    - 99-appendix.qmd
+
+  appendices:
+  - 99-appendix.qmd
+  
 format:
   html:
     theme: cosmo
     toc: true
+    toc-depth: 3
+    number-sections: false
+    css: assets/css/cdi.css
+    code-tools: false
+    mermaid:
+      theme: forest
 execute:
   eval: false
+  warning: false
+  message: false

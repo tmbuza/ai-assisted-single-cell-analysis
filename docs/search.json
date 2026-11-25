@@ -12,9 +12,9 @@
   {
     "objectID": "00-setup.html",
     "href": "00-setup.html",
-    "title": "2  Set up the project",
+    "title": "Set up the project",
     "section": "",
-    "text": "2.1 1. Download and open the complete project\nOpen the GitHub repository, select Code → Download ZIP, then extract the ZIP.\nIn VS Code, choose File → Open Folder and select the extracted project folder. A GitHub ZIP usually names it ai-assisted-single-cell-analysis-main. Open the inner folder if there is an extra outer folder. Do not work inside the compressed ZIP.\nCheck that you can see _quarto.yml, renv.lock, data/, scripts/ and examples/ directly inside the selected folder. The complete project also includes .Rprofile and renv/activate.R. These may be hidden in your file browser.\nChoose Terminal → New Terminal. This is the main project folder. Run guide commands here unless the instructions explicitly say to enter reports/.",
+    "text": "1. Download and open the complete project\nOpen the GitHub repository, select Code → Download ZIP, then extract the ZIP.\nIn VS Code, choose File → Open Folder and select the extracted project folder. A GitHub ZIP usually names it ai-assisted-single-cell-analysis-main. Open the inner folder if there is an extra outer folder. Do not work inside the compressed ZIP.\nCheck that you can see _quarto.yml, renv.lock, data/, scripts/ and examples/ directly inside the selected folder. The complete project also includes .Rprofile and renv/activate.R. These may be hidden in your file browser.\nChoose Terminal → New Terminal. This is the main project folder. Run guide commands here unless the instructions explicitly say to enter reports/.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Set up the project</span>"
     ]
@@ -22,7 +22,7 @@
   {
     "objectID": "00-setup.html#download-and-open-the-complete-project",
     "href": "00-setup.html#download-and-open-the-complete-project",
-    "title": "2  Set up the project",
+    "title": "Set up the project",
     "section": "",
     "text": "Terminal or R console?\n\n\n\nCommands beginning with Rscript or quarto go in the terminal. The &gt; prompt means you are inside R; exit with q(save = \"no\") before using terminal commands. Copy commands without any displayed prompt symbols. Ctrl+Z suspends R; it does not exit R.",
     "crumbs": [
@@ -32,9 +32,9 @@
   {
     "objectID": "00-setup.html#check-the-tools",
     "href": "00-setup.html#check-the-tools",
-    "title": "2  Set up the project",
-    "section": "2.2 2. Check the tools",
-    "text": "2.2 2. Check the tools\nInstall R and Quarto. RStudio is optional. The worked examples were checked on macOS with R 4.6.1. Use the R version recorded in the supplied renv.lock; renv restores packages but does not install R itself.\nIn the terminal:\nRscript --version\nquarto --version\nBoth should print a version. If either command is not found, finish installing that tool and reopen the terminal.",
+    "title": "Set up the project",
+    "section": "2. Check the tools",
+    "text": "2. Check the tools\nInstall R and Quarto. RStudio is optional. The worked examples were checked on macOS with R 4.6.1. Use the R version recorded in the supplied renv.lock; renv restores packages but does not install R itself.\nIn the terminal:\nRscript --version\nquarto --version\nBoth should print a version. If either command is not found, finish installing that tool and reopen the terminal.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Set up the project</span>"
     ]
@@ -42,9 +42,9 @@
   {
     "objectID": "00-setup.html#restore-the-analysis-environment",
     "href": "00-setup.html#restore-the-analysis-environment",
-    "title": "2  Set up the project",
-    "section": "2.3 3. Restore the analysis environment",
-    "text": "2.3 3. Restore the analysis environment\nRscript scripts/R/setup.R\nAn internet connection is required on the first run. Wait for Setup complete. The script restores the package versions in renv.lock, checks that required packages load and confirms that the project is synchronized. It does not create a new lockfile or update packages to current releases.\nIf setup fails, stop before running analysis and use installation troubleshooting. A missing lockfile means the download is incomplete or the maintainer has not supplied the tested environment.",
+    "title": "Set up the project",
+    "section": "3. Restore the analysis environment",
+    "text": "3. Restore the analysis environment\nRscript scripts/R/setup.R\nAn internet connection is required on the first run. Wait for Setup complete. The script restores the package versions in renv.lock, checks that required packages load and confirms that the project is synchronized. It does not create a new lockfile or update packages to current releases.\nIf setup fails, stop before running analysis and use installation troubleshooting. A missing lockfile means the download is incomplete or the maintainer has not supplied the tested environment.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Set up the project</span>"
     ]
@@ -52,9 +52,9 @@
   {
     "objectID": "00-setup.html#start-the-synthetic-practice",
     "href": "00-setup.html#start-the-synthetic-practice",
-    "title": "2  Set up the project",
-    "section": "2.4 4. Start the synthetic practice",
-    "text": "2.4 4. Start the synthetic practice\nOpen Define: Synthetic practice, then follow its seven steps in order. The commands you will use are:\nRscript scripts/R/prepare_synthetic.R\nRscript scripts/R/check_inputs.R synthetic\nRscript scripts/R/run_workflow.R synthetic\nRscript scripts/R/verify_cell.R synthetic Cell001\nRscript scripts/R/verify_cell.R synthetic Cell047\nRscript scripts/R/verify_cell.R synthetic Cell048\nRun one line at a time. Stop if a command fails. Expected: 1,000 genes, 200 cells, 190 retained, followed by three PASS messages. Cell047 and Cell048 should have retained FALSE; the verifier passes because it confirms their exclusion.",
+    "title": "Set up the project",
+    "section": "4. Start the synthetic practice",
+    "text": "4. Start the synthetic practice\nOpen Define: Synthetic practice, then follow its seven steps in order. The commands you will use are:\nRscript scripts/R/prepare_synthetic.R\nRscript scripts/R/check_inputs.R synthetic\nRscript scripts/R/run_workflow.R synthetic\nRscript scripts/R/verify_cell.R synthetic Cell001\nRscript scripts/R/verify_cell.R synthetic Cell047\nRscript scripts/R/verify_cell.R synthetic Cell048\nRun one line at a time. Stop if a command fails. Expected: 1,000 genes, 200 cells, 190 retained, followed by three PASS messages. Cell047 and Cell048 should have retained FALSE; the verifier passes because it confirms their exclusion.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Set up the project</span>"
     ]
@@ -62,9 +62,9 @@
   {
     "objectID": "00-setup.html#preview-the-guide",
     "href": "00-setup.html#preview-the-guide",
-    "title": "2  Set up the project",
-    "section": "2.5 5. Preview the guide",
-    "text": "2.5 5. Preview the guide\nquarto preview\nThe book explains commands without running analysis during rendering. Figures come from the R workflow. Stop the preview with Ctrl+C when you need the terminal again.\nAfter synthetic practice, follow the Zeisel example. Use your own study only after you understand the inputs and verification. Report-writing instructions are in Write the report.",
+    "title": "Set up the project",
+    "section": "5. Preview the guide",
+    "text": "5. Preview the guide\nquarto preview\nThe book explains commands without running analysis during rendering. Figures come from the R workflow. Stop the preview with Ctrl+C when you need the terminal again.\nAfter synthetic practice, follow the Zeisel example. Use your own study only after you understand the inputs and verification. Report-writing instructions are in Write the report.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Set up the project</span>"
     ]
@@ -72,9 +72,9 @@
   {
     "objectID": "01-run-the-workflow.html",
     "href": "01-run-the-workflow.html",
-    "title": "3  One workflow for every dataset",
+    "title": "One workflow for every dataset",
     "section": "",
-    "text": "3.1 Find your outputs\nFollow each example from Define to Write. Use synthetic, zeisel or your-study consistently as the dataset name. Read the page before copying its command.\nDATASET means the dataset name; replace it with synthetic, zeisel or your-study. All folders are created automatically by the workflow.\nRun commands one at a time. Continue only after success. Recreate inputs only when needed; after changing inputs or QC cutoffs, rerun Check, Run and Verify before interpreting results. The verifier detects changed input bytes. A successful command checks calculation, not scientific interpretation.\nKeep learner-generated reports in the ignored reports/ folder. Write the report explains how to create one without adding it to the book.",
+    "text": "Find your outputs\nFollow each example from Define to Write. Use synthetic, zeisel or your-study consistently as the dataset name. Read the page before copying its command.\nDATASET means the dataset name; replace it with synthetic, zeisel or your-study. All folders are created automatically by the workflow.\nRun commands one at a time. Continue only after success. Recreate inputs only when needed; after changing inputs or QC cutoffs, rerun Check, Run and Verify before interpreting results. The verifier detects changed input bytes. A successful command checks calculation, not scientific interpretation.\nKeep learner-generated reports in the ignored reports/ folder. Write the report explains how to create one without adding it to the book.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>One workflow for every dataset</span>"
     ]
@@ -82,7 +82,7 @@
   {
     "objectID": "01-run-the-workflow.html#find-your-outputs",
     "href": "01-run-the-workflow.html#find-your-outputs",
-    "title": "3  One workflow for every dataset",
+    "title": "One workflow for every dataset",
     "section": "",
     "text": "File\nLocation inside results/DATASET/\n\n\n\n\nQC and PCA plots\nfigures/qc.png, figures/pca.png\n\n\nAll-cell QC decisions\ntables/cell-qc.tsv\n\n\nPCA scores and variance fractions\ntables/pca.tsv, tables/pca-variance.tsv\n\n\nSelected genes and their variance\ntables/selected-genes.tsv\n\n\nQC cutoffs and input checksums\ntables/parameters.tsv, tables/input-checksums.tsv\n\n\nTransformed expression object\nnormalized.rds\n\n\nR and package versions\nsession-info.txt",
     "crumbs": [
@@ -92,9 +92,9 @@
   {
     "objectID": "02-write-the-report.html",
     "href": "02-write-the-report.html",
-    "title": "4  Write the report",
+    "title": "Write the report",
     "section": "",
-    "text": "4.1 1. Create the starter\nA short report explains the question, checked results and limitations in your own words. Use AI to review clarity, then compare every claim with your saved outputs.\nFrom the main project folder:\nFor the real example, use zeisel; for your study, use your-study. The command creates reports/synthetic-report.qmd and a local Quarto configuration. It keeps an existing report rather than overwriting it. Starter text is stored in templates/report.qmd; learner writing belongs in reports/.",
+    "text": "1. Create the starter\nA short report explains the question, checked results and limitations in your own words. Use AI to review clarity, then compare every claim with your saved outputs.\nFrom the main project folder:\nFor the real example, use zeisel; for your study, use your-study. The command creates reports/synthetic-report.qmd and a local Quarto configuration. It keeps an existing report rather than overwriting it. Starter text is stored in templates/report.qmd; learner writing belongs in reports/.",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Write the report</span>"
     ]
@@ -102,7 +102,7 @@
   {
     "objectID": "02-write-the-report.html#create-the-starter",
     "href": "02-write-the-report.html#create-the-starter",
-    "title": "4  Write the report",
+    "title": "Write the report",
     "section": "",
     "text": "Rscript scripts/R/create_report.R synthetic",
     "crumbs": [
@@ -112,9 +112,9 @@
   {
     "objectID": "02-write-the-report.html#edit-your-report",
     "href": "02-write-the-report.html#edit-your-report",
-    "title": "4  Write the report",
-    "section": "4.2 2. Edit your report",
-    "text": "4.2 2. Edit your report\nOpen the new QMD in VS Code or RStudio. Replace every bracketed instruction with your own text. Include:\n\nThe question, source and study design.\nInput checks, thresholds and retained-cell count.\nOne QC observation and one PCA observation, with saved values.\nA manually checked cell calculation and its verifier result.\nWhat remains uncertain and one justified next step.\nHow AI was used and how you checked its response.\n\nFigures are already linked to results/DATASET/figures/. Supporting tables are in results/DATASET/tables/. Revisit your interpretation whenever inputs or cutoffs change. Previously written reports do not update their prose automatically.",
+    "title": "Write the report",
+    "section": "2. Edit your report",
+    "text": "2. Edit your report\nOpen the new QMD in VS Code or RStudio. Replace every bracketed instruction with your own text. Include:\n\nThe question, source and study design.\nInput checks, thresholds and retained-cell count.\nOne QC observation and one PCA observation, with saved values.\nA manually checked cell calculation and its verifier result.\nWhat remains uncertain and one justified next step.\nHow AI was used and how you checked its response.\n\nFigures are already linked to results/DATASET/figures/. Supporting tables are in results/DATASET/tables/. Revisit your interpretation whenever inputs or cutoffs change. Previously written reports do not update their prose automatically.",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Write the report</span>"
     ]
@@ -122,9 +122,9 @@
   {
     "objectID": "02-write-the-report.html#render-and-read",
     "href": "02-write-the-report.html#render-and-read",
-    "title": "4  Write the report",
-    "section": "4.3 3. Render and read",
-    "text": "4.3 3. Render and read\nAfter running the analysis, enter reports/ and render:\ncd reports\nquarto render synthetic-report.qmd\ncd ..\nReplace the report filename when using another dataset. The HTML stays in reports/; its figures are embedded for convenient sharing. Confirm that both display and that no bracketed starter text remains. Inspect the report for private metadata before sharing.\nThe complete reports/ folder is ignored by Git. Do not add reports to _quarto.yml or commit learner writing. The book’s seven-step examples remain separate from these reports.",
+    "title": "Write the report",
+    "section": "3. Render and read",
+    "text": "3. Render and read\nAfter running the analysis, enter reports/ and render:\ncd reports\nquarto render synthetic-report.qmd\ncd ..\nReplace the report filename when using another dataset. The HTML stays in reports/; its figures are embedded for convenient sharing. Confirm that both display and that no bracketed starter text remains. Inspect the report for private metadata before sharing.\nThe complete reports/ folder is ignored by Git. Do not add reports to _quarto.yml or commit learner writing. The book’s seven-step examples remain separate from these reports.",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Write the report</span>"
     ]
@@ -132,7 +132,7 @@
   {
     "objectID": "examples/synthetic/00-define.html",
     "href": "examples/synthetic/00-define.html",
-    "title": "5  Define: Synthetic practice",
+    "title": "Define: Synthetic practice",
     "section": "",
     "text": "Can we recover the deliberately introduced expression pattern after checking cell quality? The 200 cells and two simulated patterns are teaching constructs, not biological evidence.\nYour task: write the question and one conclusion these data cannot support.\nAI prompt: “Critique the scope of my question. What metadata would I need? Do not invent missing study details.”",
     "crumbs": [
@@ -143,9 +143,9 @@
   {
     "objectID": "examples/synthetic/01-preview.html",
     "href": "examples/synthetic/01-preview.html",
-    "title": "6  Preview: Synthetic practice",
+    "title": "Preview: Synthetic practice",
     "section": "",
-    "text": "6.1 What the worked result shows\nPlots are saved in results/synthetic/figures/ as qc.png and pca.png. Tab-separated tables, including cell-qc.tsv and pca.tsv, are saved in results/synthetic/tables/. The saved R object normalized.rds remains in results/synthetic/. Supporting files record selected genes, variance explained, parameters, input checksums and the R session.\nThe two QC panels show counts versus detected genes and counts versus mitochondrial percentage. Blue cells pass all configured cutoffs; red cells fail one or more. Dashed lines show cutoffs. PCA summarizes expression variation among retained cells. Colours show the known simulated populations, not inferred cell types. Nearby points have similar profiles in the selected gene space; separation alone does not identify cell types or demonstrate significance.\nAfter running this example, return here to inspect its generated figures:\nYour task: identify what each axis measures before interpreting a pattern. Missing images mean the analysis has not generated them yet.\nThe revised practice retains 190 of 200 cells. Five low-depth cells and five cells with deliberately high mitochondrial fractions fail the configured cutoffs. Read both QC panels: a cell may have enough detected genes but fail the mitochondrial cutoff.\nThe known simulated populations separate mainly along PC1, with variation within each population. In the checked run, PC1 explains about 5.5% and PC2 about 1.6% of variance in the selected transformed genes. Most variation lies outside these two components. The colours describe how the data were constructed; they are not evidence that this workflow discovered biological cell types.",
+    "text": "What the worked result shows\nPlots are saved in results/synthetic/figures/ as qc.png and pca.png. Tab-separated tables, including cell-qc.tsv and pca.tsv, are saved in results/synthetic/tables/. The saved R object normalized.rds remains in results/synthetic/. Supporting files record selected genes, variance explained, parameters, input checksums and the R session.\nThe two QC panels show counts versus detected genes and counts versus mitochondrial percentage. Blue cells pass all configured cutoffs; red cells fail one or more. Dashed lines show cutoffs. PCA summarizes expression variation among retained cells. Colours show the known simulated populations, not inferred cell types. Nearby points have similar profiles in the selected gene space; separation alone does not identify cell types or demonstrate significance.\nAfter running this example, return here to inspect its generated figures:\nYour task: identify what each axis measures before interpreting a pattern. Missing images mean the analysis has not generated them yet.\nThe revised practice retains 190 of 200 cells. Five low-depth cells and five cells with deliberately high mitochondrial fractions fail the configured cutoffs. Read both QC panels: a cell may have enough detected genes but fail the mitochondrial cutoff.\nThe known simulated populations separate mainly along PC1, with variation within each population. In the checked run, PC1 explains about 5.5% and PC2 about 1.6% of variance in the selected transformed genes. Most variation lies outside these two components. The colours describe how the data were constructed; they are not evidence that this workflow discovered biological cell types.",
     "crumbs": [
       "Synthetic practice",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Preview: Synthetic practice</span>"
@@ -154,7 +154,7 @@
   {
     "objectID": "examples/synthetic/02-meet.html",
     "href": "examples/synthetic/02-meet.html",
-    "title": "7  Meet: Synthetic practice",
+    "title": "Meet: Synthetic practice",
     "section": "",
     "text": "Prepare the inputs from the main project folder:\nRscript scripts/R/prepare_synthetic.R\nThe matrix stores genes in rows and cells in columns. cell-metadata.tsv connects each cell to a sample and an optional reference label. gene-metadata.tsv flags mitochondrial genes explicitly.\nRead the input contract. The synthetic labels describe the simulation settings.\nYour task: open both metadata tables; trace one cell ID to the matrix. Explain the difference between a cell, a sample and a donor.\nThis v2 dataset contains 1,000 genes and 200 cells. Seed 20261125 reproduces the random draws using the RNG settings in the script. Negative-binomial counts give cell-to-cell variation and zeros; unequal library sizes vary total counts. Four artificial sample labels are balanced across two simulated populations. The simulation is not fitted to the real dataset. See data/synthetic/provenance.txt for the construction and deliberate QC failures.",
     "crumbs": [
@@ -165,7 +165,7 @@
   {
     "objectID": "examples/synthetic/03-check.html",
     "href": "examples/synthetic/03-check.html",
-    "title": "8  Check: Synthetic practice",
+    "title": "Check: Synthetic practice",
     "section": "",
     "text": "Rscript scripts/R/check_inputs.R synthetic\nThe check rejects invalid counts, duplicate or mismatched IDs, missing sample IDs and invalid mitochondrial flags. Matching metadata are reordered to matrix order rather than assumed to be aligned.\nBefore proceeding, inspect config/qc.tsv. The synthetic row supplies minimum counts, minimum detected genes and maximum mitochondrial percentage. These are illustrative teaching cutoffs, not universal biological rules. Record any change and inspect how it affects retained cells. Mitochondrial percentages may reflect biology as well as damage.\nYour task: confirm donor, condition and batch information where available. Unknown sample mapping permits descriptive exploration only. A passing file check does not establish biological replication.\nAI prompt: “Explain these QC cutoffs and suggest what evidence I should inspect before changing them. Do not label cells as damaged solely from one metric.”",
     "crumbs": [
@@ -176,7 +176,7 @@
   {
     "objectID": "examples/synthetic/04-run.html",
     "href": "examples/synthetic/04-run.html",
-    "title": "9  Run: Synthetic practice",
+    "title": "Run: Synthetic practice",
     "section": "",
     "text": "Rscript scripts/R/run_workflow.R synthetic\nRead results/synthetic/tables/cell-qc.tsv before interpreting the plots. The retained column records the QC decision for every input cell, including zero-count cells, which are excluded.\nFor each retained cell, divide each raw gene count by that cell’s total, multiply by 10,000, then apply log(1 + value). The workflow selects up to 500 genes with highest variance after this transformation. PCA centers genes but does not scale them to unit variance. Reference labels do not enter feature selection or PCA.\nThis transparent normalization is for introductory exploration. It does not model technical noise, resolve doublets, remove ambient RNA or correct batches. Review those issues before extending a real analysis. Mitochondrial genes remain eligible for PCA, so inspect whether QC drives the leading components.\nYour task: record input and retained cell counts, cutoffs and selected-gene count. A large exclusion fraction is a reason to investigate, not automatically a reason to relax thresholds.",
     "crumbs": [
@@ -187,7 +187,7 @@
   {
     "objectID": "examples/synthetic/05-verify-and-explain.html",
     "href": "examples/synthetic/05-verify-and-explain.html",
-    "title": "10  Verify and Explain: Synthetic practice",
+    "title": "Verify and Explain: Synthetic practice",
     "section": "",
     "text": "Use Cell001, then repeat with Cell047 (low depth) and Cell048 (high mitochondrial fraction).\nRscript scripts/R/verify_cell.R synthetic Cell001\nRscript scripts/R/verify_cell.R synthetic Cell047\nRscript scripts/R/verify_cell.R synthetic Cell048\nThe verifier reads raw inputs independently; it does not call the analysis QC or normalization functions. It recalculates total counts, detected genes, mitochondrial percentage, the retained decision, and one positive gene’s normalized expression when retained. A disagreement stops execution. This checks arithmetic for one cell; it does not verify the entire scientific analysis.\nManually check the same cell:\n\nSum its gene counts: total counts.\nCount genes with counts greater than zero: detected genes.\nSum counts flagged mitochondrial, divide by total counts, multiply by 100.\nFor one positive gene, calculate log(1 + 10000 * gene_count / total_counts).\n\nFor a zero-total cell the mitochondrial percentage is undefined (NA), and the cell is excluded.\nExplain: write one observation from QC and one from PCA. Quote actual cell counts or variance percentages. Explain whether exclusions or technical factors could influence the pattern. Do not invent a result before running the analysis.\nAI prompt: “Review my observation against these exact saved values. Separate what the plot shows from my interpretation, and flag claims requiring more evidence.”\nThe v2 values differ from the earlier 60-gene, 48-cell dataset. Use the expected values below only after recreating v2 inputs and rerunning the workflow.\n\n\n\nCell\nTotal counts\nDetected genes\nMitochondrial %\nRetained\n\n\n\n\nCell001\n18543\n848\n3.575473\nTRUE\n\n\nCell047\n85\n71\n1.176471\nFALSE\n\n\nCell048\n3762\n498\n47.049442\nFALSE\n\n\n\nFor Cell001, Gene001 has raw count 125 and expected normalized expression log(1 + 10000 * 125 / 18543) = 4.225532 (rounded).",
     "crumbs": [
@@ -198,7 +198,7 @@
   {
     "objectID": "examples/synthetic/06-write.html",
     "href": "examples/synthetic/06-write.html",
-    "title": "11  Write: Synthetic practice",
+    "title": "Write: Synthetic practice",
     "section": "",
     "text": "Create your report starter from the main project folder:\nRscript scripts/R/create_report.R synthetic\nOpen reports/synthetic-report.qmd and replace the bracketed instructions with your own checked results. Follow Write the report for what to include.\nWhen the report is ready:\ncd reports\nquarto render synthetic-report.qmd\ncd ..\nRead reports/synthetic-report.html and confirm the figures display. The whole reports/ folder is ignored by Git; the helper never overwrites an existing report. If you created a report before figures moved into figures/, update its image links to ../results/synthetic/figures/qc.png and ../results/synthetic/figures/pca.png.",
     "crumbs": [
@@ -209,7 +209,7 @@
   {
     "objectID": "examples/zeisel/00-define.html",
     "href": "examples/zeisel/00-define.html",
-    "title": "12  Define: Zeisel mouse brain",
+    "title": "Define: Zeisel mouse brain",
     "section": "",
     "text": "What expression variation is visible in a convenience subset of published mouse-brain cells after basic QC? Read dataset provenance. We will not infer treatment effects, cell proportions or new cell identities.\nYour task: write the question and one conclusion these data cannot support.\nAI prompt: “Critique the scope of my question. What metadata would I need? Do not invent missing study details.”",
     "crumbs": [
@@ -220,9 +220,9 @@
   {
     "objectID": "examples/zeisel/01-preview.html",
     "href": "examples/zeisel/01-preview.html",
-    "title": "13  Preview: Zeisel mouse brain",
+    "title": "Preview: Zeisel mouse brain",
     "section": "",
-    "text": "13.1 What the worked result shows\nPlots are saved in results/zeisel/figures/ as qc.png and pca.png. Tab-separated tables, including cell-qc.tsv and pca.tsv, are saved in results/zeisel/tables/. The saved R object normalized.rds remains in results/zeisel/. Supporting files record selected genes, variance explained, parameters, input checksums and the R session.\nThe two QC panels show counts versus detected genes and counts versus mitochondrial percentage. Blue cells pass all configured cutoffs; red cells fail one or more. Dashed lines show cutoffs. PCA summarizes expression variation among retained cells. Nearby points have similar profiles in the selected gene space; separation alone does not identify cell types or demonstrate significance.\nAfter running this example, return here to inspect its generated figures:\nYour task: identify what each axis measures before interpreting a pattern. Missing images mean the analysis has not generated them yet.\nAll 400 cells in this source-order subset pass the illustrative QC cutoffs. Counts and detected genes vary widely. In the checked run, PC1 explains about 19.5% and PC2 about 9.9% of variance in selected transformed genes. The PCA shows separated regions and variation within them; this alone does not assign cell types or rule out technical effects. Confirm percentages against your own tables/pca-variance.tsv.\nThese plots summarize a convenience subset, not the full tissue. Passing these cutoffs does not check doublets, ambient RNA or donor/batch effects.",
+    "text": "What the worked result shows\nPlots are saved in results/zeisel/figures/ as qc.png and pca.png. Tab-separated tables, including cell-qc.tsv and pca.tsv, are saved in results/zeisel/tables/. The saved R object normalized.rds remains in results/zeisel/. Supporting files record selected genes, variance explained, parameters, input checksums and the R session.\nThe two QC panels show counts versus detected genes and counts versus mitochondrial percentage. Blue cells pass all configured cutoffs; red cells fail one or more. Dashed lines show cutoffs. PCA summarizes expression variation among retained cells. Nearby points have similar profiles in the selected gene space; separation alone does not identify cell types or demonstrate significance.\nAfter running this example, return here to inspect its generated figures:\nYour task: identify what each axis measures before interpreting a pattern. Missing images mean the analysis has not generated them yet.\nAll 400 cells in this source-order subset pass the illustrative QC cutoffs. Counts and detected genes vary widely. In the checked run, PC1 explains about 19.5% and PC2 about 9.9% of variance in selected transformed genes. The PCA shows separated regions and variation within them; this alone does not assign cell types or rule out technical effects. Confirm percentages against your own tables/pca-variance.tsv.\nThese plots summarize a convenience subset, not the full tissue. Passing these cutoffs does not check doublets, ambient RNA or donor/batch effects.",
     "crumbs": [
       "Real data: Zeisel mouse brain",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Preview: Zeisel mouse brain</span>"
@@ -231,7 +231,7 @@
   {
     "objectID": "examples/zeisel/02-meet.html",
     "href": "examples/zeisel/02-meet.html",
-    "title": "14  Meet: Zeisel mouse brain",
+    "title": "Meet: Zeisel mouse brain",
     "section": "",
     "text": "Prepare the inputs from the main project folder:\nRscript scripts/R/prepare_zeisel.R\nThe matrix stores genes in rows and cells in columns. cell-metadata.tsv connects each cell to a sample and an optional reference label. gene-metadata.tsv flags mitochondrial genes explicitly.\nRead the input contract. The published labels are context only; the PCA never uses them.\nYour task: open both metadata tables; trace one cell ID to the matrix. Explain the difference between a cell, a sample and a donor.",
     "crumbs": [
@@ -242,7 +242,7 @@
   {
     "objectID": "examples/zeisel/03-check.html",
     "href": "examples/zeisel/03-check.html",
-    "title": "15  Check: Zeisel mouse brain",
+    "title": "Check: Zeisel mouse brain",
     "section": "",
     "text": "Rscript scripts/R/check_inputs.R zeisel\nThe check rejects invalid counts, duplicate or mismatched IDs, missing sample IDs and invalid mitochondrial flags. Matching metadata are reordered to matrix order rather than assumed to be aligned.\nBefore proceeding, inspect config/qc.tsv. The zeisel row supplies minimum counts, minimum detected genes and maximum mitochondrial percentage. These are illustrative teaching cutoffs, not universal biological rules. Record any change and inspect how it affects retained cells. Mitochondrial percentages may reflect biology as well as damage.\nYour task: confirm donor, condition and batch information where available. Unknown sample mapping permits descriptive exploration only. A passing file check does not establish biological replication.\nAI prompt: “Explain these QC cutoffs and suggest what evidence I should inspect before changing them. Do not label cells as damaged solely from one metric.”",
     "crumbs": [
@@ -253,7 +253,7 @@
   {
     "objectID": "examples/zeisel/04-run.html",
     "href": "examples/zeisel/04-run.html",
-    "title": "16  Run: Zeisel mouse brain",
+    "title": "Run: Zeisel mouse brain",
     "section": "",
     "text": "Rscript scripts/R/run_workflow.R zeisel\nRead results/zeisel/tables/cell-qc.tsv before interpreting the plots. The retained column records the QC decision for every input cell, including zero-count cells, which are excluded.\nFor each retained cell, divide each raw gene count by that cell’s total, multiply by 10,000, then apply log(1 + value). The workflow selects up to 500 genes with highest variance after this transformation. PCA centers genes but does not scale them to unit variance. Reference labels do not enter feature selection or PCA.\nThis transparent normalization is for introductory exploration. It does not model technical noise, resolve doublets, remove ambient RNA or correct batches. Review those issues before extending a real analysis. Mitochondrial genes remain eligible for PCA, so inspect whether QC drives the leading components.\nYour task: record input and retained cell counts, cutoffs and selected-gene count. A large exclusion fraction is a reason to investigate, not automatically a reason to relax thresholds.",
     "crumbs": [
@@ -264,9 +264,9 @@
   {
     "objectID": "examples/zeisel/05-verify-and-explain.html",
     "href": "examples/zeisel/05-verify-and-explain.html",
-    "title": "17  Verify and Explain: Zeisel mouse brain",
+    "title": "Verify and Explain: Zeisel mouse brain",
     "section": "",
-    "text": "17.1 Worked verification\nVerify the cell used in this worked example. Confirm that its ID appears in results/zeisel/tables/cell-qc.tsv. If your downloaded source uses different IDs, choose an exact retained cell_id from that table instead.\nThe verifier reads raw inputs independently; it does not call the analysis QC or normalization functions. It recalculates total counts, detected genes, mitochondrial percentage, the retained decision, and one positive gene’s normalized expression when retained. A disagreement stops execution. This checks arithmetic for one cell; it does not verify the entire scientific analysis.\nManually check the same cell:\nFor a zero-total cell the mitochondrial percentage is undefined (NA), and the cell is excluded.\nExplain: write one observation from QC and one from PCA. Quote actual cell counts or variance percentages. Explain whether exclusions or technical factors could influence the pattern. Do not invent a result before running the analysis.\nAI prompt: “Review my observation against these exact saved values. Separate what the plot shows from my interpretation, and flag claims requiring more evidence.”\nFor the tested source subset, cell 1772071015_C02 has total counts 22,354, 4,871 detected genes and 3.462468% mitochondrial counts. It is retained. The verifier checks normalized expression for the first positive gene; in this input that is Tshz1, with value 0.8510231 (rounded). If input bytes or package data change, investigate the difference rather than forcing values to match.\nAll 400 cells in this convenience subset passed the illustrative QC cutoffs. That does not establish that every cell is biologically high quality. Repeat the verifier with another retained cell; there are no excluded cells to verify in this particular run.",
+    "text": "Worked verification\nVerify the cell used in this worked example. Confirm that its ID appears in results/zeisel/tables/cell-qc.tsv. If your downloaded source uses different IDs, choose an exact retained cell_id from that table instead.\nThe verifier reads raw inputs independently; it does not call the analysis QC or normalization functions. It recalculates total counts, detected genes, mitochondrial percentage, the retained decision, and one positive gene’s normalized expression when retained. A disagreement stops execution. This checks arithmetic for one cell; it does not verify the entire scientific analysis.\nManually check the same cell:\nFor a zero-total cell the mitochondrial percentage is undefined (NA), and the cell is excluded.\nExplain: write one observation from QC and one from PCA. Quote actual cell counts or variance percentages. Explain whether exclusions or technical factors could influence the pattern. Do not invent a result before running the analysis.\nAI prompt: “Review my observation against these exact saved values. Separate what the plot shows from my interpretation, and flag claims requiring more evidence.”\nFor the tested source subset, cell 1772071015_C02 has total counts 22,354, 4,871 detected genes and 3.462468% mitochondrial counts. It is retained. The verifier checks normalized expression for the first positive gene; in this input that is Tshz1, with value 0.8510231 (rounded). If input bytes or package data change, investigate the difference rather than forcing values to match.\nAll 400 cells in this convenience subset passed the illustrative QC cutoffs. That does not establish that every cell is biologically high quality. Repeat the verifier with another retained cell; there are no excluded cells to verify in this particular run.",
     "crumbs": [
       "Real data: Zeisel mouse brain",
       "<span class='chapter-number'>17</span>  <span class='chapter-title'>Verify and Explain: Zeisel mouse brain</span>"
@@ -275,7 +275,7 @@
   {
     "objectID": "examples/zeisel/06-write.html",
     "href": "examples/zeisel/06-write.html",
-    "title": "18  Write: Zeisel mouse brain",
+    "title": "Write: Zeisel mouse brain",
     "section": "",
     "text": "Create your report starter from the main project folder:\nRscript scripts/R/create_report.R zeisel\nOpen reports/zeisel-report.qmd and replace the bracketed instructions with your own checked results. Follow Write the report for what to include.\nWhen the report is ready:\ncd reports\nquarto render zeisel-report.qmd\ncd ..\nRead reports/zeisel-report.html and confirm the figures display. The whole reports/ folder is ignored by Git; the helper never overwrites an existing report. If you created a report before figures moved into figures/, update its image links to ../results/zeisel/figures/qc.png and ../results/zeisel/figures/pca.png.",
     "crumbs": [
@@ -286,7 +286,7 @@
   {
     "objectID": "examples/your-study/00-define.html",
     "href": "examples/your-study/00-define.html",
-    "title": "19  Define: Your own study",
+    "title": "Define: Your own study",
     "section": "",
     "text": "Write one descriptive question, identify the organism and count technology, and state which cells belong to each sample and donor. If your question compares conditions, stop and plan replication, confounding and an appropriate sample-level analysis before testing.\nYour task: write the question and one conclusion these data cannot support.\nAI prompt: “Critique the scope of my question. What metadata would I need? Do not invent missing study details.”",
     "crumbs": [
@@ -297,7 +297,7 @@
   {
     "objectID": "examples/your-study/01-preview.html",
     "href": "examples/your-study/01-preview.html",
-    "title": "20  Preview: Your own study",
+    "title": "Preview: Your own study",
     "section": "",
     "text": "Plots are saved in results/your-study/figures/ as qc.png and pca.png. Tab-separated tables, including cell-qc.tsv and pca.tsv, are saved in results/your-study/tables/. The saved R object normalized.rds remains in results/your-study/. Supporting files record selected genes, variance explained, parameters, input checksums and the R session.\nThe two QC panels show counts versus detected genes and counts versus mitochondrial percentage. Blue cells pass all configured cutoffs; red cells fail one or more. Dashed lines show cutoffs. PCA summarizes expression variation among retained cells. Nearby points have similar profiles in the selected gene space; separation alone does not identify cell types or demonstrate significance.\nAfter running this example, return here to inspect its generated figures:\nYour figures appear only after you supply inputs and run the workflow. Open results/your-study/figures/qc.png and results/your-study/figures/pca.png, or view them in your learner report.\nYour task: identify what each axis measures before interpreting a pattern. Missing images mean the analysis has not generated them yet.",
     "crumbs": [
@@ -308,7 +308,7 @@
   {
     "objectID": "examples/your-study/02-meet.html",
     "href": "examples/your-study/02-meet.html",
-    "title": "21  Meet: Your own study",
+    "title": "Meet: Your own study",
     "section": "",
     "text": "Prepare the inputs from the main project folder:\n# Place your validated input files in data/your-study/ first.\nThe matrix stores genes in rows and cells in columns. cell-metadata.tsv connects each cell to a sample and an optional reference label. gene-metadata.tsv flags mitochondrial genes explicitly.\nRead the input contract. Record the source, preprocessing, organism, annotation version and permissions in a local provenance note.\nYour task: open both metadata tables; trace one cell ID to the matrix. Explain the difference between a cell, a sample and a donor.",
     "crumbs": [
@@ -319,7 +319,7 @@
   {
     "objectID": "examples/your-study/03-check.html",
     "href": "examples/your-study/03-check.html",
-    "title": "22  Check: Your own study",
+    "title": "Check: Your own study",
     "section": "",
     "text": "Rscript scripts/R/check_inputs.R your-study\nThe check rejects invalid counts, duplicate or mismatched IDs, missing sample IDs and invalid mitochondrial flags. Matching metadata are reordered to matrix order rather than assumed to be aligned.\nBefore proceeding, inspect config/qc.tsv. The your-study row supplies minimum counts, minimum detected genes and maximum mitochondrial percentage. These are illustrative teaching cutoffs, not universal biological rules. Record any change and inspect how it affects retained cells. Mitochondrial percentages may reflect biology as well as damage.\nYour task: confirm donor, condition and batch information where available. Unknown sample mapping permits descriptive exploration only. A passing file check does not establish biological replication.\nAI prompt: “Explain these QC cutoffs and suggest what evidence I should inspect before changing them. Do not label cells as damaged solely from one metric.”",
     "crumbs": [
@@ -330,7 +330,7 @@
   {
     "objectID": "examples/your-study/04-run.html",
     "href": "examples/your-study/04-run.html",
-    "title": "23  Run: Your own study",
+    "title": "Run: Your own study",
     "section": "",
     "text": "Rscript scripts/R/run_workflow.R your-study\nRead results/your-study/tables/cell-qc.tsv before interpreting the plots. The retained column records the QC decision for every input cell, including zero-count cells, which are excluded.\nFor each retained cell, divide each raw gene count by that cell’s total, multiply by 10,000, then apply log(1 + value). The workflow selects up to 500 genes with highest variance after this transformation. PCA centers genes but does not scale them to unit variance. Reference labels do not enter feature selection or PCA.\nThis transparent normalization is for introductory exploration. It does not model technical noise, resolve doublets, remove ambient RNA or correct batches. Review those issues before extending a real analysis. Mitochondrial genes remain eligible for PCA, so inspect whether QC drives the leading components.\nYour task: record input and retained cell counts, cutoffs and selected-gene count. A large exclusion fraction is a reason to investigate, not automatically a reason to relax thresholds.",
     "crumbs": [
@@ -341,7 +341,7 @@
   {
     "objectID": "examples/your-study/05-verify-and-explain.html",
     "href": "examples/your-study/05-verify-and-explain.html",
-    "title": "24  Verify and Explain: Your own study",
+    "title": "Verify and Explain: Your own study",
     "section": "",
     "text": "Copy an exact retained cell_id from results/your-study/tables/cell-qc.tsv and replace REPLACE_WITH_CELL_ID below. Repeat with an excluded cell if present.\nRscript scripts/R/verify_cell.R your-study REPLACE_WITH_CELL_ID\nThe verifier reads raw inputs independently; it does not call the analysis QC or normalization functions. It recalculates total counts, detected genes, mitochondrial percentage, the retained decision, and one positive gene’s normalized expression when retained. A disagreement stops execution. This checks arithmetic for one cell; it does not verify the entire scientific analysis.\nManually check the same cell:\n\nSum its gene counts: total counts.\nCount genes with counts greater than zero: detected genes.\nSum counts flagged mitochondrial, divide by total counts, multiply by 100.\nFor one positive gene, calculate log(1 + 10000 * gene_count / total_counts).\n\nFor a zero-total cell the mitochondrial percentage is undefined (NA), and the cell is excluded.\nExplain: write one observation from QC and one from PCA. Quote actual cell counts or variance percentages. Explain whether exclusions or technical factors could influence the pattern. Do not invent a result before running the analysis.\nAI prompt: “Review my observation against these exact saved values. Separate what the plot shows from my interpretation, and flag claims requiring more evidence.”",
     "crumbs": [
@@ -352,7 +352,7 @@
   {
     "objectID": "examples/your-study/06-write.html",
     "href": "examples/your-study/06-write.html",
-    "title": "25  Write: Your own study",
+    "title": "Write: Your own study",
     "section": "",
     "text": "Create your report starter from the main project folder:\nRscript scripts/R/create_report.R your-study\nOpen reports/your-study-report.qmd and replace the bracketed instructions with your own checked results. Follow Write the report for what to include.\nWhen the report is ready:\ncd reports\nquarto render your-study-report.qmd\ncd ..\nRead reports/your-study-report.html and confirm the figures display. The whole reports/ folder is ignored by Git; the helper never overwrites an existing report. If you created a report before figures moved into figures/, update its image links to ../results/your-study/figures/qc.png and ../results/your-study/figures/pca.png.",
     "crumbs": [
@@ -363,51 +363,56 @@
   {
     "objectID": "99-appendix.html",
     "href": "99-appendix.html",
-    "title": "26  Appendix",
+    "title": "Appendix A — Appendix",
     "section": "",
-    "text": "26.1 Installation troubleshooting\nStop at the first failed command. Read the first error, not only the final snapshot or dependency error. Keep your existing lockfile; do not snapshot an incomplete installation or switch repositories to chase a missing dependency.",
+    "text": "Installation troubleshooting\nStop at the first failed command. Read the first error, not only the final snapshot or dependency error. Keep your existing lockfile; do not snapshot an incomplete installation or switch repositories to chase a missing dependency.",
     "crumbs": [
-      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Appendix</span>"
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Appendix</span>"
     ]
   },
   {
     "objectID": "99-appendix.html#installation-troubleshooting",
     "href": "99-appendix.html#installation-troubleshooting",
-    "title": "26  Appendix",
+    "title": "Appendix A — Appendix",
     "section": "",
-    "text": "26.1.1 Mac: library 'ssl' not found\nThis is a missing system library used while compiling some package dependencies. It is different from the R package named openssl. Use this targeted fix only if you see that compiler error.\nExit R with q(save = \"no\"). In the terminal, install the library using the official R-for-macOS helper:\nsudo Rscript --vanilla -e 'source(\"https://mac.R-project.org/bin/install.R\"); install.libs(\"openssl\")'\nEnter your Mac login password; typing is invisible. This administrator command installs system libraries. Run project setup and package installation as your normal user.\nOn Apple Silicon, check:\nls -l /opt/R/arm64/lib/libssl* /opt/R/arm64/lib/libcrypto*\nAfter a successful installation, rerun Rscript scripts/R/setup.R from the main project folder. Do not continue if permission errors remain. Other architectures use different library paths; consult the official macOS library instructions.\n\n\n26.1.2 Source compilation and missing binaries\nBinary packages may not be available for every package/R combination. The supplied lockfile can therefore require source compilation. On macOS, install Apple’s Command Line Tools if the error says the compiler is missing:\nxcode-select --install\nFollow the installer, then rerun setup. Other missing system dependencies require their own remedy; the OpenSSL command is not a general fix. If an error remains, share the first compiler error, R version and operating system with the maintainer.\n\n\n26.1.3 Missing packages or an out-of-sync environment\nRun in the terminal:\nRscript -e 'renv::status()'\nThe project’s default snapshot type is all, matching its lockfile. Learners should restore through setup, not regenerate the lockfile. If restoration completes but status still reports inconsistent packages, share the full status output with the maintainer. A message that CRAN repositories replace defaults does not itself establish that installation failed; inspect subsequent errors.",
+    "text": "Mac: library 'ssl' not found\nThis is a missing system library used while compiling some package dependencies. It is different from the R package named openssl. Use this targeted fix only if you see that compiler error.\nExit R with q(save = \"no\"). In the terminal, install the library using the official R-for-macOS helper:\nsudo Rscript --vanilla -e 'source(\"https://mac.R-project.org/bin/install.R\"); install.libs(\"openssl\")'\nEnter your Mac login password; typing is invisible. This administrator command installs system libraries. Run project setup and package installation as your normal user.\nOn Apple Silicon, check:\nls -l /opt/R/arm64/lib/libssl* /opt/R/arm64/lib/libcrypto*\nAfter a successful installation, rerun Rscript scripts/R/setup.R from the main project folder. Do not continue if permission errors remain. Other architectures use different library paths; consult the official macOS library instructions.\n\n\nSource compilation and missing binaries\nBinary packages may not be available for every package/R combination. The supplied lockfile can therefore require source compilation. On macOS, install Apple’s Command Line Tools if the error says the compiler is missing:\nxcode-select --install\nFollow the installer, then rerun setup. Other missing system dependencies require their own remedy; the OpenSSL command is not a general fix. If an error remains, share the first compiler error, R version and operating system with the maintainer.\n\n\nMissing packages or an out-of-sync environment\nRun in the terminal:\nRscript -e 'renv::status()'\nThe project’s default snapshot type is all, matching its lockfile. Learners should restore through setup, not regenerate the lockfile. If restoration completes but status still reports inconsistent packages, share the full status output with the maintainer. A message that CRAN repositories replace defaults does not itself establish that installation failed; inspect subsequent errors.",
     "crumbs": [
-      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Appendix</span>"
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Appendix</span>"
     ]
   },
   {
     "objectID": "99-appendix.html#workflow-troubleshooting",
     "href": "99-appendix.html#workflow-troubleshooting",
-    "title": "26  Appendix",
-    "section": "26.2 Workflow troubleshooting",
-    "text": "26.2 Workflow troubleshooting\n\n\n\n\n\n\n\nSymptom\nWhat to check\n\n\n\n\nRscript entered at an R &gt; prompt\nExit R using q(save = \"no\"); use the terminal.\n\n\nMissing input file\nOpen the main project folder and run the example’s preparation step.\n\n\nMissing matrix dimensions\nUse the current scripts; they load Matrix before reading sparse RDS counts.\n\n\nDuplicate or mismatched IDs\nCorrect the input metadata; matching by order alone is insufficient.\n\n\nNo cells retained\nInspect QC cutoffs and source preprocessing before changing thresholds.\n\n\nVerification says input files changed\nRerun Check, Run and Verify using the current input files.\n\n\nOld metrics after changing synthetic data\nRecreate v2 inputs and rerun analysis; old 48-cell values do not apply.\n\n\nMissing plot in the book or report\nRun that dataset’s workflow; plots belong in results/DATASET/figures/.\n\n\nMissing QC table\nRerun the current workflow; all TSV outputs belong in results/DATASET/tables/.\n\n\nnull device followed by 1\nNormal output after R finishes writing a plot.\n\n\n\nOld plots and TSV tables directly inside a dataset’s results folder are obsolete after migration. Only remove them after a successful rerun and verification. Keep normalized.rds and session-info.txt directly in that folder. Learner report writing stays in ignored reports/.",
+    "title": "Appendix A — Appendix",
+    "section": "Workflow troubleshooting",
+    "text": "Workflow troubleshooting\n\n\n\n\n\n\n\nSymptom\nWhat to check\n\n\n\n\nRscript entered at an R &gt; prompt\nExit R using q(save = \"no\"); use the terminal.\n\n\nMissing input file\nOpen the main project folder and run the example’s preparation step.\n\n\nMissing matrix dimensions\nUse the current scripts; they load Matrix before reading sparse RDS counts.\n\n\nDuplicate or mismatched IDs\nCorrect the input metadata; matching by order alone is insufficient.\n\n\nNo cells retained\nInspect QC cutoffs and source preprocessing before changing thresholds.\n\n\nVerification says input files changed\nRerun Check, Run and Verify using the current input files.\n\n\nOld metrics after changing synthetic data\nRecreate v2 inputs and rerun analysis; old 48-cell values do not apply.\n\n\nMissing plot in the book or report\nRun that dataset’s workflow; plots belong in results/DATASET/figures/.\n\n\nMissing QC table\nRerun the current workflow; all TSV outputs belong in results/DATASET/tables/.\n\n\nnull device followed by 1\nNormal output after R finishes writing a plot.\n\n\n\nOld plots and TSV tables directly inside a dataset’s results folder are obsolete after migration. Only remove them after a successful rerun and verification. Keep normalized.rds and session-info.txt directly in that folder. Learner report writing stays in ignored reports/.",
     "crumbs": [
-      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Appendix</span>"
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Appendix</span>"
     ]
   },
   {
     "objectID": "99-appendix.html#methods-and-boundaries",
     "href": "99-appendix.html#methods-and-boundaries",
-    "title": "26  Appendix",
-    "section": "26.3 Methods and boundaries",
-    "text": "26.3 Methods and boundaries\nThis practical introduces QC, normalization and PCA. It does not perform droplet calling, clustering, automated cell labeling, UMAP, differential expression, integration or pseudobulk testing. Extend the analysis only after learners can defend input choices, QC and normalization. Cells from one donor are not independent biological replicates.\nPCA signs can flip across numerical implementations without changing the geometry. Compare variance explained and relative geometry rather than insisting on identical PC signs. Reproducibility requires the same input bytes, gene annotation, R and packages; retain checksums and session information.\nThe Zeisel example uses the first 400 source-order cells and has unvalidated donor mapping. Its proportions and apparent groups cannot be generalized to the full tissue. Published labels are context, not predictions made by this workflow.",
+    "title": "Appendix A — Appendix",
+    "section": "Methods and boundaries",
+    "text": "Methods and boundaries\nThis practical introduces QC, normalization and PCA. It does not perform droplet calling, clustering, automated cell labeling, UMAP, differential expression, integration or pseudobulk testing. Extend the analysis only after learners can defend input choices, QC and normalization. Cells from one donor are not independent biological replicates.\nPCA signs can flip across numerical implementations without changing the geometry. Compare variance explained and relative geometry rather than insisting on identical PC signs. Reproducibility requires the same input bytes, gene annotation, R and packages; retain checksums and session information.\nThe Zeisel example uses the first 400 source-order cells and has unvalidated donor mapping. Its proportions and apparent groups cannot be generalized to the full tissue. Published labels are context, not predictions made by this workflow.",
     "crumbs": [
-      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Appendix</span>"
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Appendix</span>"
     ]
   },
   {
     "objectID": "99-appendix.html#sources",
     "href": "99-appendix.html#sources",
-    "title": "26  Appendix",
-    "section": "26.4 Sources",
-    "text": "26.4 Sources\n\nZeisel et al. 2015.\nscRNAseq documentation.\nSingle-cell analysis with Bioconductor.\nrenv introduction.\nR-for-macOS system libraries.\nQuarto books.",
+    "title": "Appendix A — Appendix",
+    "section": "Sources",
+    "text": "Sources\n\nZeisel et al. 2015.\nscRNAseq documentation.\nSingle-cell analysis with Bioconductor.\nrenv introduction.\nR-for-macOS system libraries.\nQuarto books.",
     "crumbs": [
-      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Appendix</span>"
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Appendix</span>"
     ]
   }
 ]
