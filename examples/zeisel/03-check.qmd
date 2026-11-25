@@ -1,0 +1,13 @@
+# Check: Zeisel mouse brain
+
+```bash
+Rscript scripts/R/check_inputs.R zeisel
+```
+
+The check rejects invalid counts, duplicate or mismatched IDs, missing sample IDs and invalid mitochondrial flags. Matching metadata are reordered to matrix order rather than assumed to be aligned.
+
+Before proceeding, inspect `config/qc.tsv`. The zeisel row supplies minimum counts, minimum detected genes and maximum mitochondrial percentage. These are **illustrative teaching cutoffs**, not universal biological rules. Record any change and inspect how it affects retained cells. Mitochondrial percentages may reflect biology as well as damage.
+
+**Your task:** confirm donor, condition and batch information where available. Unknown sample mapping permits descriptive exploration only. A passing file check does not establish biological replication.
+
+**AI prompt:** “Explain these QC cutoffs and suggest what evidence I should inspect before changing them. Do not label cells as damaged solely from one metric.”

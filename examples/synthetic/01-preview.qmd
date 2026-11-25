@@ -1,0 +1,13 @@
+# Preview: Synthetic practice
+
+You will create `results/synthetic/cell-qc.tsv`, `qc.png`, `normalized.rds`, `pca.tsv` and `pca.png`. Supporting files record selected genes, variance explained, parameters, input checksums and the R session.
+
+The QC plot compares counts and detected genes; blue cells pass the configured cutoffs, red cells do not. PCA summarizes expression variation among retained cells. Nearby points have similar profiles in the selected gene space; separation alone does not identify cell types or demonstrate significance.
+
+No figures are claimed as validated in this scaffold. After running the workflow, return here to view them:
+
+![Cell quality overview](../../results/synthetic/qc.png)
+
+![Exploratory PCA](../../results/synthetic/pca.png)
+
+**Your task:** identify what each axis measures before interpreting a pattern. Missing images mean the analysis has not generated them yet.

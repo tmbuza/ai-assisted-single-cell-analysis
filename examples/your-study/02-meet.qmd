@@ -1,0 +1,13 @@
+# Meet: Your own study
+
+Prepare the inputs from the main project folder:
+
+```bash
+# Place your validated input files in data/your-study/ first.
+```
+
+The matrix stores genes in rows and cells in columns. `cell-metadata.tsv` connects each cell to a sample and an optional reference label. `gene-metadata.tsv` flags mitochondrial genes explicitly.
+
+Read [the input contract](../../data/your-study/README.md). Record the source, preprocessing, organism, annotation version and permissions in a local provenance note.
+
+**Your task:** open both metadata tables; trace one cell ID to the matrix. Explain the difference between a cell, a sample and a donor.

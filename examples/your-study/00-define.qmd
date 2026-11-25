@@ -1,0 +1,7 @@
+# Define: Your own study
+
+Write one descriptive question, identify the organism and count technology, and state which cells belong to each sample and donor. If your question compares conditions, stop and plan replication, confounding and an appropriate sample-level analysis before testing.
+
+**Your task:** write the question and one conclusion these data cannot support.
+
+**AI prompt:** “Critique the scope of my question. What metadata would I need? Do not invent missing study details.”

@@ -1,0 +1,44 @@
+project:
+  type: book
+  output-dir: docs
+book:
+  title: "AI-Assisted Single-Cell Analysis with R"
+  author: "Complex Data Insights"
+  chapters:
+    - index.qmd
+    - 00-setup.qmd
+    - 01-run-the-workflow.qmd
+    - part: "Synthetic practice"
+      chapters:
+        - examples/synthetic/00-define.qmd
+        - examples/synthetic/01-preview.qmd
+        - examples/synthetic/02-meet.qmd
+        - examples/synthetic/03-check.qmd
+        - examples/synthetic/04-run.qmd
+        - examples/synthetic/05-verify-and-explain.qmd
+        - examples/synthetic/06-write.qmd
+    - part: "Real data: Zeisel mouse brain"
+      chapters:
+        - examples/zeisel/00-define.qmd
+        - examples/zeisel/01-preview.qmd
+        - examples/zeisel/02-meet.qmd
+        - examples/zeisel/03-check.qmd
+        - examples/zeisel/04-run.qmd
+        - examples/zeisel/05-verify-and-explain.qmd
+        - examples/zeisel/06-write.qmd
+    - part: "Your own study"
+      chapters:
+        - examples/your-study/00-define.qmd
+        - examples/your-study/01-preview.qmd
+        - examples/your-study/02-meet.qmd
+        - examples/your-study/03-check.qmd
+        - examples/your-study/04-run.qmd
+        - examples/your-study/05-verify-and-explain.qmd
+        - examples/your-study/06-write.qmd
+    - 99-appendix.qmd
+format:
+  html:
+    theme: cosmo
+    toc: true
+execute:
+  eval: false

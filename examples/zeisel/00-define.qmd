@@ -1,0 +1,7 @@
+# Define: Zeisel mouse brain
+
+What expression variation is visible in a convenience subset of published mouse-brain cells after basic QC? Read [dataset provenance](../../data/zeisel/README.md). We will not infer treatment effects, cell proportions or new cell identities.
+
+**Your task:** write the question and one conclusion these data cannot support.
+
+**AI prompt:** “Critique the scope of my question. What metadata would I need? Do not invent missing study details.”

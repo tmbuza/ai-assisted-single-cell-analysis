@@ -1,0 +1,13 @@
+# Meet: Zeisel mouse brain
+
+Prepare the inputs from the main project folder:
+
+```bash
+Rscript scripts/R/prepare_zeisel.R
+```
+
+The matrix stores genes in rows and cells in columns. `cell-metadata.tsv` connects each cell to a sample and an optional reference label. `gene-metadata.tsv` flags mitochondrial genes explicitly.
+
+Read [the input contract](../../data/your-study/README.md). The published labels are context only; the PCA never uses them.
+
+**Your task:** open both metadata tables; trace one cell ID to the matrix. Explain the difference between a cell, a sample and a donor.

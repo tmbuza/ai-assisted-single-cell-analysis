@@ -1,0 +1,24 @@
+# Appendix
+
+## Methods and boundaries
+
+This scaffold is a small, readable introduction, not an end-to-end single-cell discovery pipeline. No clustering, automated cell labeling, UMAP, differential expression, integration or pseudobulk testing is claimed. Those can be added after learners can defend QC and normalization. A count table already contains called cells; this workflow does not perform droplet calling.
+
+PCA signs can flip across numerical implementations without changing the geometry. Compare variance explained and relative geometry rather than insisting on identical PC signs. Full reproducibility also requires the same input bytes, gene annotation, R, packages and numerical libraries; retain checksums and session information.
+
+## Troubleshooting
+
+- Missing files: confirm the main project folder and run the preparation script.
+- Invalid mitochondrial flags: use TRUE/FALSE with species-matched annotation.
+- No cells retained: inspect QC and source preprocessing before revising cutoffs.
+- Different source metadata: stop and inspect package documentation; do not guess fields.
+- Missing plot during book preview: run that dataset's workflow first.
+- Installation errors: record R and Bioconductor versions; run `BiocManager::valid()` in R. Do not mix incompatible releases.
+
+## Sources
+
+- [Zeisel et al. 2015](https://doi.org/10.1126/science.aaa1934).
+- [scRNAseq documentation](https://bioconductor.org/packages/scRNAseq/).
+- [Single-cell analysis with Bioconductor](https://bioconductor.org/books/release/OSCA/).
+- [renv introduction](https://rstudio.github.io/renv/articles/renv.html).
+- [Quarto books](https://quarto.org/docs/books/).

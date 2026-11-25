@@ -1,0 +1,40 @@
+# Set up the project
+
+## 1. Get the complete project
+
+For this review, download the attached `single-cell-scaffold-review.zip` and extract it. Open the extracted `ai-assisted-single-cell-analysis` folder in VS Code (**File → Open Folder**) or RStudio. Do not work inside the ZIP.
+
+Once this project has been published on GitHub, use the repository's **Code → Download ZIP** button. The final repository URL must be added here before release; no repository is assumed to exist yet.
+
+You should see `_quarto.yml`, `data/`, `scripts/` and `examples/` directly inside the selected folder. Open **Terminal → New Terminal** in VS Code. Run every terminal command in this guide from this main project folder.
+
+## 2. Install the tools
+
+Install [R](https://cran.r-project.org/) and [Quarto](https://quarto.org/docs/get-started/). RStudio is optional. Confirm these terminal commands work:
+
+```bash
+Rscript --version
+quarto --version
+```
+
+## 3. Create the project environment
+
+```bash
+Rscript scripts/R/setup.R
+```
+
+The first setup installs packages and creates a genuine `renv.lock` for your R/Bioconductor combination. An internet connection is required. A tested release will include that lockfile. This review scaffold deliberately has no invented lockfile.
+
+When a lockfile is supplied, the same command restores it. Commit `renv.lock`, `.Rprofile`, `renv/activate.R`, `renv/settings.json` and `renv/.gitignore` after validation. Keep the local package library out of Git. Do not refresh the lockfile merely to silence an installation error.
+
+## 4. Start with synthetic data
+
+```bash
+Rscript scripts/R/prepare_synthetic.R
+Rscript scripts/R/check_inputs.R synthetic
+Rscript scripts/R/run_workflow.R synthetic
+Rscript scripts/R/verify_cell.R synthetic Cell001
+quarto preview
+```
+
+The book explains commands without executing them during rendering. Running analysis scripts creates your figures first. If a figure does not appear, run the relevant workflow; rendering the book does not generate data.

@@ -1,0 +1,14 @@
+reports/
+.quarto/
+.Rhistory
+.RData
+.Ruserdata
+renv/library/
+renv/staging/
+data/zeisel/*.rds
+data/zeisel/*.tsv
+data/zeisel/*.txt
+data/your-study/*
+!data/your-study/README.md
+results/*/
+!results/README.md

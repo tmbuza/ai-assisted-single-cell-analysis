@@ -1,0 +1,15 @@
+# One workflow for every dataset
+
+Read the relevant example before running its commands. Use `synthetic`, `zeisel` or `your-study` consistently as the dataset name.
+
+| Step | Your decision or output |
+|---|---|
+| Define | One answerable question and the unit of observation |
+| Preview | Know which files and plots to expect |
+| Meet | Understand rows, columns, metadata and provenance |
+| Check | Validate raw counts, IDs and donor/sample mapping |
+| Run | Save QC, transformed counts, PCA and parameters |
+| Verify and Explain | Recalculate one cell; explain a plot with limitations |
+| Write | Save a concise learner report in `reports/` |
+
+A successful command means the calculation completed. It does not mean that the scientific interpretation is correct. Pause after each step and record what you checked.

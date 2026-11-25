@@ -1,0 +1,13 @@
+# Run: Your own study
+
+```bash
+Rscript scripts/R/run_workflow.R your-study
+```
+
+Read `cell-qc.tsv` before interpreting the plots. The retained column records the QC decision for every input cell, including zero-count cells, which are excluded.
+
+For each retained cell, divide each raw gene count by that cell's total, multiply by 10,000, then apply `log(1 + value)`. The workflow selects up to 500 genes with highest variance after this transformation. PCA centers genes but does not scale them to unit variance. Reference labels do not enter feature selection or PCA.
+
+This transparent normalization is for introductory exploration. It does not model technical noise, resolve doublets, remove ambient RNA or correct batches. Review those issues before extending a real analysis. Mitochondrial genes remain eligible for PCA, so inspect whether QC drives the leading components.
+
+**Your task:** record input and retained cell counts, cutoffs and selected-gene count. A large exclusion fraction is a reason to investigate, not automatically a reason to relax thresholds.

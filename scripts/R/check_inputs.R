@@ -1,0 +1,5 @@
+source("scripts/R/common.R")
+dataset <- get_dataset(); z <- read_inputs(dataset)
+cat(nrow(z$x), "genes;", ncol(z$x), "cells;", length(unique(z$m$sample_id)), "sample IDs.\n")
+cat("Identifier and raw-count checks passed. This does not validate the study design.\n")
+if (any(z$m$sample_id == "unknown")) cat("Sample/donor mapping unknown: descriptive analysis only.\n")
