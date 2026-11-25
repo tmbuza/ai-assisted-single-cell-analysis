@@ -1,0 +1,38 @@
+---
+title: "__LABEL__: analysis report"
+format:
+  html:
+    embed-resources: true
+---
+
+## Question and data
+
+[State your question, source, organism, count technology, cells and sample/donor limitations.]
+
+## Methods
+
+[Describe input checks, QC cutoffs, normalization, selected genes, PCA and software versions.]
+
+## Results
+
+[Report observed values and patterns. Use tables in results/__DATASET__/tables/.]
+
+![Cell quality](../results/__DATASET__/figures/qc.png)
+
+![Exploratory PCA](../results/__DATASET__/figures/pca.png)
+
+## Independent verification
+
+[Record a cell ID, raw values, manual calculation, saved value and verifier result.]
+
+## Interpretation and limitations
+
+[Explain what the findings support and the technical or design limits.]
+
+## AI use
+
+[State what AI helped with and how you checked its response.]
+
+## Next step
+
+[Choose one justified follow-up.]

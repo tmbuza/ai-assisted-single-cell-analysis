@@ -1,6 +1,6 @@
 # Define: Synthetic practice
 
-Can we recover the deliberately introduced expression pattern after checking cell quality? The 48 cells and two simulated patterns are teaching constructs, not biological evidence.
+Can we recover the deliberately introduced expression pattern after checking cell quality? The 200 cells and two simulated patterns are teaching constructs, not biological evidence.
 
 **Your task:** write the question and one conclusion these data cannot support.
 

@@ -11,3 +11,5 @@ The matrix stores genes in rows and cells in columns. `cell-metadata.tsv` connec
 Read [the input contract](../../data/your-study/README.md). The synthetic labels describe the simulation settings.
 
 **Your task:** open both metadata tables; trace one cell ID to the matrix. Explain the difference between a cell, a sample and a donor.
+
+This v2 dataset contains 1,000 genes and 200 cells. Seed `20261125` reproduces the random draws using the RNG settings in the script. Negative-binomial counts give cell-to-cell variation and zeros; unequal library sizes vary total counts. Four artificial sample labels are balanced across two simulated populations. The simulation is not fitted to the real dataset. See `data/synthetic/provenance.txt` for the construction and deliberate QC failures.

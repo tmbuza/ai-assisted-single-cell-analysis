@@ -11,12 +11,14 @@ read_inputs <- function(dataset) {
   read_tab <- function(name) read.delim(file.path(root, name), check.names = FALSE,
                                       stringsAsFactors = FALSE)
   if (file.exists(file.path(root, "counts.rds"))) {
+    if (!requireNamespace("Matrix", quietly = TRUE)) stop("Install Matrix before reading RDS counts.")
     x <- readRDS(file.path(root, "counts.rds"))
   } else {
     tab <- read_tab("counts.tsv")
     if (names(tab)[1] != "gene_id") stop("First counts column must be gene_id.")
     x <- as.matrix(tab[-1]); rownames(x) <- tab[[1]]
   }
+  if (length(dim(x)) != 2L || any(dim(x) == 0L)) stop("Counts must be a nonempty two-dimensional matrix.")
   # This deliberately bounded, dense teaching workflow is not a production pipeline.
   if (nrow(x) * ncol(x) > 2e7) stop("Input too large for this practical; use a sparse workflow.")
   x <- as.matrix(x)

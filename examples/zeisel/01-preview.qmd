@@ -1,13 +1,19 @@
 # Preview: Zeisel mouse brain
 
-You will create `results/zeisel/cell-qc.tsv`, `qc.png`, `normalized.rds`, `pca.tsv` and `pca.png`. Supporting files record selected genes, variance explained, parameters, input checksums and the R session.
+Plots are saved in `results/zeisel/figures/` as `qc.png` and `pca.png`. Tab-separated tables, including `cell-qc.tsv` and `pca.tsv`, are saved in `results/zeisel/tables/`. The saved R object `normalized.rds` remains in `results/zeisel/`. Supporting files record selected genes, variance explained, parameters, input checksums and the R session.
 
-The QC plot compares counts and detected genes; blue cells pass the configured cutoffs, red cells do not. PCA summarizes expression variation among retained cells. Nearby points have similar profiles in the selected gene space; separation alone does not identify cell types or demonstrate significance.
+The two QC panels show counts versus detected genes and counts versus mitochondrial percentage. Blue cells pass all configured cutoffs; red cells fail one or more. Dashed lines show cutoffs. PCA summarizes expression variation among retained cells. Nearby points have similar profiles in the selected gene space; separation alone does not identify cell types or demonstrate significance.
 
-No figures are claimed as validated in this scaffold. After running the workflow, return here to view them:
+After running this example, return here to inspect its generated figures:
 
-![Cell quality overview](../../results/zeisel/qc.png)
+![Cell quality overview](../../results/zeisel/figures/qc.png)
 
-![Exploratory PCA](../../results/zeisel/pca.png)
+![Exploratory PCA](../../results/zeisel/figures/pca.png)
 
 **Your task:** identify what each axis measures before interpreting a pattern. Missing images mean the analysis has not generated them yet.
+
+## What the worked result shows
+
+All 400 cells in this source-order subset pass the illustrative QC cutoffs. Counts and detected genes vary widely. In the checked run, PC1 explains about 19.5% and PC2 about 9.9% of variance in selected transformed genes. The PCA shows separated regions and variation within them; this alone does not assign cell types or rule out technical effects. Confirm percentages against your own tables/pca-variance.tsv.
+
+These plots summarize a convenience subset, not the full tissue. Passing these cutoffs does not check doublets, ambient RNA or donor/batch effects.

@@ -8,6 +8,7 @@ book:
     - index.qmd
     - 00-setup.qmd
     - 01-run-the-workflow.qmd
+    - 02-write-the-report.qmd
     - part: "Synthetic practice"
       chapters:
         - examples/synthetic/00-define.qmd

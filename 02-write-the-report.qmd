@@ -1,0 +1,40 @@
+# Write the report
+
+A short report explains the question, checked results and limitations in your own words. Use AI to review clarity, then compare every claim with your saved outputs.
+
+## 1. Create the starter
+
+From the main project folder:
+
+```bash
+Rscript scripts/R/create_report.R synthetic
+```
+
+For the real example, use `zeisel`; for your study, use `your-study`. The command creates `reports/synthetic-report.qmd` and a local Quarto configuration. It keeps an existing report rather than overwriting it. Starter text is stored in `templates/report.qmd`; learner writing belongs in `reports/`.
+
+## 2. Edit your report
+
+Open the new QMD in VS Code or RStudio. Replace every bracketed instruction with your own text. Include:
+
+- The question, source and study design.
+- Input checks, thresholds and retained-cell count.
+- One QC observation and one PCA observation, with saved values.
+- A manually checked cell calculation and its verifier result.
+- What remains uncertain and one justified next step.
+- How AI was used and how you checked its response.
+
+Figures are already linked to `results/DATASET/figures/`. Supporting tables are in `results/DATASET/tables/`. Revisit your interpretation whenever inputs or cutoffs change. Previously written reports do not update their prose automatically.
+
+## 3. Render and read
+
+After running the analysis, enter `reports/` and render:
+
+```bash
+cd reports
+quarto render synthetic-report.qmd
+cd ..
+```
+
+Replace the report filename when using another dataset. The HTML stays in `reports/`; its figures are embedded for convenient sharing. Confirm that both display and that no bracketed starter text remains. Inspect the report for private metadata before sharing.
+
+The complete `reports/` folder is ignored by Git. Do not add reports to `_quarto.yml` or commit learner writing. The book's seven-step examples remain separate from these reports.

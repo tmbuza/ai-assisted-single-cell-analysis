@@ -1,13 +1,11 @@
 # Preview: Your own study
 
-You will create `results/your-study/cell-qc.tsv`, `qc.png`, `normalized.rds`, `pca.tsv` and `pca.png`. Supporting files record selected genes, variance explained, parameters, input checksums and the R session.
+Plots are saved in `results/your-study/figures/` as `qc.png` and `pca.png`. Tab-separated tables, including `cell-qc.tsv` and `pca.tsv`, are saved in `results/your-study/tables/`. The saved R object `normalized.rds` remains in `results/your-study/`. Supporting files record selected genes, variance explained, parameters, input checksums and the R session.
 
-The QC plot compares counts and detected genes; blue cells pass the configured cutoffs, red cells do not. PCA summarizes expression variation among retained cells. Nearby points have similar profiles in the selected gene space; separation alone does not identify cell types or demonstrate significance.
+The two QC panels show counts versus detected genes and counts versus mitochondrial percentage. Blue cells pass all configured cutoffs; red cells fail one or more. Dashed lines show cutoffs. PCA summarizes expression variation among retained cells. Nearby points have similar profiles in the selected gene space; separation alone does not identify cell types or demonstrate significance.
 
-No figures are claimed as validated in this scaffold. After running the workflow, return here to view them:
+After running this example, return here to inspect its generated figures:
 
-![Cell quality overview](../../results/your-study/qc.png)
-
-![Exploratory PCA](../../results/your-study/pca.png)
+Your figures appear only after you supply inputs and run the workflow. Open `results/your-study/figures/qc.png` and `results/your-study/figures/pca.png`, or view them in your learner report.
 
 **Your task:** identify what each axis measures before interpreting a pattern. Missing images mean the analysis has not generated them yet.

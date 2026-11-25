@@ -1,9 +1,9 @@
 # Verify and Explain: Zeisel mouse brain
 
-Copy an exact retained cell_id from cell-qc.tsv and replace REPLACE_WITH_CELL_ID below. Repeat with an excluded cell if present.
+Verify the cell used in this worked example. Confirm that its ID appears in `results/zeisel/tables/cell-qc.tsv`. If your downloaded source uses different IDs, choose an exact retained cell_id from that table instead.
 
 ```bash
-Rscript scripts/R/verify_cell.R zeisel REPLACE_WITH_CELL_ID
+Rscript scripts/R/verify_cell.R zeisel 1772071015_C02
 ```
 
 The verifier reads raw inputs independently; it does not call the analysis QC or normalization functions. It recalculates total counts, detected genes, mitochondrial percentage, the retained decision, and one positive gene's normalized expression when retained. A disagreement stops execution. This checks arithmetic for one cell; it does not verify the entire scientific analysis.
@@ -20,3 +20,9 @@ For a zero-total cell the mitochondrial percentage is undefined (NA), and the ce
 **Explain:** write one observation from QC and one from PCA. Quote actual cell counts or variance percentages. Explain whether exclusions or technical factors could influence the pattern. Do not invent a result before running the analysis.
 
 **AI prompt:** “Review my observation against these exact saved values. Separate what the plot shows from my interpretation, and flag claims requiring more evidence.”
+
+## Worked verification
+
+For the tested source subset, cell `1772071015_C02` has total counts **22,354**, **4,871** detected genes and **3.462468%** mitochondrial counts. It is retained. The verifier checks normalized expression for the first positive gene; in this input that is **Tshz1**, with value **0.8510231** (rounded). If input bytes or package data change, investigate the difference rather than forcing values to match.
+
+All 400 cells in this convenience subset passed the illustrative QC cutoffs. That does not establish that every cell is biologically high quality. Repeat the verifier with another retained cell; there are no excluded cells to verify in this particular run.

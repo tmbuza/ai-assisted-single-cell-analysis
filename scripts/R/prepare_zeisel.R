@@ -1,6 +1,7 @@
 # Download once; export a bounded demonstration subset with full source metadata.
 source("scripts/R/common.R")
 if (!requireNamespace("scRNAseq", quietly = TRUE)) stop("Run setup.R first.")
+cat("Retrieving Zeisel data; the first download may take several minutes.\n")
 sce <- scRNAseq::ZeiselBrainData(ensembl = FALSE, location = FALSE)
 meta <- as.data.frame(SummarizedExperiment::colData(sce))
 if (!"level1class" %in% names(meta)) stop("Source annotation changed; inspect colData(sce).")
@@ -36,3 +37,5 @@ writeLines(c("Source: scRNAseq::ZeiselBrainData(ensembl=FALSE, location=FALSE)",
 write_tsv(data.frame(file = c("counts.rds", "cell-metadata.tsv", "gene-metadata.tsv"),
  md5 = unname(tools::md5sum(file.path("data/zeisel", c("counts.rds", "cell-metadata.tsv", "gene-metadata.tsv"))))),
  "data/zeisel/checksums.tsv")
+
+cat("Prepared", nrow(x), "genes x", ncol(x), "cells in data/zeisel/. Continue with check_inputs.R zeisel.\n")

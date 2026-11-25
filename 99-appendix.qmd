@@ -1,19 +1,73 @@
 # Appendix
 
+## Installation troubleshooting {#installation-troubleshooting}
+
+Stop at the first failed command. Read the first error, not only the final snapshot or dependency error. Keep your existing lockfile; do not snapshot an incomplete installation or switch repositories to chase a missing dependency.
+
+### Mac: `library 'ssl' not found`
+
+This is a missing system library used while compiling some package dependencies. It is different from the R package named `openssl`. Use this targeted fix only if you see that compiler error.
+
+Exit R with `q(save = "no")`. In the terminal, install the library using the official R-for-macOS helper:
+
+```bash
+sudo Rscript --vanilla -e 'source("https://mac.R-project.org/bin/install.R"); install.libs("openssl")'
+```
+
+Enter your Mac login password; typing is invisible. This administrator command installs system libraries. Run project setup and package installation as your normal user.
+
+On Apple Silicon, check:
+
+```bash
+ls -l /opt/R/arm64/lib/libssl* /opt/R/arm64/lib/libcrypto*
+```
+
+After a successful installation, rerun `Rscript scripts/R/setup.R` from the main project folder. Do not continue if permission errors remain. Other architectures use different library paths; consult [the official macOS library instructions](https://mac.r-project.org/bin/).
+
+### Source compilation and missing binaries
+
+Binary packages may not be available for every package/R combination. The supplied lockfile can therefore require source compilation. On macOS, install Apple's Command Line Tools if the error says the compiler is missing:
+
+```bash
+xcode-select --install
+```
+
+Follow the installer, then rerun setup. Other missing system dependencies require their own remedy; the OpenSSL command is not a general fix. If an error remains, share the first compiler error, R version and operating system with the maintainer.
+
+### Missing packages or an out-of-sync environment
+
+Run in the terminal:
+
+```bash
+Rscript -e 'renv::status()'
+```
+
+The project's default snapshot type is `all`, matching its lockfile. Learners should restore through setup, not regenerate the lockfile. If restoration completes but status still reports inconsistent packages, share the full status output with the maintainer. A message that CRAN repositories replace defaults does not itself establish that installation failed; inspect subsequent errors.
+
+## Workflow troubleshooting
+
+| Symptom | What to check |
+|---|---|
+| `Rscript` entered at an R `>` prompt | Exit R using `q(save = "no")`; use the terminal. |
+| Missing input file | Open the main project folder and run the example's preparation step. |
+| Missing matrix dimensions | Use the current scripts; they load Matrix before reading sparse RDS counts. |
+| Duplicate or mismatched IDs | Correct the input metadata; matching by order alone is insufficient. |
+| No cells retained | Inspect QC cutoffs and source preprocessing before changing thresholds. |
+| Verification says input files changed | Rerun Check, Run and Verify using the current input files. |
+| Old metrics after changing synthetic data | Recreate v2 inputs and rerun analysis; old 48-cell values do not apply. |
+| Missing plot in the book or report | Run that dataset's workflow; plots belong in results/DATASET/figures/. |
+| Missing QC table | Rerun the current workflow; all TSV outputs belong in results/DATASET/tables/. |
+| `null device` followed by `1` | Normal output after R finishes writing a plot. |
+
+Old plots and TSV tables directly inside a dataset's results folder are obsolete after migration. Only remove them after a successful rerun and verification. Keep normalized.rds and session-info.txt directly in that folder. Learner report writing stays in ignored reports/.
+
 ## Methods and boundaries
 
-This scaffold is a small, readable introduction, not an end-to-end single-cell discovery pipeline. No clustering, automated cell labeling, UMAP, differential expression, integration or pseudobulk testing is claimed. Those can be added after learners can defend QC and normalization. A count table already contains called cells; this workflow does not perform droplet calling.
+This practical introduces QC, normalization and PCA. It does not perform droplet calling, clustering, automated cell labeling, UMAP, differential expression, integration or pseudobulk testing. Extend the analysis only after learners can defend input choices, QC and normalization. Cells from one donor are not independent biological replicates.
 
-PCA signs can flip across numerical implementations without changing the geometry. Compare variance explained and relative geometry rather than insisting on identical PC signs. Full reproducibility also requires the same input bytes, gene annotation, R, packages and numerical libraries; retain checksums and session information.
+PCA signs can flip across numerical implementations without changing the geometry. Compare variance explained and relative geometry rather than insisting on identical PC signs. Reproducibility requires the same input bytes, gene annotation, R and packages; retain checksums and session information.
 
-## Troubleshooting
-
-- Missing files: confirm the main project folder and run the preparation script.
-- Invalid mitochondrial flags: use TRUE/FALSE with species-matched annotation.
-- No cells retained: inspect QC and source preprocessing before revising cutoffs.
-- Different source metadata: stop and inspect package documentation; do not guess fields.
-- Missing plot during book preview: run that dataset's workflow first.
-- Installation errors: record R and Bioconductor versions; run `BiocManager::valid()` in R. Do not mix incompatible releases.
+The Zeisel example uses the first 400 source-order cells and has unvalidated donor mapping. Its proportions and apparent groups cannot be generalized to the full tissue. Published labels are context, not predictions made by this workflow.
 
 ## Sources
 
@@ -21,4 +75,5 @@ PCA signs can flip across numerical implementations without changing the geometr
 - [scRNAseq documentation](https://bioconductor.org/packages/scRNAseq/).
 - [Single-cell analysis with Bioconductor](https://bioconductor.org/books/release/OSCA/).
 - [renv introduction](https://rstudio.github.io/renv/articles/renv.html).
+- [R-for-macOS system libraries](https://mac.r-project.org/bin/).
 - [Quarto books](https://quarto.org/docs/books/).

@@ -1,14 +1,49 @@
-reports/
-.quarto/
+# Learner reports
+/reports/
+
+# R session files
+.Rproj.user/
 .Rhistory
 .RData
 .Ruserdata
-renv/library/
-renv/staging/
-data/zeisel/*.rds
-data/zeisel/*.tsv
-data/zeisel/*.txt
-data/your-study/*
-!data/your-study/README.md
-results/*/
-!results/README.md
+.Renviron
+
+# Local renv files; retain reproducible environment setup
+/renv/*
+!/renv/activate.R
+!/renv/settings.json
+!/renv/.gitignore
+
+# Quarto caches
+.quarto/
+_freeze/
+*_cache/
+
+# Downloaded real-data inputs; retain dataset documentation
+/data/zeisel/*.rds
+/data/zeisel/*.tsv
+/data/zeisel/*.txt
+
+# Learner study inputs; retain instructions
+/data/your-study/*
+!/data/your-study/README.md
+
+# Generated analysis outputs; retain folder documentation
+/results/*/
+!/results/README.md
+
+# Personal study outputs copied during rendering
+/docs/results/your-study/
+
+# Operating system and editor temporary files
+.DS_Store
+__MACOSX/
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Downloaded update archives and temporary update notes
+/*.zip
+/UPDATE-*
+/.quarto/

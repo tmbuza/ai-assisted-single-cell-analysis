@@ -1,49 +1,201 @@
-cell_id	sample_id	reference_label
-Cell001	Practice1	Simulated A
-Cell002	Practice2	Simulated A
-Cell003	Practice1	Simulated A
-Cell004	Practice2	Simulated A
-Cell005	Practice1	Simulated A
-Cell006	Practice2	Simulated A
-Cell007	Practice1	Simulated A
-Cell008	Practice2	Simulated A
-Cell009	Practice1	Simulated A
-Cell010	Practice2	Simulated A
-Cell011	Practice1	Simulated A
-Cell012	Practice2	Simulated A
-Cell013	Practice1	Simulated A
-Cell014	Practice2	Simulated A
-Cell015	Practice1	Simulated A
-Cell016	Practice2	Simulated A
-Cell017	Practice1	Simulated A
-Cell018	Practice2	Simulated A
-Cell019	Practice1	Simulated A
-Cell020	Practice2	Simulated A
-Cell021	Practice1	Simulated A
-Cell022	Practice2	Simulated A
-Cell023	Practice1	Simulated A
-Cell024	Practice2	Simulated A
-Cell025	Practice1	Simulated B
-Cell026	Practice2	Simulated B
-Cell027	Practice1	Simulated B
-Cell028	Practice2	Simulated B
-Cell029	Practice1	Simulated B
-Cell030	Practice2	Simulated B
-Cell031	Practice1	Simulated B
-Cell032	Practice2	Simulated B
-Cell033	Practice1	Simulated B
-Cell034	Practice2	Simulated B
-Cell035	Practice1	Simulated B
-Cell036	Practice2	Simulated B
-Cell037	Practice1	Simulated B
-Cell038	Practice2	Simulated B
-Cell039	Practice1	Simulated B
-Cell040	Practice2	Simulated B
-Cell041	Practice1	Simulated B
-Cell042	Practice2	Simulated B
-Cell043	Practice1	Simulated B
-Cell044	Practice2	Simulated B
-Cell045	Practice1	Simulated B
-Cell046	Practice2	Simulated B
-Cell047	Practice1	Simulated B
-Cell048	Practice2	Simulated B
+cell_id	sample_id	reference_label	simulation_note
+Cell001	Practice1	Simulated A	ordinary variation
+Cell002	Practice2	Simulated A	ordinary variation
+Cell003	Practice3	Simulated A	ordinary variation
+Cell004	Practice4	Simulated A	ordinary variation
+Cell005	Practice1	Simulated A	ordinary variation
+Cell006	Practice2	Simulated A	ordinary variation
+Cell007	Practice3	Simulated A	ordinary variation
+Cell008	Practice4	Simulated A	ordinary variation
+Cell009	Practice1	Simulated A	ordinary variation
+Cell010	Practice2	Simulated A	ordinary variation
+Cell011	Practice3	Simulated A	ordinary variation
+Cell012	Practice4	Simulated A	ordinary variation
+Cell013	Practice1	Simulated A	ordinary variation
+Cell014	Practice2	Simulated A	ordinary variation
+Cell015	Practice3	Simulated A	ordinary variation
+Cell016	Practice4	Simulated A	ordinary variation
+Cell017	Practice1	Simulated A	ordinary variation
+Cell018	Practice2	Simulated A	ordinary variation
+Cell019	Practice3	Simulated A	ordinary variation
+Cell020	Practice4	Simulated A	ordinary variation
+Cell021	Practice1	Simulated A	ordinary variation
+Cell022	Practice2	Simulated A	ordinary variation
+Cell023	Practice3	Simulated A	ordinary variation
+Cell024	Practice4	Simulated A	ordinary variation
+Cell025	Practice1	Simulated A	ordinary variation
+Cell026	Practice2	Simulated A	ordinary variation
+Cell027	Practice3	Simulated A	ordinary variation
+Cell028	Practice4	Simulated A	ordinary variation
+Cell029	Practice1	Simulated A	ordinary variation
+Cell030	Practice2	Simulated A	ordinary variation
+Cell031	Practice3	Simulated A	ordinary variation
+Cell032	Practice4	Simulated A	ordinary variation
+Cell033	Practice1	Simulated A	ordinary variation
+Cell034	Practice2	Simulated A	ordinary variation
+Cell035	Practice3	Simulated A	ordinary variation
+Cell036	Practice4	Simulated A	ordinary variation
+Cell037	Practice1	Simulated A	ordinary variation
+Cell038	Practice2	Simulated A	ordinary variation
+Cell039	Practice3	Simulated A	ordinary variation
+Cell040	Practice4	Simulated A	ordinary variation
+Cell041	Practice1	Simulated A	ordinary variation
+Cell042	Practice2	Simulated A	ordinary variation
+Cell043	Practice3	Simulated A	ordinary variation
+Cell044	Practice4	Simulated A	ordinary variation
+Cell045	Practice1	Simulated A	ordinary variation
+Cell046	Practice2	Simulated A	ordinary variation
+Cell047	Practice3	Simulated A	deliberately low depth
+Cell048	Practice4	Simulated A	deliberately high mitochondrial fraction
+Cell049	Practice1	Simulated A	ordinary variation
+Cell050	Practice2	Simulated A	ordinary variation
+Cell051	Practice3	Simulated A	ordinary variation
+Cell052	Practice4	Simulated A	ordinary variation
+Cell053	Practice1	Simulated A	ordinary variation
+Cell054	Practice2	Simulated A	ordinary variation
+Cell055	Practice3	Simulated A	ordinary variation
+Cell056	Practice4	Simulated A	ordinary variation
+Cell057	Practice1	Simulated A	ordinary variation
+Cell058	Practice2	Simulated A	ordinary variation
+Cell059	Practice3	Simulated A	ordinary variation
+Cell060	Practice4	Simulated A	ordinary variation
+Cell061	Practice1	Simulated A	ordinary variation
+Cell062	Practice2	Simulated A	ordinary variation
+Cell063	Practice3	Simulated A	ordinary variation
+Cell064	Practice4	Simulated A	ordinary variation
+Cell065	Practice1	Simulated A	ordinary variation
+Cell066	Practice2	Simulated A	ordinary variation
+Cell067	Practice3	Simulated A	ordinary variation
+Cell068	Practice4	Simulated A	ordinary variation
+Cell069	Practice1	Simulated A	ordinary variation
+Cell070	Practice2	Simulated A	ordinary variation
+Cell071	Practice3	Simulated A	ordinary variation
+Cell072	Practice4	Simulated A	ordinary variation
+Cell073	Practice1	Simulated A	ordinary variation
+Cell074	Practice2	Simulated A	ordinary variation
+Cell075	Practice3	Simulated A	ordinary variation
+Cell076	Practice4	Simulated A	ordinary variation
+Cell077	Practice1	Simulated A	ordinary variation
+Cell078	Practice2	Simulated A	ordinary variation
+Cell079	Practice3	Simulated A	ordinary variation
+Cell080	Practice4	Simulated A	ordinary variation
+Cell081	Practice1	Simulated A	ordinary variation
+Cell082	Practice2	Simulated A	ordinary variation
+Cell083	Practice3	Simulated A	ordinary variation
+Cell084	Practice4	Simulated A	ordinary variation
+Cell085	Practice1	Simulated A	ordinary variation
+Cell086	Practice2	Simulated A	ordinary variation
+Cell087	Practice3	Simulated A	ordinary variation
+Cell088	Practice4	Simulated A	deliberately low depth
+Cell089	Practice1	Simulated A	deliberately high mitochondrial fraction
+Cell090	Practice2	Simulated A	ordinary variation
+Cell091	Practice3	Simulated A	ordinary variation
+Cell092	Practice4	Simulated A	ordinary variation
+Cell093	Practice1	Simulated A	ordinary variation
+Cell094	Practice2	Simulated A	ordinary variation
+Cell095	Practice3	Simulated A	ordinary variation
+Cell096	Practice4	Simulated A	ordinary variation
+Cell097	Practice1	Simulated A	ordinary variation
+Cell098	Practice2	Simulated A	ordinary variation
+Cell099	Practice3	Simulated A	ordinary variation
+Cell100	Practice4	Simulated A	ordinary variation
+Cell101	Practice1	Simulated B	ordinary variation
+Cell102	Practice2	Simulated B	ordinary variation
+Cell103	Practice3	Simulated B	ordinary variation
+Cell104	Practice4	Simulated B	ordinary variation
+Cell105	Practice1	Simulated B	ordinary variation
+Cell106	Practice2	Simulated B	ordinary variation
+Cell107	Practice3	Simulated B	ordinary variation
+Cell108	Practice4	Simulated B	ordinary variation
+Cell109	Practice1	Simulated B	ordinary variation
+Cell110	Practice2	Simulated B	ordinary variation
+Cell111	Practice3	Simulated B	ordinary variation
+Cell112	Practice4	Simulated B	ordinary variation
+Cell113	Practice1	Simulated B	ordinary variation
+Cell114	Practice2	Simulated B	ordinary variation
+Cell115	Practice3	Simulated B	ordinary variation
+Cell116	Practice4	Simulated B	ordinary variation
+Cell117	Practice1	Simulated B	ordinary variation
+Cell118	Practice2	Simulated B	ordinary variation
+Cell119	Practice3	Simulated B	ordinary variation
+Cell120	Practice4	Simulated B	ordinary variation
+Cell121	Practice1	Simulated B	ordinary variation
+Cell122	Practice2	Simulated B	ordinary variation
+Cell123	Practice3	Simulated B	ordinary variation
+Cell124	Practice4	Simulated B	ordinary variation
+Cell125	Practice1	Simulated B	ordinary variation
+Cell126	Practice2	Simulated B	ordinary variation
+Cell127	Practice3	Simulated B	ordinary variation
+Cell128	Practice4	Simulated B	ordinary variation
+Cell129	Practice1	Simulated B	deliberately low depth
+Cell130	Practice2	Simulated B	deliberately high mitochondrial fraction
+Cell131	Practice3	Simulated B	ordinary variation
+Cell132	Practice4	Simulated B	ordinary variation
+Cell133	Practice1	Simulated B	ordinary variation
+Cell134	Practice2	Simulated B	ordinary variation
+Cell135	Practice3	Simulated B	ordinary variation
+Cell136	Practice4	Simulated B	ordinary variation
+Cell137	Practice1	Simulated B	ordinary variation
+Cell138	Practice2	Simulated B	ordinary variation
+Cell139	Practice3	Simulated B	ordinary variation
+Cell140	Practice4	Simulated B	ordinary variation
+Cell141	Practice1	Simulated B	ordinary variation
+Cell142	Practice2	Simulated B	ordinary variation
+Cell143	Practice3	Simulated B	ordinary variation
+Cell144	Practice4	Simulated B	ordinary variation
+Cell145	Practice1	Simulated B	ordinary variation
+Cell146	Practice2	Simulated B	ordinary variation
+Cell147	Practice3	Simulated B	ordinary variation
+Cell148	Practice4	Simulated B	ordinary variation
+Cell149	Practice1	Simulated B	ordinary variation
+Cell150	Practice2	Simulated B	ordinary variation
+Cell151	Practice3	Simulated B	ordinary variation
+Cell152	Practice4	Simulated B	ordinary variation
+Cell153	Practice1	Simulated B	ordinary variation
+Cell154	Practice2	Simulated B	ordinary variation
+Cell155	Practice3	Simulated B	ordinary variation
+Cell156	Practice4	Simulated B	ordinary variation
+Cell157	Practice1	Simulated B	ordinary variation
+Cell158	Practice2	Simulated B	ordinary variation
+Cell159	Practice3	Simulated B	ordinary variation
+Cell160	Practice4	Simulated B	ordinary variation
+Cell161	Practice1	Simulated B	ordinary variation
+Cell162	Practice2	Simulated B	ordinary variation
+Cell163	Practice3	Simulated B	ordinary variation
+Cell164	Practice4	Simulated B	ordinary variation
+Cell165	Practice1	Simulated B	ordinary variation
+Cell166	Practice2	Simulated B	ordinary variation
+Cell167	Practice3	Simulated B	ordinary variation
+Cell168	Practice4	Simulated B	ordinary variation
+Cell169	Practice1	Simulated B	ordinary variation
+Cell170	Practice2	Simulated B	deliberately low depth
+Cell171	Practice3	Simulated B	deliberately high mitochondrial fraction
+Cell172	Practice4	Simulated B	ordinary variation
+Cell173	Practice1	Simulated B	ordinary variation
+Cell174	Practice2	Simulated B	ordinary variation
+Cell175	Practice3	Simulated B	ordinary variation
+Cell176	Practice4	Simulated B	ordinary variation
+Cell177	Practice1	Simulated B	ordinary variation
+Cell178	Practice2	Simulated B	ordinary variation
+Cell179	Practice3	Simulated B	ordinary variation
+Cell180	Practice4	Simulated B	ordinary variation
+Cell181	Practice1	Simulated B	ordinary variation
+Cell182	Practice2	Simulated B	ordinary variation
+Cell183	Practice3	Simulated B	ordinary variation
+Cell184	Practice4	Simulated B	ordinary variation
+Cell185	Practice1	Simulated B	ordinary variation
+Cell186	Practice2	Simulated B	ordinary variation
+Cell187	Practice3	Simulated B	ordinary variation
+Cell188	Practice4	Simulated B	ordinary variation
+Cell189	Practice1	Simulated B	ordinary variation
+Cell190	Practice2	Simulated B	ordinary variation
+Cell191	Practice3	Simulated B	deliberately low depth
+Cell192	Practice4	Simulated B	deliberately high mitochondrial fraction
+Cell193	Practice1	Simulated B	ordinary variation
+Cell194	Practice2	Simulated B	ordinary variation
+Cell195	Practice3	Simulated B	ordinary variation
+Cell196	Practice4	Simulated B	ordinary variation
+Cell197	Practice1	Simulated B	ordinary variation
+Cell198	Practice2	Simulated B	ordinary variation
+Cell199	Practice3	Simulated B	ordinary variation
+Cell200	Practice4	Simulated B	ordinary variation

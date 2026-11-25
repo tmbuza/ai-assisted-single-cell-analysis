@@ -1,15 +1,31 @@
 # One workflow for every dataset
 
-Read the relevant example before running its commands. Use `synthetic`, `zeisel` or `your-study` consistently as the dataset name.
+Follow each example from Define to Write. Use `synthetic`, `zeisel` or `your-study` consistently as the dataset name. Read the page before copying its command.
 
 | Step | Your decision or output |
 |---|---|
 | Define | One answerable question and the unit of observation |
-| Preview | Know which files and plots to expect |
-| Meet | Understand rows, columns, metadata and provenance |
-| Check | Validate raw counts, IDs and donor/sample mapping |
-| Run | Save QC, transformed counts, PCA and parameters |
-| Verify and Explain | Recalculate one cell; explain a plot with limitations |
-| Write | Save a concise learner report in `reports/` |
+| Preview | Understand the plots and output locations |
+| Meet | Trace matrix rows and columns to metadata and provenance |
+| Check | Validate counts and identifiers; inspect sample/donor mapping |
+| Run | Generate QC, normalized expression and exploratory PCA |
+| Verify and Explain | Recalculate a cell and explain what the figures support |
+| Write | Create a short report with results, checks and limitations |
 
-A successful command means the calculation completed. It does not mean that the scientific interpretation is correct. Pause after each step and record what you checked.
+## Find your outputs
+
+| File | Location inside `results/DATASET/` |
+|---|---|
+| QC and PCA plots | `figures/qc.png`, `figures/pca.png` |
+| All-cell QC decisions | `tables/cell-qc.tsv` |
+| PCA scores and variance fractions | `tables/pca.tsv`, `tables/pca-variance.tsv` |
+| Selected genes and their variance | `tables/selected-genes.tsv` |
+| QC cutoffs and input checksums | `tables/parameters.tsv`, `tables/input-checksums.tsv` |
+| Transformed expression object | `normalized.rds` |
+| R and package versions | `session-info.txt` |
+
+`DATASET` means the dataset name; replace it with `synthetic`, `zeisel` or `your-study`. All folders are created automatically by the workflow.
+
+Run commands one at a time. Continue only after success. Recreate inputs only when needed; after changing inputs or QC cutoffs, rerun Check, Run and Verify before interpreting results. The verifier detects changed input bytes. A successful command checks calculation, not scientific interpretation.
+
+Keep learner-generated reports in the ignored `reports/` folder. [Write the report](02-write-the-report.qmd) explains how to create one without adding it to the book.

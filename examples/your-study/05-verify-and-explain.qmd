@@ -1,6 +1,6 @@
 # Verify and Explain: Your own study
 
-Copy an exact retained cell_id from cell-qc.tsv and replace REPLACE_WITH_CELL_ID below. Repeat with an excluded cell if present.
+Copy an exact retained cell_id from `results/your-study/tables/cell-qc.tsv` and replace REPLACE_WITH_CELL_ID below. Repeat with an excluded cell if present.
 
 ```bash
 Rscript scripts/R/verify_cell.R your-study REPLACE_WITH_CELL_ID

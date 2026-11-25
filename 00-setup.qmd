@@ -1,40 +1,65 @@
 # Set up the project
 
-## 1. Get the complete project
+## 1. Download and open the complete project
 
-For this review, download the attached `single-cell-scaffold-review.zip` and extract it. Open the extracted `ai-assisted-single-cell-analysis` folder in VS Code (**File → Open Folder**) or RStudio. Do not work inside the ZIP.
+Open [the GitHub repository](https://github.com/tmbuza/ai-assisted-single-cell-analysis), select **Code → Download ZIP**, then extract the ZIP.
 
-Once this project has been published on GitHub, use the repository's **Code → Download ZIP** button. The final repository URL must be added here before release; no repository is assumed to exist yet.
+In VS Code, choose **File → Open Folder** and select the extracted project folder. A GitHub ZIP usually names it `ai-assisted-single-cell-analysis-main`. Open the inner folder if there is an extra outer folder. Do not work inside the compressed ZIP.
 
-You should see `_quarto.yml`, `data/`, `scripts/` and `examples/` directly inside the selected folder. Open **Terminal → New Terminal** in VS Code. Run every terminal command in this guide from this main project folder.
+Check that you can see `_quarto.yml`, `renv.lock`, `data/`, `scripts/` and `examples/` directly inside the selected folder. The complete project also includes `.Rprofile` and `renv/activate.R`. These may be hidden in your file browser.
 
-## 2. Install the tools
+Choose **Terminal → New Terminal**. This is the **main project folder**. Run guide commands here unless the instructions explicitly say to enter `reports/`.
 
-Install [R](https://cran.r-project.org/) and [Quarto](https://quarto.org/docs/get-started/). RStudio is optional. Confirm these terminal commands work:
+::: {.callout-important}
+## Terminal or R console?
+
+Commands beginning with `Rscript` or `quarto` go in the terminal. The `>` prompt means you are inside R; exit with `q(save = "no")` before using terminal commands. Copy commands without any displayed prompt symbols. Ctrl+Z suspends R; it does not exit R.
+:::
+
+## 2. Check the tools
+
+Install [R](https://cran.r-project.org/) and [Quarto](https://quarto.org/docs/get-started/). RStudio is optional. The worked examples were checked on macOS with **R 4.6.1**. Use the R version recorded in the supplied `renv.lock`; `renv` restores packages but does not install R itself.
+
+In the terminal:
 
 ```bash
 Rscript --version
 quarto --version
 ```
 
-## 3. Create the project environment
+Both should print a version. If either command is not found, finish installing that tool and reopen the terminal.
+
+## 3. Restore the analysis environment
 
 ```bash
 Rscript scripts/R/setup.R
 ```
 
-The first setup installs packages and creates a genuine `renv.lock` for your R/Bioconductor combination. An internet connection is required. A tested release will include that lockfile. This review scaffold deliberately has no invented lockfile.
+An internet connection is required on the first run. Wait for **Setup complete**. The script restores the package versions in `renv.lock`, checks that required packages load and confirms that the project is synchronized. It does not create a new lockfile or update packages to current releases.
 
-When a lockfile is supplied, the same command restores it. Commit `renv.lock`, `.Rprofile`, `renv/activate.R`, `renv/settings.json` and `renv/.gitignore` after validation. Keep the local package library out of Git. Do not refresh the lockfile merely to silence an installation error.
+If setup fails, stop before running analysis and use [installation troubleshooting](99-appendix.qmd#installation-troubleshooting). A missing lockfile means the download is incomplete or the maintainer has not supplied the tested environment.
 
-## 4. Start with synthetic data
+## 4. Start the synthetic practice
+
+Open [Define: Synthetic practice](examples/synthetic/00-define.qmd), then follow its seven steps in order. The commands you will use are:
 
 ```bash
 Rscript scripts/R/prepare_synthetic.R
 Rscript scripts/R/check_inputs.R synthetic
 Rscript scripts/R/run_workflow.R synthetic
 Rscript scripts/R/verify_cell.R synthetic Cell001
+Rscript scripts/R/verify_cell.R synthetic Cell047
+Rscript scripts/R/verify_cell.R synthetic Cell048
+```
+
+Run one line at a time. Stop if a command fails. Expected: **1,000 genes, 200 cells, 190 retained**, followed by three `PASS` messages. Cell047 and Cell048 should have `retained FALSE`; the verifier passes because it confirms their exclusion.
+
+## 5. Preview the guide
+
+```bash
 quarto preview
 ```
 
-The book explains commands without executing them during rendering. Running analysis scripts creates your figures first. If a figure does not appear, run the relevant workflow; rendering the book does not generate data.
+The book explains commands without running analysis during rendering. Figures come from the R workflow. Stop the preview with Ctrl+C when you need the terminal again.
+
+After synthetic practice, follow [the Zeisel example](examples/zeisel/00-define.qmd). Use [your own study](examples/your-study/00-define.qmd) only after you understand the inputs and verification. Report-writing instructions are in [Write the report](02-write-the-report.qmd).

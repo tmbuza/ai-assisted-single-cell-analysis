@@ -4,7 +4,7 @@
 Rscript scripts/R/run_workflow.R your-study
 ```
 
-Read `cell-qc.tsv` before interpreting the plots. The retained column records the QC decision for every input cell, including zero-count cells, which are excluded.
+Read `results/your-study/tables/cell-qc.tsv` before interpreting the plots. The retained column records the QC decision for every input cell, including zero-count cells, which are excluded.
 
 For each retained cell, divide each raw gene count by that cell's total, multiply by 10,000, then apply `log(1 + value)`. The workflow selects up to 500 genes with highest variance after this transformation. PCA centers genes but does not scale them to unit variance. Reference labels do not enter feature selection or PCA.
 

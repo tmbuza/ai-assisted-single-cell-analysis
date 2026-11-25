@@ -1,50 +1,14 @@
 # Write: Your own study
 
-Create a folder named `reports/` in the main project folder, then create `reports/your-study-report.qmd`. The entire folder is ignored by Git; learner reports are not book chapters.
+Create your report starter from the main project folder:
 
-Copy this starter and replace the bracketed text with your own checked results:
-
-````markdown
----
-title: "Your own study: analysis report"
-format: html
----
-
-## Question and data
-[Question, organism, source, counts technology, cells, samples and donor limitations.]
-
-## Methods
-[Input checks, QC thresholds, retained cells, normalization, selected genes, PCA and software versions.]
-
-## Results
-[Describe actual observations with values.]
-
-![Cell quality](../results/your-study/qc.png)
-
-![Exploratory PCA](../results/your-study/pca.png)
-
-## Independent verification
-[Cell ID, manual calculation, saved value and verifier result.]
-
-## Interpretation and limitations
-[What the data support; technical alternatives; what is not established.]
-
-## AI use
-[What AI helped with and how you checked its response.]
-
-## Next step
-[One justified follow-up.]
-````
-
-Also create `reports/_quarto.yml` with the following contents so learner reports have their own Quarto project:
-
-```yaml
-project:
-  type: default
-  output-dir: .
+```bash
+Rscript scripts/R/create_report.R your-study
 ```
 
-In the terminal, enter `reports/` and render there:
+Open `reports/your-study-report.qmd` and replace the bracketed instructions with your own checked results. Follow [Write the report](../../02-write-the-report.qmd) for what to include.
+
+When the report is ready:
 
 ```bash
 cd reports
@@ -52,4 +16,4 @@ quarto render your-study-report.qmd
 cd ..
 ```
 
-The HTML stays in `reports/`. Read it and confirm both figures display. If you share the report, inspect it for private metadata first.
+Read `reports/your-study-report.html` and confirm the figures display. The whole `reports/` folder is ignored by Git; the helper never overwrites an existing report. If you created a report before figures moved into `figures/`, update its image links to `../results/your-study/figures/qc.png` and `../results/your-study/figures/pca.png`.

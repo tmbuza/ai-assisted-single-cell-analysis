@@ -1,0 +1,9 @@
+Synthetic v2; seed 20261125; 1000 genes x 200 cells.
+Negative-binomial counts; log-normal library sizes and cell-specific variation.
+Genes 1:20 mitochondrial; 21:100 A markers; 101:180 B markers.
+Two simulated populations, four artificial sample labels, no treatment contrast.
+Low-depth cells: Cell047, Cell088, Cell129, Cell170, Cell191
+High-mitochondrial cells: Cell048, Cell089, Cell130, Cell171, Cell192
+Generated using R version 4.5.0 (2025-04-11)
+Simulation labels are known construction settings, not biological discoveries.
+This is an educational simulation, not a fit to the Zeisel dataset.

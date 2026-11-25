@@ -1,4 +1,4 @@
 dataset	min_counts	min_genes	max_mito_pct
-synthetic	100	20	30
+synthetic	500	200	30
 zeisel	500	200	30
 your-study	500	200	30
