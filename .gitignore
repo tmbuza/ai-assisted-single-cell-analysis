@@ -1,5 +1,6 @@
 # Learner reports
 /reports/
+*.zip
 
 # R session files
 .Rproj.user/
