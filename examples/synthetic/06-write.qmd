@@ -1,14 +1,32 @@
 # Write: Synthetic practice
 
-Create your report starter from the main project folder:
+## Create a report you can defend
 
 ```bash
 Rscript scripts/R/create_report.R synthetic
 ```
 
-Open `reports/synthetic-report.qmd` and replace the bracketed instructions with your own checked results. Follow [Write the report](../../02-write-the-report.qmd) for what to include.
+Open `reports/synthetic-report.qmd`. The helper creates a starter and a separate Quarto configuration for reports; it preserves an existing report. Replace the bracketed instructions with your own writing. Reports stay in the ignored `reports/` folder, separate from the book.
 
-When the report is ready:
+## Build the result from evidence
+
+| Report section | Include |
+|---|---|
+| Question and data | The constructed-pattern question; 1,000 genes, 200 cells and two simulated populations |
+| Methods | Input checks; 500 counts, 200 detected genes and 30% mitochondrial cutoffs; transformation and PCA choices |
+| Results | 190 retained cells; both QC figures/panels and the PCA observation |
+| Verification | Cell001's manual and saved values; reasons Cell047 and Cell048 were excluded |
+| Limitations | Artificial sample labels, known simulation patterns and no biological inference |
+
+A concise worked paragraph is:
+
+> Of 200 simulated cells, 190 passed the configured QC rules. Cell001's 18,543 total counts, 848 detected genes and 3.575473% mitochondrial fraction were independently checked. Gene001's transformed expression was 4.225532. The two known simulated populations separated mainly along PC1; this demonstrates a constructed expression pattern rather than biological cell-type discovery.
+
+Use this only after your own outputs agree. Add what PC1 and PC2 explain from `results/synthetic/tables/pca-variance.tsv`. Distinguish rounded display values from the full values used by the verifier.
+
+## Render and review
+
+From the main project folder:
 
 ```bash
 cd reports
@@ -16,4 +34,8 @@ quarto render synthetic-report.qmd
 cd ..
 ```
 
-Read `reports/synthetic-report.html` and confirm the figures display. The whole `reports/` folder is ignored by Git; the helper never overwrites an existing report. If you created a report before figures moved into `figures/`, update its image links to `../results/synthetic/figures/qc.png` and `../results/synthetic/figures/pca.png`.
+Read `reports/synthetic-report.html`. Both figures should display; the HTML embeds them for sharing. Remove all bracketed starter text and confirm each number against its source table. If you already wrote a report before the folder changes, its image paths should point to `../results/synthetic/figures/`.
+
+**Your task:** identify one sentence supported by a calculation, one supported by a plot, and one stating a limitation. Record how you used AI and how you checked its contribution.
+
+**Before moving on:** you can explain one retained cell, one exclusion and the limits of the PCA. Continue with [Define: Zeisel mouse brain](../zeisel/00-define.qmd).

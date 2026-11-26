@@ -1,28 +1,68 @@
 # Verify and Explain: Zeisel mouse brain
 
-Verify the cell used in this worked example. Confirm that its ID appears in `results/zeisel/tables/cell-qc.tsv`. If your downloaded source uses different IDs, choose an exact retained cell_id from that table instead.
+## Verify the worked cell
+
+Confirm that `1772071015_C02` appears in `results/zeisel/tables/cell-qc.tsv`, then run:
 
 ```bash
 Rscript scripts/R/verify_cell.R zeisel 1772071015_C02
 ```
 
-The verifier reads raw inputs independently; it does not call the analysis QC or normalization functions. It recalculates total counts, detected genes, mitochondrial percentage, the retained decision, and one positive gene's normalized expression when retained. A disagreement stops execution. This checks arithmetic for one cell; it does not verify the entire scientific analysis.
+The checked source subset gives:
 
-Manually check the same cell:
+| Quantity | Verified value |
+|---|---:|
+| Total counts | 22,354 |
+| Detected genes | 4,871 |
+| Mitochondrial counts | 774 |
+| Mitochondrial percentage | 3.462468% |
+| Retained | TRUE |
+| Tshz1 raw count | 3 |
+| Tshz1 transformed expression | 0.8510231 |
 
-1. Sum its gene counts: total counts.
-2. Count genes with counts greater than zero: detected genes.
-3. Sum counts flagged mitochondrial, divide by total counts, multiply by 100.
-4. For one positive gene, calculate `log(1 + 10000 * gene_count / total_counts)`.
+Console percentages are rounded. If your source has different IDs or values, first inspect provenance and the saved input files rather than editing them to match this table.
 
-For a zero-total cell the mitochondrial percentage is undefined (NA), and the cell is excluded.
+## Recalculate from the source matrix
 
-**Explain:** write one observation from QC and one from PCA. Quote actual cell counts or variance percentages. Explain whether exclusions or technical factors could influence the pattern. Do not invent a result before running the analysis.
+The two worked calculations are:
 
-**AI prompt:** “Review my observation against these exact saved values. Separate what the plot shows from my interpretation, and flag claims requiring more evidence.”
+\[
+100\times\frac{774}{22{,}354}=3.462468\%\quad\text{(rounded)},
+\]
 
-## Worked verification
+\[
+\log\left(1+10{,}000\frac{3}{22{,}354}\right)=0.8510231\quad\text{(rounded)}.
+\]
 
-For the tested source subset, cell `1772071015_C02` has total counts **22,354**, **4,871** detected genes and **3.462468%** mitochondrial counts. It is retained. The verifier checks normalized expression for the first positive gene; in this input that is **Tshz1**, with value **0.8510231** (rounded). If input bytes or package data change, investigate the difference rather than forcing values to match.
+This is **R code**, to run in an R console opened from the main project folder:
 
-All 400 cells in this convenience subset passed the illustrative QC cutoffs. That does not establish that every cell is biologically high quality. Repeat the verifier with another retained cell; there are no excluded cells to verify in this particular run.
+```r
+library(Matrix)
+counts <- readRDS("data/zeisel/counts.rds")
+genes <- read.delim("data/zeisel/gene-metadata.tsv")
+x <- as.numeric(counts[, "1772071015_C02"])
+names(x) <- rownames(counts)
+mito <- genes$is_mito[match(names(x), genes$gene_id)]
+sum(x)
+sum(x > 0)
+sum(x[mito])
+100 * sum(x[mito]) / sum(x)
+x["Tshz1"]
+log1p(10000 * x["Tshz1"] / sum(x))
+y <- readRDS("results/zeisel/normalized.rds")
+y["Tshz1", "1772071015_C02"]
+```
+
+Exit R with `q(save = "no")` before using terminal commands again. Compare these calculations with the saved QC row and transformed value.
+
+## Explain what passed
+
+The independent script does not call the workflow's QC functions. It checks raw-input file consistency, per-cell arithmetic, retention against saved cutoffs and one positive gene's transformed value for retained cells. It does not validate donor mapping or the biological meaning of PCA.
+
+All 400 cells pass the configured rules in this run, so there is no excluded-cell case to verify here. Repeat with a second exact cell ID from the saved table; do not invent a failure to mirror synthetic practice.
+
+## Your task
+
+Write a verification record with the ID, one manual calculation, its saved counterpart and the verdict. Then write one QC observation and one PCA observation. Add that source-order selection and unknown donor mapping limit interpretation.
+
+**Optional AI prompt:** “Check this paragraph against my verified numbers. Separate arithmetic evidence, a visual observation and a biological claim requiring more data.”

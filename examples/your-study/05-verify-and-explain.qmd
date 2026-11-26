@@ -1,22 +1,40 @@
 # Verify and Explain: Your own study
 
-Copy an exact retained cell_id from `results/your-study/tables/cell-qc.tsv` and replace REPLACE_WITH_CELL_ID below. Repeat with an excluded cell if present.
+## Select a real cell ID
+
+Open `results/your-study/tables/cell-qc.tsv`. Choose a retained cell and copy its exact `cell_id`. In the terminal command below, replace `PASTE_EXACT_CELL_ID` with that value and keep the quotes:
 
 ```bash
-Rscript scripts/R/verify_cell.R your-study REPLACE_WITH_CELL_ID
+Rscript scripts/R/verify_cell.R your-study "PASTE_EXACT_CELL_ID"
 ```
 
-The verifier reads raw inputs independently; it does not call the analysis QC or normalization functions. It recalculates total counts, detected genes, mitochondrial percentage, the retained decision, and one positive gene's normalized expression when retained. A disagreement stops execution. This checks arithmetic for one cell; it does not verify the entire scientific analysis.
+Repeat for an excluded cell if one exists. If every cell is retained, document that fact and verify another retained cell. Do not create an artificial exclusion in your real inputs.
 
-Manually check the same cell:
+## Make an independent check
 
-1. Sum its gene counts: total counts.
-2. Count genes with counts greater than zero: detected genes.
-3. Sum counts flagged mitochondrial, divide by total counts, multiply by 100.
-4. For one positive gene, calculate `log(1 + 10000 * gene_count / total_counts)`.
+From the raw count matrix and mitochondrial flags, calculate:
 
-For a zero-total cell the mitochondrial percentage is undefined (NA), and the cell is excluded.
+| Quantity | Calculation |
+|---|---|
+| Total counts | Sum all gene counts for the selected cell |
+| Detected genes | Count genes with raw count greater than zero |
+| Mitochondrial percentage | 100 × flagged mitochondrial counts / total counts |
+| Retained-gene transformed value | `log(1 + 10000 * gene_count / total_counts)` |
 
-**Explain:** write one observation from QC and one from PCA. Quote actual cell counts or variance percentages. Explain whether exclusions or technical factors could influence the pattern. Do not invent a result before running the analysis.
+For a retained cell choose a positive-count gene; an all-zero value would give a trivial normalization check. Find the corresponding saved value in `results/your-study/normalized.rds`. The [synthetic](../synthetic/05-verify-and-explain.qmd) and [Zeisel](../zeisel/05-verify-and-explain.qmd) pages show R-console examples for TSV and sparse RDS inputs respectively. Adapt their file paths and IDs to your study.
 
-**AI prompt:** “Review my observation against these exact saved values. Separate what the plot shows from my interpretation, and flag claims requiring more evidence.”
+For a zero-total cell, the mitochondrial percentage is undefined and the cell is excluded. Excluded cells do not have columns in the normalized matrix, so check their raw metrics and retention rather than trying to read transformed values for them.
+
+## Know what a PASS means
+
+The verifier independently recalculates per-cell metrics, retention using the saved cutoffs and one transformed positive-gene value for retained cells. It rejects raw inputs whose file bytes changed since analysis. It does not validate the study design or check that a recently edited configuration has been rerun; compare `config/qc.tsv` with saved `tables/parameters.tsv` yourself.
+
+Write a small record with cell ID, metric/gene, manual value, saved value and verdict. Round only for presentation. A discrepancy requires investigation before reporting.
+
+## Explain your result
+
+Write one QC observation and one PCA observation with actual values. Separate each observation from a possible explanation and the evidence needed to evaluate it. If donor or batch mapping is unavailable, say so explicitly.
+
+**Optional AI prompt:** “Compare my verification record and interpretation with these saved outputs. Identify claims the evidence does not support, without supplying missing results.”
+
+**Before moving on:** at least one retained cell is checked independently, any available exclusion is explained and no unresolved discrepancy is hidden.

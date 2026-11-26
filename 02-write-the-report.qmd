@@ -38,3 +38,21 @@ cd ..
 Replace the report filename when using another dataset. The HTML stays in `reports/`; its figures are embedded for convenient sharing. Confirm that both display and that no bracketed starter text remains. Inspect the report for private metadata before sharing.
 
 The complete `reports/` folder is ignored by Git. Do not add reports to `_quarto.yml` or commit learner writing. The book's seven-step examples remain separate from these reports.
+
+## Make each claim traceable
+
+| Claim in your report | Where to check it |
+|---|---|
+| Input and retained cell counts | `tables/cell-qc.tsv`; sum the retained flags |
+| The thresholds used | `tables/parameters.tsv` |
+| A cell's QC metrics | Its exact `cell_id` row and an independent raw-count calculation |
+| A transformed gene value | The raw count formula and `normalized.rds` |
+| Variance explained by PCA | `tables/pca-variance.tsv`; fractions × 100 |
+| Which genes entered PCA | `tables/selected-genes.tsv` |
+| Which files and software were used | Input checksums, source provenance and `session-info.txt` |
+
+The table paths above are inside `results/DATASET/`. State rounded values in the report, but compare full values during verification. A verification record can be compact: cell ID, quantity/gene, manual value, saved value and verdict.
+
+An observation describes what the output shows. An interpretation proposes what it means. A limitation explains why that meaning is not established or how far it can be generalized. Keep all three visible. Neither a successful script nor AI approval replaces a scientific argument.
+
+Before sharing, read the rendered report as though you had not run the code: can you identify the question, reconstruct the key check and understand the strongest supported conclusion without guessing?

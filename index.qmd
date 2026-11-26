@@ -1,5 +1,5 @@
 ---
-title: "AI-Assisted Single Cell Analysis with R"
+title: "AI-Assisted Single-Cell Analysis with R"
 toc: false
 format:
   html:
@@ -21,3 +21,15 @@ This first practical covers cell quality control (QC), counts per 10,000, log tr
 **Human → AI → Human:** decide the question yourself; ask AI to explain a command or critique a claim; check its answer against your files and calculations. Never accept a biological claim solely because AI generated it.
 
 Begin with [setup](00-setup.qmd), then follow synthetic practice. The same commands and file conventions apply to the real example and your own study.
+
+## Choose your starting point
+
+| Learning path | What changes from the previous example? | Start here |
+|---|---|---|
+| Synthetic practice | Known construction, deliberate QC failures and exact worked calculations | [Define](examples/synthetic/00-define.qmd) |
+| Zeisel mouse brain | Published measurements, source metadata and limits of a convenience subset | [Define](examples/zeisel/00-define.qmd) |
+| Your own study | Your question, input preparation, justified QC decisions and interpretation | [Define](examples/your-study/00-define.qmd) |
+
+Complete the paths in this order on your first visit. A later return can begin at the relevant step, but changing inputs or cutoffs means rerunning checks, analysis and verification.
+
+Your main deliverable is not just a plot. It is a short report in which a reader can trace a claim to its input, method, saved output and check. You will learn the same habits with simulated counts before applying them to a real study.

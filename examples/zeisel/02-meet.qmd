@@ -1,13 +1,32 @@
 # Meet: Zeisel mouse brain
 
-Prepare the inputs from the main project folder:
+## Retrieve and export the source
 
 ```bash
 Rscript scripts/R/prepare_zeisel.R
 ```
 
-The matrix stores genes in rows and cells in columns. `cell-metadata.tsv` connects each cell to a sample and an optional reference label. `gene-metadata.tsv` flags mitochondrial genes explicitly.
+The first retrieval needs internet access and may download substantially more data than the 400 cells finally exported. The package can reuse its local data cache on later runs. The script exports the inputs again when rerun, so rerun Check, Run and Verify afterward rather than interpreting old results.
 
-Read [the input contract](../../data/your-study/README.md). The published labels are context only; the PCA never uses them.
+The retrieval call is `scRNAseq::ZeiselBrainData(ensembl = FALSE, location = FALSE)`. The main assay contains UMI counts. Spike-ins and repeats are stored as alternative experiments and are not included in the teaching count matrix. The original `featureType` annotation identifies mitochondrial features. See the [package documentation](https://bioconductor.org/packages/scRNAseq/).
 
-**Your task:** open both metadata tables; trace one cell ID to the matrix. Explain the difference between a cell, a sample and a donor.
+## Locate the evidence
+
+| File in `data/zeisel/` | Role |
+|---|---|
+| `counts.rds` | Sparse, gene-by-cell main-experiment count matrix |
+| `cell-metadata.tsv` | Teaching cell IDs, unknown sample mapping and published labels |
+| `gene-metadata.tsv` | Matching gene IDs and mitochondrial flags |
+| `source-cell-metadata.tsv` | Original column metadata for the exported cells |
+| `source-gene-metadata.tsv` | Original main-experiment feature metadata |
+| `provenance.txt`, `checksums.tsv` | Retrieval settings, versions, selection and file checksums |
+
+For the checked package/data combination, the export has **20,006 genes and 400 cells**. Confirm your own dimensions. Package versions, source data and annotation choices can affect what is retrieved.
+
+The teaching `reference_label` comes from the published `level1class` field. The script does not infer donor IDs from cell names; it records `sample_id = unknown` instead. Preserve that distinction even when the source has fields that appear suggestive.
+
+## Your task
+
+Find cell `1772071015_C02` in the teaching cell metadata and the full source metadata. Find `Tshz1` in the gene metadata. Open `provenance.txt` and record the retrieval function, exported dimensions, package version and selection rule.
+
+**Before moving on:** you can explain why a sparse RDS matrix and a TSV metadata table describe the same cells, and why “unknown sample mapping” must stay visible in your report.

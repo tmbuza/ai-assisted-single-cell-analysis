@@ -7,15 +7,15 @@ format:
 
 ## Question and data
 
-[State your question, source, organism, count technology, cells and sample/donor limitations.]
+[State one question. Identify the source, organism/assay, raw-count units, matrix dimensions and sample/donor information. For synthetic data, describe construction settings rather than a biological organism. Record source/package versions and any subset selection.]
 
 ## Methods
 
-[Describe input checks, QC cutoffs, normalization, selected genes, PCA and software versions.]
+[Describe input checks, annotation, QC criteria and rationale, normalization, selected genes and PCA choices. Record R/package versions from results/__DATASET__/session-info.txt.]
 
 ## Results
 
-[Report observed values and patterns. Use tables in results/__DATASET__/tables/.]
+[State input and retained cell counts with a denominator. Describe one QC observation and one PCA observation, using actual saved values. Supporting tables are in results/__DATASET__/tables/. Explain what the displayed PCA percentages refer to.]
 
 ![Cell quality](../results/__DATASET__/figures/qc.png)
 
@@ -23,16 +23,22 @@ format:
 
 ## Independent verification
 
-[Record a cell ID, raw values, manual calculation, saved value and verifier result.]
+[Record the exact cell ID and gene if relevant. Replace the row below with a manual raw-input calculation and the matching saved value. State which exclusion was checked, or why there were no exclusions.]
+
+| Cell ID | Quantity or gene | Manual value | Saved value | Verdict |
+|---|---|---:|---:|---|
+| [ID] | [metric] | [value] | [value] | [result] |
+
+[State the independent verifier's outcome and what that check does not establish.]
 
 ## Interpretation and limitations
 
-[Explain what the findings support and the technical or design limits.]
+[Separate observations from proposed explanations. State the strongest supported conclusion and the most important design/technical limit. Do not infer significance or cell identities solely from separation in PCA.]
 
 ## AI use
 
-[State what AI helped with and how you checked its response.]
+[Describe assistance received and the checks you made against files and calculations.]
 
 ## Next step
 
-[Choose one justified follow-up.]
+[Choose one action justified by the question or limitation, rather than automatically adding another plot.]

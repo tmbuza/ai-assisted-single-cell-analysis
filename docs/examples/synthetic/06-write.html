@@ -145,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single Cell Analysis with R</span></a>
+  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single-Cell Analysis with R</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -322,8 +322,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#create-a-report-you-can-defend" id="toc-create-a-report-you-can-defend" class="nav-link active" data-scroll-target="#create-a-report-you-can-defend">Create a report you can defend</a></li>
+  <li><a href="#build-the-result-from-evidence" id="toc-build-the-result-from-evidence" class="nav-link" data-scroll-target="#build-the-result-from-evidence">Build the result from evidence</a></li>
+  <li><a href="#render-and-review" id="toc-render-and-review" class="nav-link" data-scroll-target="#render-and-review">Render and review</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -347,16 +355,65 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Create your report starter from the main project folder:</p>
+<section id="create-a-report-you-can-defend" class="level2">
+<h2 class="anchored" data-anchor-id="create-a-report-you-can-defend">Create a report you can defend</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> scripts/R/create_report.R synthetic</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Open <code>reports/synthetic-report.qmd</code> and replace the bracketed instructions with your own checked results. Follow <a href="../../02-write-the-report.html">Write the report</a> for what to include.</p>
-<p>When the report is ready:</p>
+<p>Open <code>reports/synthetic-report.qmd</code>. The helper creates a starter and a separate Quarto configuration for reports; it preserves an existing report. Replace the bracketed instructions with your own writing. Reports stay in the ignored <code>reports/</code> folder, separate from the book.</p>
+</section>
+<section id="build-the-result-from-evidence" class="level2">
+<h2 class="anchored" data-anchor-id="build-the-result-from-evidence">Build the result from evidence</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Report section</th>
+<th>Include</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Question and data</td>
+<td>The constructed-pattern question; 1,000 genes, 200 cells and two simulated populations</td>
+</tr>
+<tr class="even">
+<td>Methods</td>
+<td>Input checks; 500 counts, 200 detected genes and 30% mitochondrial cutoffs; transformation and PCA choices</td>
+</tr>
+<tr class="odd">
+<td>Results</td>
+<td>190 retained cells; both QC figures/panels and the PCA observation</td>
+</tr>
+<tr class="even">
+<td>Verification</td>
+<td>Cell001’s manual and saved values; reasons Cell047 and Cell048 were excluded</td>
+</tr>
+<tr class="odd">
+<td>Limitations</td>
+<td>Artificial sample labels, known simulation patterns and no biological inference</td>
+</tr>
+</tbody>
+</table>
+<p>A concise worked paragraph is:</p>
+<blockquote class="blockquote">
+<p>Of 200 simulated cells, 190 passed the configured QC rules. Cell001’s 18,543 total counts, 848 detected genes and 3.575473% mitochondrial fraction were independently checked. Gene001’s transformed expression was 4.225532. The two known simulated populations separated mainly along PC1; this demonstrates a constructed expression pattern rather than biological cell-type discovery.</p>
+</blockquote>
+<p>Use this only after your own outputs agree. Add what PC1 and PC2 explain from <code>results/synthetic/tables/pca-variance.tsv</code>. Distinguish rounded display values from the full values used by the verifier.</p>
+</section>
+<section id="render-and-review" class="level2">
+<h2 class="anchored" data-anchor-id="render-and-review">Render and review</h2>
+<p>From the main project folder:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> reports</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render synthetic-report.qmd</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Read <code>reports/synthetic-report.html</code> and confirm the figures display. The whole <code>reports/</code> folder is ignored by Git; the helper never overwrites an existing report. If you created a report before figures moved into <code>figures/</code>, update its image links to <code>../results/synthetic/figures/qc.png</code> and <code>../results/synthetic/figures/pca.png</code>.</p>
+<p>Read <code>reports/synthetic-report.html</code>. Both figures should display; the HTML embeds them for sharing. Remove all bracketed starter text and confirm each number against its source table. If you already wrote a report before the folder changes, its image paths should point to <code>../results/synthetic/figures/</code>.</p>
+<p><strong>Your task:</strong> identify one sentence supported by a calculation, one supported by a plot, and one stating a limitation. Record how you used AI and how you checked its contribution.</p>
+<p><strong>Before moving on:</strong> you can explain one retained cell, one exclusion and the limits of the PCA. Continue with <a href="../../examples/zeisel/00-define.html">Define: Zeisel mouse brain</a>.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

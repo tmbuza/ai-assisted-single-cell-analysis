@@ -1,11 +1,30 @@
 # Preview: Your own study
 
-Plots are saved in `results/your-study/figures/` as `qc.png` and `pca.png`. Tab-separated tables, including `cell-qc.tsv` and `pca.tsv`, are saved in `results/your-study/tables/`. The saved R object `normalized.rds` remains in `results/your-study/`. Supporting files record selected genes, variance explained, parameters, input checksums and the R session.
+## Define success before seeing a pattern
 
-The two QC panels show counts versus detected genes and counts versus mitochondrial percentage. Blue cells pass all configured cutoffs; red cells fail one or more. Dashed lines show cutoffs. PCA summarizes expression variation among retained cells. Nearby points have similar profiles in the selected gene space; separation alone does not identify cell types or demonstrate significance.
+A successful first run gives traceable QC decisions, exploratory expression outputs and an independently checked calculation. It does not guarantee separation, recognizable cell types or an interesting biological story.
 
-After running this example, return here to inspect its generated figures:
+| Output inside `results/your-study/` | Your question |
+|---|---|
+| `tables/cell-qc.tsv` | Which cells were retained, and why? |
+| `figures/qc.png` | How do depth, detected genes and mitochondrial fractions vary? |
+| `figures/pca.png` | What structure is visible in this two-component projection? |
+| `tables/pca-variance.tsv` | What fraction of selected-gene variation is shown? |
+| `tables/parameters.tsv`, `tables/input-checksums.tsv` | Which cutoffs and input bytes produced the results? |
+| `normalized.rds`, `session-info.txt` | Where are transformed values and software versions recorded? |
 
-Your figures appear only after you supply inputs and run the workflow. Open `results/your-study/figures/qc.png` and `results/your-study/figures/pca.png`, or view them in your learner report.
+Your own figures appear only after you supply inputs and run analysis. This page deliberately has no personal-study image placeholders.
 
-**Your task:** identify what each axis measures before interpreting a pattern. Missing images mean the analysis has not generated them yet.
+## Read observations cautiously
+
+In QC, inspect both panels. Blue points pass all configured rules; red points fail at least one. Low counts and a high mitochondrial fraction are different reasons for exclusion. A threshold should be justified for your organism, tissue and technology, not copied because it worked for mouse brain.
+
+In PCA, a point is a retained cell. Axes summarize variation in selected transformed expression, not treatment response or known cell identities. Distinct regions can motivate follow-up; overlap can also be a valid result. Do not change cutoffs simply to sharpen separation.
+
+The own-study PCA uses a single point colour. Additional cell metadata are copied to the QC output but are not automatically used to colour PCA, adjust for batches or test a design.
+
+## Your task
+
+Choose one output you will inspect first and explain why. Write two possible outcomes, including one without obvious separation, and what evidence you would need to interpret either.
+
+**Before moving on:** you know which output supports each planned statement and are prepared to report an unremarkable result honestly.

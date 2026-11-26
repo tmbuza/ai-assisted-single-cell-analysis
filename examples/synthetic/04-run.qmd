@@ -1,13 +1,44 @@
 # Run: Synthetic practice
 
+## Run once, then inspect
+
 ```bash
 Rscript scripts/R/run_workflow.R synthetic
 ```
 
-Read `results/synthetic/tables/cell-qc.tsv` before interpreting the plots. The retained column records the QC decision for every input cell, including zero-count cells, which are excluded.
+Expected summary: **190 of 200 cells retained**. Messages saying `null device` followed by `1` are normal: R has finished writing a figure.
 
-For each retained cell, divide each raw gene count by that cell's total, multiply by 10,000, then apply `log(1 + value)`. The workflow selects up to 500 genes with highest variance after this transformation. PCA centers genes but does not scale them to unit variance. Reference labels do not enter feature selection or PCA.
+Start with `results/synthetic/tables/cell-qc.tsv`. It includes every input cell, the three QC metrics and `retained`. Excluded cells remain in this table but do not enter normalization or PCA.
 
-This transparent normalization is for introductory exploration. It does not model technical noise, resolve doublets, remove ambient RNA or correct batches. Review those issues before extending a real analysis. Mitochondrial genes remain eligible for PCA, so inspect whether QC drives the leading components.
+## What the script calculates
 
-**Your task:** record input and retained cell counts, cutoffs and selected-gene count. A large exclusion fraction is a reason to investigate, not automatically a reason to relax thresholds.
+For a retained cell, let \(T\) be its total raw counts and \(x_g\) a gene's count. The saved transformed value is:
+
+\[
+y_g=\log\left(1+10{,}000\frac{x_g}{T}\right).
+\]
+
+Dividing by the cell total adjusts each cell to a common total of 10,000 before transformation. `log` is the natural logarithm; `log1p(z)` calculates `log(1 + z)`. The saved log-transformed values no longer sum to 10,000. This simple scaling does not remove every technical effect or justify treatment comparisons.
+
+The script computes gene variance across retained cells, selects up to **500 genes with positive variance**, and runs PCA after centering genes. It does not scale genes to unit variance. It does not remove mitochondrial genes from feature selection, so technical or QC-related variation can remain important.
+
+Population labels do not enter normalization, feature selection or PCA. They are used to colour synthetic points after scores are calculated.
+
+## Find the evidence
+
+| Look at… | Check… |
+|---|---|
+| `tables/cell-qc.tsv` | Retained/excluded decisions for all 200 cells |
+| `tables/parameters.tsv` | The cutoffs actually used |
+| `tables/selected-genes.tsv` | Which genes entered PCA and their variances |
+| `tables/pca.tsv` | One score row per retained cell |
+| `tables/pca-variance.tsv` | Fractions; multiply by 100 for percentages |
+| `normalized.rds` | Transformed values for all genes in retained cells |
+
+All paths in the table are inside `results/synthetic/`. The workflow records input checksums and session information as well.
+
+## Your task
+
+Record 200 input cells, 190 retained cells and 10 exclusions. Return to Preview and describe the two figures using your generated outputs. If the numbers differ, confirm the seed, input version and cutoffs before writing an interpretation.
+
+**Before moving on:** the figures exist, their source tables are identifiable, and you are ready to verify a calculation independently.

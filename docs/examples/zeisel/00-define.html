@@ -110,7 +110,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single Cell Analysis with R</span></a>
+  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single-Cell Analysis with R</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -287,8 +287,16 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#the-question" id="toc-the-question" class="nav-link active" data-scroll-target="#the-question">The question</a></li>
+  <li><a href="#set-the-scope-before-analysis" id="toc-set-the-scope-before-analysis" class="nav-link" data-scroll-target="#set-the-scope-before-analysis">Set the scope before analysis</a></li>
+  <li><a href="#your-task" id="toc-your-task" class="nav-link" data-scroll-target="#your-task">Your task</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -312,11 +320,30 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>What expression variation is visible in a convenience subset of published mouse-brain cells after basic QC? Read <a href="../../data/zeisel/README.md">dataset provenance</a>. We will not infer treatment effects, cell proportions or new cell identities.</p>
-<p><strong>Your task:</strong> write the question and one conclusion these data cannot support.</p>
-<p><strong>AI prompt:</strong> “Critique the scope of my question. What metadata would I need? Do not invent missing study details.”</p>
+<section id="the-question" class="level2">
+<h2 class="anchored" data-anchor-id="the-question">The question</h2>
+<p><strong>What variation in cell QC and expression is visible in a small subset of published mouse-brain cells after the same introductory workflow?</strong></p>
+<p>You now know the mechanics from synthetic practice. Real data add an important responsibility: understand where measurements and annotations came from before treating patterns as biological findings.</p>
+<p>The example uses data from Zeisel and colleagues’ 2015 study, <em>Cell types in the mouse cortex and hippocampus revealed by single-cell RNA-seq</em> (<a href="https://doi.org/10.1126/science.aaa1934">paper</a>). The R preparation script retrieves the dataset through <code>scRNAseq::ZeiselBrainData()</code> and exports the <strong>first 400 cells in source order</strong> from the main experiment.</p>
+<p>This subset keeps a dense teaching analysis manageable. Source order is not a random or representative sampling scheme. Some published cell classes may be missing or overrepresented. We are not reproducing the full paper’s analysis or estimating tissue cell proportions.</p>
+</section>
+<section id="set-the-scope-before-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="set-the-scope-before-analysis">Set the scope before analysis</h2>
+<p>You can describe count depth, detected genes, mitochondrial fractions and exploratory PCA scores. You can check a published cell’s arithmetic. You cannot infer a treatment effect or donor-level difference because this guide has not validated donor/sample mapping. The teaching metadata explicitly use <code>sample_id = unknown</code>.</p>
+<p>Published cell annotations are reference information. The workflow does not predict new identities, and its real-data PCA is not coloured by those labels.</p>
+</section>
+<section id="your-task" class="level2">
+<h2 class="anchored" data-anchor-id="your-task">Your task</h2>
+<p>Write your descriptive question and a scope sentence:</p>
+<blockquote class="blockquote">
+<p>This analysis describes the exported 400-cell subset; it does not estimate cell-type proportions or test a condition effect in the original study.</p>
+</blockquote>
+<p>Then name two details to inspect in the source metadata before planning a broader analysis: for example, tissue region and the mapping of cells to animals or processing batches.</p>
+<p><strong>Optional AI prompt:</strong> “Critique this exploratory question using only the source and subset information I provide. What conclusions require validated donor or batch metadata?”</p>
+<p><strong>Before moving on:</strong> distinguish the published study, the downloaded source object and the 400-cell teaching subset.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

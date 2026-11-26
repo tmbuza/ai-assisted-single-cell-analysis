@@ -1,13 +1,33 @@
 # Check: Zeisel mouse brain
 
+## Run the structural check
+
 ```bash
 Rscript scripts/R/check_inputs.R zeisel
 ```
 
-The check rejects invalid counts, duplicate or mismatched IDs, missing sample IDs and invalid mitochondrial flags. Matching metadata are reordered to matrix order rather than assumed to be aligned.
+The checked inputs report **20,006 genes and 400 cells**. The output also reports one sample ID value and an unknown-mapping message. Here, that value is the literal string `unknown`; it is not evidence of one validated biological sample.
 
-Before proceeding, inspect `config/qc.tsv`. The zeisel row supplies minimum counts, minimum detected genes and maximum mitochondrial percentage. These are **illustrative teaching cutoffs**, not universal biological rules. Record any change and inspect how it affects retained cells. Mitochondrial percentages may reflect biology as well as damage.
+The same checker used for synthetic data validates counts and ID matching. The reader loads the Matrix namespace before accessing a sparse RDS matrix, then converts the teaching input to a dense matrix for this small workflow. That implementation is deliberately bounded; passing the file check does not make it suitable for an atlas-sized study.
 
-**Your task:** confirm donor, condition and batch information where available. Unknown sample mapping permits descriptive exploration only. A passing file check does not establish biological replication.
+## Inspect the annotation, not only the message
 
-**AI prompt:** “Explain these QC cutoffs and suggest what evidence I should inspect before changing them. Do not label cells as damaged solely from one metric.”
+Confirm that `gene-metadata.tsv` contains logical `TRUE/FALSE` mitochondrial flags for all matrix genes. The preparation script uses source `featureType` metadata, not an assumption that every gene symbol starts with a particular prefix. Missing or changed source fields cause a stop for inspection.
+
+In `config/qc.tsv`, the Zeisel row should use:
+
+| Parameter | Illustrative cutoff |
+|---|---:|
+| Minimum total counts | 500 |
+| Minimum detected genes | 200 |
+| Maximum mitochondrial percentage | 30 |
+
+The rules are transparent and consistent with this practical, but they are not an optimized QC procedure for this study. Interpret them against the observed distributions and source preprocessing. Do not lower or raise a cutoff merely to obtain a desired number of cells.
+
+## Your task
+
+Record dimensions, cutoffs and the unknown-mapping warning. Compare at least one cell ID across the matrix-associated metadata files. Identify which fields would need further investigation for donor, tissue-region or batch comparisons.
+
+**Optional AI prompt:** “Review this metadata summary. Which checks are structural, and which scientific conclusions remain unsupported because donor mapping is unknown?”
+
+**Before moving on:** structural checks pass, while unresolved design information remains recorded rather than guessed.

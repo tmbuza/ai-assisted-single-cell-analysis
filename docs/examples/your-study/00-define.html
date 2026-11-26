@@ -110,7 +110,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single Cell Analysis with R</span></a>
+  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single-Cell Analysis with R</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -287,8 +287,16 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#start-with-an-answerable-descriptive-question" id="toc-start-with-an-answerable-descriptive-question" class="nav-link active" data-scroll-target="#start-with-an-answerable-descriptive-question">Start with an answerable descriptive question</a></li>
+  <li><a href="#establish-the-units" id="toc-establish-the-units" class="nav-link" data-scroll-target="#establish-the-units">Establish the units</a></li>
+  <li><a href="#your-task" id="toc-your-task" class="nav-link" data-scroll-target="#your-task">Your task</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -312,11 +320,68 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Write one descriptive question, identify the organism and count technology, and state which cells belong to each sample and donor. If your question compares conditions, stop and plan replication, confounding and an appropriate sample-level analysis before testing.</p>
-<p><strong>Your task:</strong> write the question and one conclusion these data cannot support.</p>
-<p><strong>AI prompt:</strong> “Critique the scope of my question. What metadata would I need? Do not invent missing study details.”</p>
+<section id="start-with-an-answerable-descriptive-question" class="level2">
+<h2 class="anchored" data-anchor-id="start-with-an-answerable-descriptive-question">Start with an answerable descriptive question</h2>
+<p>Use this path after you can explain the synthetic and Zeisel examples. The goal is to adapt the workflow deliberately, not replace a dataset name and assume the interpretation transfers.</p>
+<p>A suitable first question is:</p>
+<blockquote class="blockquote">
+<p>After checking input structure and cell QC, what expression variation is visible among the retained cells in my study?</p>
+</blockquote>
+<p>Make it specific by naming the organism, tissue, count technology and collection context. If your intended question is “Does treatment change expression?”, this practical is only an exploratory starting point. Testing that question needs validated biological replication, confounder assessment and a suitable sample-level design.</p>
+</section>
+<section id="establish-the-units" class="level2">
+<h2 class="anchored" data-anchor-id="establish-the-units">Establish the units</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Unit</th>
+<th>What to record</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Cell</td>
+<td>A globally unique barcode/identifier</td>
+</tr>
+<tr class="even">
+<td>Sample</td>
+<td>The biological specimen or preparation from which the cell came</td>
+</tr>
+<tr class="odd">
+<td>Donor/animal</td>
+<td>The independent biological source; one donor can contribute several samples</td>
+</tr>
+<tr class="even">
+<td>Condition</td>
+<td>A measured treatment or study grouping, if available</td>
+</tr>
+<tr class="odd">
+<td>Batch</td>
+<td>Processing date, library or other technical grouping</td>
+</tr>
+</tbody>
+</table>
+<p>Several thousand cells from one donor do not become several thousand independent donors. A source name, a library and a donor are not automatically interchangeable.</p>
+</section>
+<section id="your-task" class="level2">
+<h2 class="anchored" data-anchor-id="your-task">Your task</h2>
+<p>Write a short analysis brief before preparing files:</p>
+<ol type="1">
+<li>State one descriptive question and why it matters.</li>
+<li>Name the input source, organism, technology and count units.</li>
+<li>State what is known about samples, donors, conditions and batches.</li>
+<li>Name one conclusion the current inputs cannot support.</li>
+</ol>
+<p>If mapping is genuinely unavailable, record it as unknown; do not infer it from a barcode without source documentation. A study lacking sufficient mapping can still support limited descriptive exploration, with that limitation stated.</p>
+<p><strong>Optional AI prompt:</strong> “Help me narrow this question using only the metadata I provide. List missing design information; do not fill it in or propose a condition test without replication.”</p>
+<p><strong>Before moving on:</strong> you have a written question, an explicit unit of observation and a boundary on interpretation.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -110,7 +110,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single Cell Analysis with R</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single-Cell Analysis with R</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -293,6 +293,7 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#find-your-outputs" id="toc-find-your-outputs" class="nav-link active" data-scroll-target="#find-your-outputs">Find your outputs</a></li>
+  <li><a href="#three-habits-to-carry-through-every-example" id="toc-three-habits-to-carry-through-every-example" class="nav-link" data-scroll-target="#three-habits-to-carry-through-every-example">Three habits to carry through every example</a></li>
   </ul>
 </nav>
     </div>
@@ -408,6 +409,13 @@ ul.task-list li input[type="checkbox"] {
 <p><code>DATASET</code> means the dataset name; replace it with <code>synthetic</code>, <code>zeisel</code> or <code>your-study</code>. All folders are created automatically by the workflow.</p>
 <p>Run commands one at a time. Continue only after success. Recreate inputs only when needed; after changing inputs or QC cutoffs, rerun Check, Run and Verify before interpreting results. The verifier detects changed input bytes. A successful command checks calculation, not scientific interpretation.</p>
 <p>Keep learner-generated reports in the ignored <code>reports/</code> folder. <a href="./02-write-the-report.html">Write the report</a> explains how to create one without adding it to the book.</p>
+</section>
+<section id="three-habits-to-carry-through-every-example" class="level2">
+<h2 class="anchored" data-anchor-id="three-habits-to-carry-through-every-example">Three habits to carry through every example</h2>
+<p><strong>Keep decisions separate from calculations.</strong> The script applies your cutoffs; you justify them. It calculates PCA; you decide what the design and metadata allow you to say about it.</p>
+<p><strong>Keep inputs, results and writing distinct.</strong> Raw files belong in <code>data/DATASET/</code>, generated outputs in <code>results/DATASET/</code> and learner writing in <code>reports/</code>. A report should identify the run it describes. Rerunning the script does not rewrite your report’s prose.</p>
+<p><strong>Use AI at a specific point.</strong> First make your own prediction or observation. Then ask AI to explain a command or question a claim using supplied evidence. Finally compare its response with the actual files and revise your own explanation. Share only data you are permitted to disclose; do not send participant identifiers.</p>
+<p>At each step, keep a brief note of what you did, what you observed and what remains uncertain. Those notes become the Methods, Results and Limitations sections of the report.</p>
 
 
 </section>

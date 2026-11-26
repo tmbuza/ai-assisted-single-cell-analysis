@@ -1,7 +1,38 @@
 # Define: Your own study
 
-Write one descriptive question, identify the organism and count technology, and state which cells belong to each sample and donor. If your question compares conditions, stop and plan replication, confounding and an appropriate sample-level analysis before testing.
+## Start with an answerable descriptive question
 
-**Your task:** write the question and one conclusion these data cannot support.
+Use this path after you can explain the synthetic and Zeisel examples. The goal is to adapt the workflow deliberately, not replace a dataset name and assume the interpretation transfers.
 
-**AI prompt:** “Critique the scope of my question. What metadata would I need? Do not invent missing study details.”
+A suitable first question is:
+
+> After checking input structure and cell QC, what expression variation is visible among the retained cells in my study?
+
+Make it specific by naming the organism, tissue, count technology and collection context. If your intended question is “Does treatment change expression?”, this practical is only an exploratory starting point. Testing that question needs validated biological replication, confounder assessment and a suitable sample-level design.
+
+## Establish the units
+
+| Unit | What to record |
+|---|---|
+| Cell | A globally unique barcode/identifier |
+| Sample | The biological specimen or preparation from which the cell came |
+| Donor/animal | The independent biological source; one donor can contribute several samples |
+| Condition | A measured treatment or study grouping, if available |
+| Batch | Processing date, library or other technical grouping |
+
+Several thousand cells from one donor do not become several thousand independent donors. A source name, a library and a donor are not automatically interchangeable.
+
+## Your task
+
+Write a short analysis brief before preparing files:
+
+1. State one descriptive question and why it matters.
+2. Name the input source, organism, technology and count units.
+3. State what is known about samples, donors, conditions and batches.
+4. Name one conclusion the current inputs cannot support.
+
+If mapping is genuinely unavailable, record it as unknown; do not infer it from a barcode without source documentation. A study lacking sufficient mapping can still support limited descriptive exploration, with that limitation stated.
+
+**Optional AI prompt:** “Help me narrow this question using only the metadata I provide. List missing design information; do not fill it in or propose a condition test without replication.”
+
+**Before moving on:** you have a written question, an explicit unit of observation and a boundary on interpretation.

@@ -110,7 +110,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single Cell Analysis with R</span></a>
+  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single-Cell Analysis with R</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -292,7 +292,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#what-the-worked-result-shows" id="toc-what-the-worked-result-shows" class="nav-link active" data-scroll-target="#what-the-worked-result-shows">What the worked result shows</a></li>
+  <li><a href="#know-what-you-are-working-toward" id="toc-know-what-you-are-working-toward" class="nav-link active" data-scroll-target="#know-what-you-are-working-toward">Know what you are working toward</a></li>
+  <li><a href="#read-the-qc-panels" id="toc-read-the-qc-panels" class="nav-link" data-scroll-target="#read-the-qc-panels">Read the QC panels</a></li>
+  <li><a href="#read-the-pca" id="toc-read-the-pca" class="nav-link" data-scroll-target="#read-the-pca">Read the PCA</a></li>
+  <li><a href="#your-task" id="toc-your-task" class="nav-link" data-scroll-target="#your-task">Your task</a></li>
   </ul>
 </nav>
     </div>
@@ -318,26 +321,67 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Plots are saved in <code>results/synthetic/figures/</code> as <code>qc.png</code> and <code>pca.png</code>. Tab-separated tables, including <code>cell-qc.tsv</code> and <code>pca.tsv</code>, are saved in <code>results/synthetic/tables/</code>. The saved R object <code>normalized.rds</code> remains in <code>results/synthetic/</code>. Supporting files record selected genes, variance explained, parameters, input checksums and the R session.</p>
-<p>The two QC panels show counts versus detected genes and counts versus mitochondrial percentage. Blue cells pass all configured cutoffs; red cells fail one or more. Dashed lines show cutoffs. PCA summarizes expression variation among retained cells. Colours show the known simulated populations, not inferred cell types. Nearby points have similar profiles in the selected gene space; separation alone does not identify cell types or demonstrate significance.</p>
-<p>After running this example, return here to inspect its generated figures:</p>
+<section id="know-what-you-are-working-toward" class="level2">
+<h2 class="anchored" data-anchor-id="know-what-you-are-working-toward">Know what you are working toward</h2>
+<p>You will create a QC table, two figures and a report. Read this page first so the outputs have a purpose; return after Run to inspect your own figures.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Output</th>
+<th>What it helps you answer</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>results/synthetic/tables/cell-qc.tsv</code></td>
+<td>Which cells pass the stated QC rules?</td>
+</tr>
+<tr class="even">
+<td><code>results/synthetic/figures/qc.png</code></td>
+<td>How do count depth, detected genes and mitochondrial fractions vary?</td>
+</tr>
+<tr class="odd">
+<td><code>results/synthetic/figures/pca.png</code></td>
+<td>What expression patterns are visible among retained cells?</td>
+</tr>
+<tr class="even">
+<td><code>results/synthetic/tables/pca-variance.tsv</code></td>
+<td>How much selected-gene variation does each component capture?</td>
+</tr>
+</tbody>
+</table>
+<p>Supporting files record cutoffs, input checksums, selected genes and software versions. <a href="../../01-run-the-workflow.html">One workflow for every dataset</a> lists all locations.</p>
+</section>
+<section id="read-the-qc-panels" class="level2">
+<h2 class="anchored" data-anchor-id="read-the-qc-panels">Read the QC panels</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../../results/synthetic/figures/qc.png" class="img-fluid figure-img"></p>
-<figcaption>Cell quality overview</figcaption>
+<figcaption>Synthetic cell QC: depth, detected genes and mitochondrial fraction.</figcaption>
 </figure>
 </div>
+<p>The left panel compares total counts with detected genes. The right compares total counts with mitochondrial percentage. <strong>Blue means retained; red means excluded by at least one cutoff.</strong> Dashed lines show the cutoffs.</p>
+<p>In the checked run, <strong>190 of 200 cells are retained</strong>. Low-depth cells appear near the lower-left of the first panel. The deliberately high-mitochondrial cells can have hundreds of detected genes yet still fail the mitochondrial cutoff. No single panel explains every exclusion.</p>
+</section>
+<section id="read-the-pca" class="level2">
+<h2 class="anchored" data-anchor-id="read-the-pca">Read the PCA</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../../results/synthetic/figures/pca.png" class="img-fluid figure-img"></p>
-<figcaption>Exploratory PCA</figcaption>
+<figcaption>PCA of retained synthetic cells, coloured by known simulation labels.</figcaption>
 </figure>
 </div>
-<p><strong>Your task:</strong> identify what each axis measures before interpreting a pattern. Missing images mean the analysis has not generated them yet.</p>
-<section id="what-the-worked-result-shows" class="level2">
-<h2 class="anchored" data-anchor-id="what-the-worked-result-shows">What the worked result shows</h2>
-<p>The revised practice retains 190 of 200 cells. Five low-depth cells and five cells with deliberately high mitochondrial fractions fail the configured cutoffs. Read both QC panels: a cell may have enough detected genes but fail the mitochondrial cutoff.</p>
-<p>The known simulated populations separate mainly along PC1, with variation within each population. In the checked run, PC1 explains about 5.5% and PC2 about 1.6% of variance in the selected transformed genes. Most variation lies outside these two components. The colours describe how the data were constructed; they are not evidence that this workflow discovered biological cell types.</p>
+<p>Each point is one retained cell. PC1 and PC2 are weighted combinations of selected, transformed gene expression. Cells close together on these two axes have similar scores in this projection; they may still differ along other components.</p>
+<p>The known simulated populations separate mainly along PC1, with variation within each population. In the checked run, PC1 explains about <strong>5.5%</strong> and PC2 about <strong>1.6%</strong> of variance in the selected transformed genes. Most variation is outside this plot. Colours display construction labels; the algorithm did not infer cell types.</p>
+</section>
+<section id="your-task" class="level2">
+<h2 class="anchored" data-anchor-id="your-task">Your task</h2>
+<p>Point to the axis and metric relevant to each statement: “few detected genes,” “high mitochondrial fraction” and “separated PCA scores.” Write one observation without using “significant” or naming a biological cell type.</p>
+<p><strong>Before moving on:</strong> distinguish an output you expect to create from a result you have actually generated and checked. Missing figures before Run mean that the workflow has not generated them yet.</p>
 
 
 </section>

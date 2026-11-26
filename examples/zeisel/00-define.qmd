@@ -1,7 +1,29 @@
 # Define: Zeisel mouse brain
 
-What expression variation is visible in a convenience subset of published mouse-brain cells after basic QC? Read [dataset provenance](../../data/zeisel/README.md). We will not infer treatment effects, cell proportions or new cell identities.
+## The question
 
-**Your task:** write the question and one conclusion these data cannot support.
+**What variation in cell QC and expression is visible in a small subset of published mouse-brain cells after the same introductory workflow?**
 
-**AI prompt:** “Critique the scope of my question. What metadata would I need? Do not invent missing study details.”
+You now know the mechanics from synthetic practice. Real data add an important responsibility: understand where measurements and annotations came from before treating patterns as biological findings.
+
+The example uses data from Zeisel and colleagues' 2015 study, *Cell types in the mouse cortex and hippocampus revealed by single-cell RNA-seq* ([paper](https://doi.org/10.1126/science.aaa1934)). The R preparation script retrieves the dataset through `scRNAseq::ZeiselBrainData()` and exports the **first 400 cells in source order** from the main experiment.
+
+This subset keeps a dense teaching analysis manageable. Source order is not a random or representative sampling scheme. Some published cell classes may be missing or overrepresented. We are not reproducing the full paper's analysis or estimating tissue cell proportions.
+
+## Set the scope before analysis
+
+You can describe count depth, detected genes, mitochondrial fractions and exploratory PCA scores. You can check a published cell's arithmetic. You cannot infer a treatment effect or donor-level difference because this guide has not validated donor/sample mapping. The teaching metadata explicitly use `sample_id = unknown`.
+
+Published cell annotations are reference information. The workflow does not predict new identities, and its real-data PCA is not coloured by those labels.
+
+## Your task
+
+Write your descriptive question and a scope sentence:
+
+> This analysis describes the exported 400-cell subset; it does not estimate cell-type proportions or test a condition effect in the original study.
+
+Then name two details to inspect in the source metadata before planning a broader analysis: for example, tissue region and the mapping of cells to animals or processing batches.
+
+**Optional AI prompt:** “Critique this exploratory question using only the source and subset information I provide. What conclusions require validated donor or batch metadata?”
+
+**Before moving on:** distinguish the published study, the downloaded source object and the 400-cell teaching subset.

@@ -145,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single Cell Analysis with R</span></a>
+  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single-Cell Analysis with R</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -322,8 +322,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#validate-the-files" id="toc-validate-the-files" class="nav-link active" data-scroll-target="#validate-the-files">Validate the files</a></li>
+  <li><a href="#review-the-qc-rules" id="toc-review-the-qc-rules" class="nav-link" data-scroll-target="#review-the-qc-rules">Review the QC rules</a></li>
+  <li><a href="#predict-two-decisions" id="toc-predict-two-decisions" class="nav-link" data-scroll-target="#predict-two-decisions">Predict two decisions</a></li>
+  <li><a href="#your-task" id="toc-your-task" class="nav-link" data-scroll-target="#your-task">Your task</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -347,13 +356,62 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="validate-the-files" class="level2">
+<h2 class="anchored" data-anchor-id="validate-the-files">Validate the files</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> scripts/R/check_inputs.R synthetic</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The check rejects invalid counts, duplicate or mismatched IDs, missing sample IDs and invalid mitochondrial flags. Matching metadata are reordered to matrix order rather than assumed to be aligned.</p>
-<p>Before proceeding, inspect <code>config/qc.tsv</code>. The synthetic row supplies minimum counts, minimum detected genes and maximum mitochondrial percentage. These are <strong>illustrative teaching cutoffs</strong>, not universal biological rules. Record any change and inspect how it affects retained cells. Mitochondrial percentages may reflect biology as well as damage.</p>
-<p><strong>Your task:</strong> confirm donor, condition and batch information where available. Unknown sample mapping permits descriptive exploration only. A passing file check does not establish biological replication.</p>
-<p><strong>AI prompt:</strong> “Explain these QC cutoffs and suggest what evidence I should inspect before changing them. Do not label cells as damaged solely from one metric.”</p>
+<p>Expected output includes <strong>1,000 genes, 200 cells and four sample ID values</strong>, followed by an identifier/raw-count check success message.</p>
+<p>The checker rejects missing or duplicate identifiers, mismatched metadata IDs, nonnumeric values, negative or fractional counts and missing counts. It checks required metadata columns and logical mitochondrial flags. When IDs match but appear in different orders, it aligns metadata to matrix order.</p>
+<p>A successful check means the files meet this script’s input contract. It does not establish biological replication, meaningful labels or appropriate thresholds.</p>
+</section>
+<section id="review-the-qc-rules" class="level2">
+<h2 class="anchored" data-anchor-id="review-the-qc-rules">Review the QC rules</h2>
+<p>Open <code>config/qc.tsv</code>. The synthetic row should contain:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 40%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Rule</th>
+<th style="text-align: right;">Value</th>
+<th>A cell passes when…</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>min_counts</code></td>
+<td style="text-align: right;">500</td>
+<td>Total counts are at least 500</td>
+</tr>
+<tr class="even">
+<td><code>min_genes</code></td>
+<td style="text-align: right;">200</td>
+<td>At least 200 genes have positive counts</td>
+</tr>
+<tr class="odd">
+<td><code>max_mito_pct</code></td>
+<td style="text-align: right;">30</td>
+<td>Mitochondrial counts are at most 30% of total counts</td>
+</tr>
+</tbody>
+</table>
+<p>A cell must pass <strong>all three</strong> and have a positive total. A zero-total cell is excluded; its mitochondrial percentage is undefined (<code>NA</code>). The parameters are recorded during Run.</p>
+<p>These cutoffs were chosen for this teaching dataset. They are not a recommendation for every organism, technology or tissue. A high mitochondrial fraction may motivate investigation; the flag alone does not prove that a real cell is damaged.</p>
+</section>
+<section id="predict-two-decisions" class="level2">
+<h2 class="anchored" data-anchor-id="predict-two-decisions">Predict two decisions</h2>
+<p>Cell047 was deliberately generated with only <strong>85 total counts</strong>. Even before plotting, you can predict that it fails the minimum-count rule. Cell048 has adequate counts but a deliberately high mitochondrial fraction; check the right QC panel before explaining its exclusion.</p>
+</section>
+<section id="your-task" class="level2">
+<h2 class="anchored" data-anchor-id="your-task">Your task</h2>
+<p>Record the matrix dimensions and the three cutoffs. State which checks are automated and which depend on understanding the study. If a check fails, correct the input or investigate the cause; do not bypass it simply to produce a plot.</p>
+<p><strong>Optional AI prompt:</strong> “Explain these three QC rules in plain language. Ask what evidence I should inspect before transferring them to another dataset.”</p>
+<p><strong>Before moving on:</strong> the input check passes and you understand the retention rule you are about to apply.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

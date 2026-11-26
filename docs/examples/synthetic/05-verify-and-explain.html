@@ -145,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single Cell Analysis with R</span></a>
+  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single-Cell Analysis with R</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -322,8 +322,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#check-a-retained-cell-and-two-exclusions" id="toc-check-a-retained-cell-and-two-exclusions" class="nav-link active" data-scroll-target="#check-a-retained-cell-and-two-exclusions">Check a retained cell and two exclusions</a></li>
+  <li><a href="#recalculate-cell001-yourself" id="toc-recalculate-cell001-yourself" class="nav-link" data-scroll-target="#recalculate-cell001-yourself">Recalculate Cell001 yourself</a></li>
+  <li><a href="#what-the-verifier-establishes" id="toc-what-the-verifier-establishes" class="nav-link" data-scroll-target="#what-the-verifier-establishes">What the verifier establishes</a></li>
+  <li><a href="#explain-with-limits" id="toc-explain-with-limits" class="nav-link" data-scroll-target="#explain-with-limits">Explain with limits</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -347,22 +356,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Use Cell001, then repeat with Cell047 (low depth) and Cell048 (high mitochondrial fraction).</p>
+<section id="check-a-retained-cell-and-two-exclusions" class="level2">
+<h2 class="anchored" data-anchor-id="check-a-retained-cell-and-two-exclusions">Check a retained cell and two exclusions</h2>
+<p>Run each command from the main project folder:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> scripts/R/verify_cell.R synthetic Cell001</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> scripts/R/verify_cell.R synthetic Cell047</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> scripts/R/verify_cell.R synthetic Cell048</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The verifier reads raw inputs independently; it does not call the analysis QC or normalization functions. It recalculates total counts, detected genes, mitochondrial percentage, the retained decision, and one positive gene’s normalized expression when retained. A disagreement stops execution. This checks arithmetic for one cell; it does not verify the entire scientific analysis.</p>
-<p>Manually check the same cell:</p>
-<ol type="1">
-<li>Sum its gene counts: total counts.</li>
-<li>Count genes with counts greater than zero: detected genes.</li>
-<li>Sum counts flagged mitochondrial, divide by total counts, multiply by 100.</li>
-<li>For one positive gene, calculate <code>log(1 + 10000 * gene_count / total_counts)</code>.</li>
-</ol>
-<p>For a zero-total cell the mitochondrial percentage is undefined (NA), and the cell is excluded.</p>
-<p><strong>Explain:</strong> write one observation from QC and one from PCA. Quote actual cell counts or variance percentages. Explain whether exclusions or technical factors could influence the pattern. Do not invent a result before running the analysis.</p>
-<p><strong>AI prompt:</strong> “Review my observation against these exact saved values. Separate what the plot shows from my interpretation, and flag claims requiring more evidence.”</p>
-<p>The v2 values differ from the earlier 60-gene, 48-cell dataset. Use the expected values below only after recreating v2 inputs and rerunning the workflow.</p>
+<p>For the revised practice inputs, expect:</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -376,7 +376,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td>Cell001</td>
-<td style="text-align: right;">18543</td>
+<td style="text-align: right;">18,543</td>
 <td style="text-align: right;">848</td>
 <td style="text-align: right;">3.575473</td>
 <td>TRUE</td>
@@ -390,16 +390,48 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td>Cell048</td>
-<td style="text-align: right;">3762</td>
+<td style="text-align: right;">3,762</td>
 <td style="text-align: right;">498</td>
 <td style="text-align: right;">47.049442</td>
 <td>FALSE</td>
 </tr>
 </tbody>
 </table>
-<p>For Cell001, Gene001 has raw count 125 and expected normalized expression <code>log(1 + 10000 * 125 / 18543) = 4.225532</code> (rounded).</p>
+<p>Check your saved table rather than comparing only rounded console text. A <code>PASS</code> with <code>retained FALSE</code> confirms an exclusion; it does not mean the cell should be retained.</p>
+</section>
+<section id="recalculate-cell001-yourself" class="level2">
+<h2 class="anchored" data-anchor-id="recalculate-cell001-yourself">Recalculate Cell001 yourself</h2>
+<p>Cell001 has <strong>663 mitochondrial counts</strong> out of 18,543 total counts:</p>
+<p>[ 100=3.575473%. ]</p>
+<p>Gene001 has raw count <strong>125</strong>:</p>
+<p>[ (1+10{,}000)=4.225532. ]</p>
+<p>The following is <strong>R code</strong>. Open R from the project folder, run it, then exit with <code>q(save = "no")</code> before returning to terminal commands.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"data/synthetic/counts.tsv"</span>, <span class="at">check.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>genes <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"data/synthetic/gene-metadata.tsv"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> counts<span class="sc">$</span>Cell001</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>mito <span class="ot">&lt;-</span> genes<span class="sc">$</span>is_mito[<span class="fu">match</span>(counts<span class="sc">$</span>gene_id, genes<span class="sc">$</span>gene_id)]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(x)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(x <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span> <span class="sc">*</span> <span class="fu">sum</span>(x[mito]) <span class="sc">/</span> <span class="fu">sum</span>(x)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>gene_count <span class="ot">&lt;-</span> x[<span class="fu">match</span>(<span class="st">"Gene001"</span>, counts<span class="sc">$</span>gene_id)]</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">log1p</span>(<span class="dv">10000</span> <span class="sc">*</span> gene_count <span class="sc">/</span> <span class="fu">sum</span>(x))</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"results/synthetic/normalized.rds"</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>y[<span class="st">"Gene001"</span>, <span class="st">"Cell001"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Compare the manual results with <code>tables/cell-qc.tsv</code> and the saved transformed value. Cell047 fails both depth and detected-gene cutoffs; Cell048 fails the mitochondrial cutoff.</p>
+</section>
+<section id="what-the-verifier-establishes" class="level2">
+<h2 class="anchored" data-anchor-id="what-the-verifier-establishes">What the verifier establishes</h2>
+<p>It independently reads raw inputs and recalculates totals, detected genes, mitochondrial percentage and the QC decision. For a retained cell it checks the first positive gene’s transformed value. It does not call the workflow’s QC functions. It also rejects input files whose bytes changed after analysis. Even harmless TSV reformatting can therefore require a rerun.</p>
+<p>This checks selected arithmetic and file consistency, not every matrix entry, PCA correctness or biological interpretation. It uses the cutoffs recorded with the results; a change to <code>config/qc.tsv</code> still requires you to rerun the workflow.</p>
+</section>
+<section id="explain-with-limits" class="level2">
+<h2 class="anchored" data-anchor-id="explain-with-limits">Explain with limits</h2>
+<p>A defensible observation is: “Ten of 200 simulated cells fail the configured QC rules. Known simulated populations separate mainly along PC1, with variation within each population.” Add the actual variance percentages from your output. Do not call the separation statistically significant or claim biological cell-type discovery.</p>
+<p><strong>Your task:</strong> record a manual value, saved value and verdict for Cell001, then explain both exclusions in one sentence each. Name one aspect of the analysis that these checks do not verify.</p>
+<p><strong>Optional AI prompt:</strong> “Compare my calculation and interpretation with these exact saved values. Flag unsupported claims; do not invent a statistical test.”</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

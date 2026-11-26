@@ -20,41 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -145,7 +110,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single Cell Analysis with R</span></a>
+  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single-Cell Analysis with R</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -322,8 +287,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#prepare-three-matching-input-files" id="toc-prepare-three-matching-input-files" class="nav-link active" data-scroll-target="#prepare-three-matching-input-files">Prepare three matching input files</a></li>
+  <li><a href="#annotate-honestly" id="toc-annotate-honestly" class="nav-link" data-scroll-target="#annotate-honestly">Annotate honestly</a></li>
+  <li><a href="#your-task" id="toc-your-task" class="nav-link" data-scroll-target="#your-task">Your task</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -347,13 +320,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Prepare the inputs from the main project folder:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Place your validated input files in data/your-study/ first.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The matrix stores genes in rows and cells in columns. <code>cell-metadata.tsv</code> connects each cell to a sample and an optional reference label. <code>gene-metadata.tsv</code> flags mitochondrial genes explicitly.</p>
-<p>Read <a href="../../data/your-study/README.md">the input contract</a>. Record the source, preprocessing, organism, annotation version and permissions in a local provenance note.</p>
-<p><strong>Your task:</strong> open both metadata tables; trace one cell ID to the matrix. Explain the difference between a cell, a sample and a donor.</p>
+<section id="prepare-three-matching-input-files" class="level2">
+<h2 class="anchored" data-anchor-id="prepare-three-matching-input-files">Prepare three matching input files</h2>
+<p>Place your files in <code>data/your-study/</code>. This practical starts from a gene-count matrix with cells already identified, not FASTQ reads, alignments or an unfiltered droplet matrix.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>File</th>
+<th>Required structure</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>counts.tsv</code></td>
+<td>First column <code>gene_id</code>; remaining columns unique cell IDs; genes in rows</td>
+</tr>
+<tr class="even">
+<td><code>cell-metadata.tsv</code></td>
+<td><code>cell_id</code>, <code>sample_id</code>, <code>reference_label</code>; one row per matrix cell</td>
+</tr>
+<tr class="odd">
+<td><code>gene-metadata.tsv</code></td>
+<td><code>gene_id</code>, <code>is_mito</code>; one row per matrix gene</td>
+</tr>
+</tbody>
+</table>
+<p>Use tab-separated, UTF-8 text. Supply finite nonnegative integer counts. Do not use TPM, counts per 10,000 or log-transformed values as raw counts. Rounding normalized data does not recover raw counts.</p>
+<p>Alternatively, save a matrix or Matrix object with row and column names as <code>counts.rds</code>. <strong>RDS takes precedence if both count files exist.</strong> Keep only the intended input representation so an old RDS cannot silently override a new TSV. This workflow converts counts to dense form and stops above 20 million entries; use an appropriate sparse workflow for larger studies.</p>
+</section>
+<section id="annotate-honestly" class="level2">
+<h2 class="anchored" data-anchor-id="annotate-honestly">Annotate honestly</h2>
+<p>In cell metadata, <code>sample_id</code> must identify the originating sample where known. Use <code>unassigned</code> for an unavailable <code>reference_label</code>. Add donor, condition and batch columns when supported by documentation; the checker does not validate their biological meaning. If a sample mapping is genuinely unavailable, use <code>unknown</code> and restrict interpretation.</p>
+<p>Use <code>TRUE/FALSE</code> mitochondrial flags from an organism- and identifier-matched annotation. Ensembl IDs should not be classified by assuming they start with <code>MT-</code>. The current input contract requires at least one flagged mitochondrial gene. If your organism or assay makes that metric inappropriate, pause and adapt the workflow explicitly rather than flagging an arbitrary gene to pass validation.</p>
+<p>Metadata IDs must match matrix IDs exactly. Do not collapse duplicate gene symbols without documenting a valid aggregation rule. For merged libraries, ensure cell barcodes remain globally unique in both matrix and metadata.</p>
+</section>
+<section id="your-task" class="level2">
+<h2 class="anchored" data-anchor-id="your-task">Your task</h2>
+<p>Create a local source note recording data origin, acquisition date, preprocessing, count units, annotation version and any ID changes. Trace one cell and one gene across their files. Remove or protect participant-identifying fields before sharing data or AI prompts.</p>
+<p><strong>Before moving on:</strong> the file structure is documented and no missing annotation or sample information has been invented.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

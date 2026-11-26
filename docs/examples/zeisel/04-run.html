@@ -145,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single Cell Analysis with R</span></a>
+  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single-Cell Analysis with R</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -322,8 +322,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#apply-the-same-documented-calculation" id="toc-apply-the-same-documented-calculation" class="nav-link active" data-scroll-target="#apply-the-same-documented-calculation">Apply the same documented calculation</a></li>
+  <li><a href="#follow-the-processing-choices" id="toc-follow-the-processing-choices" class="nav-link" data-scroll-target="#follow-the-processing-choices">Follow the processing choices</a></li>
+  <li><a href="#read-the-outputs-before-explaining-them" id="toc-read-the-outputs-before-explaining-them" class="nav-link" data-scroll-target="#read-the-outputs-before-explaining-them">Read the outputs before explaining them</a></li>
+  <li><a href="#your-task" id="toc-your-task" class="nav-link" data-scroll-target="#your-task">Your task</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -347,13 +356,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="apply-the-same-documented-calculation" class="level2">
+<h2 class="anchored" data-anchor-id="apply-the-same-documented-calculation">Apply the same documented calculation</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> scripts/R/run_workflow.R zeisel</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Read <code>results/zeisel/tables/cell-qc.tsv</code> before interpreting the plots. The retained column records the QC decision for every input cell, including zero-count cells, which are excluded.</p>
-<p>For each retained cell, divide each raw gene count by that cell’s total, multiply by 10,000, then apply <code>log(1 + value)</code>. The workflow selects up to 500 genes with highest variance after this transformation. PCA centers genes but does not scale them to unit variance. Reference labels do not enter feature selection or PCA.</p>
-<p>This transparent normalization is for introductory exploration. It does not model technical noise, resolve doublets, remove ambient RNA or correct batches. Review those issues before extending a real analysis. Mitochondrial genes remain eligible for PCA, so inspect whether QC drives the leading components.</p>
-<p><strong>Your task:</strong> record input and retained cell counts, cutoffs and selected-gene count. A large exclusion fraction is a reason to investigate, not automatically a reason to relax thresholds.</p>
+<p>For the checked 400-cell subset, expect <strong>400 of 400 cells retained</strong>. Start with <code>results/zeisel/tables/cell-qc.tsv</code> and <code>tables/parameters.tsv</code>; the latter path is also inside <code>results/zeisel/</code>.</p>
+<p>The fact that no cell fails these thresholds is a result to report, not an error to repair by forcing exclusions. Inspect both QC panels and remember that the source is a processed, published cell dataset.</p>
+</section>
+<section id="follow-the-processing-choices" class="level2">
+<h2 class="anchored" data-anchor-id="follow-the-processing-choices">Follow the processing choices</h2>
+<p>The script:</p>
+<ol type="1">
+<li>Calculates raw totals, positive-count gene counts and mitochondrial percentages for every exported cell.</li>
+<li>Retains cells passing all configured cutoffs.</li>
+<li>Scales each retained cell to a total of 10,000 before applying <code>log1p</code>.</li>
+<li>Selects up to 500 genes with highest positive variance in transformed expression.</li>
+<li>Centers those genes and calculates PCA without unit-variance scaling.</li>
+</ol>
+<p>It does not include published labels or sample IDs in these calculations. Mitochondrial features can still be selected for PCA. Different tissue composition or technical properties can therefore affect the displayed structure even after these QC rules.</p>
+<p>This is a transparent introductory workflow. It does not resolve doublets, remove ambient RNA, correct batches or reproduce the complete published analysis. No hypothesis test or cell-type classifier is run.</p>
+</section>
+<section id="read-the-outputs-before-explaining-them" class="level2">
+<h2 class="anchored" data-anchor-id="read-the-outputs-before-explaining-them">Read the outputs before explaining them</h2>
+<p>Open the QC and PCA figures in <code>results/zeisel/figures/</code>. Read the first two fractions in <code>tables/pca-variance.tsv</code> and multiply by 100 to compare with the axis percentages. Inspect <code>tables/selected-genes.tsv</code> to see that gene selection was recorded.</p>
+<p>PCA axis signs may reverse across numerical implementations. A left/right reversal alone does not mean the expression geometry changed.</p>
+</section>
+<section id="your-task" class="level2">
+<h2 class="anchored" data-anchor-id="your-task">Your task</h2>
+<p>Record exported and retained cell counts, the cutoffs and PC1/PC2 percentages. Return to Preview and write a descriptive observation. Identify one further check you would need before attributing the PCA regions to a biological cause.</p>
+<p><strong>Before moving on:</strong> the saved tables and figures correspond to the current inputs and you are ready to check a real cell independently.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

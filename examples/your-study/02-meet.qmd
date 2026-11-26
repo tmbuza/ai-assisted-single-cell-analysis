@@ -1,13 +1,29 @@
 # Meet: Your own study
 
-Prepare the inputs from the main project folder:
+## Prepare three matching input files
 
-```bash
-# Place your validated input files in data/your-study/ first.
-```
+Place your files in `data/your-study/`. This practical starts from a gene-count matrix with cells already identified, not FASTQ reads, alignments or an unfiltered droplet matrix.
 
-The matrix stores genes in rows and cells in columns. `cell-metadata.tsv` connects each cell to a sample and an optional reference label. `gene-metadata.tsv` flags mitochondrial genes explicitly.
+| File | Required structure |
+|---|---|
+| `counts.tsv` | First column `gene_id`; remaining columns unique cell IDs; genes in rows |
+| `cell-metadata.tsv` | `cell_id`, `sample_id`, `reference_label`; one row per matrix cell |
+| `gene-metadata.tsv` | `gene_id`, `is_mito`; one row per matrix gene |
 
-Read [the input contract](../../data/your-study/README.md). Record the source, preprocessing, organism, annotation version and permissions in a local provenance note.
+Use tab-separated, UTF-8 text. Supply finite nonnegative integer counts. Do not use TPM, counts per 10,000 or log-transformed values as raw counts. Rounding normalized data does not recover raw counts.
 
-**Your task:** open both metadata tables; trace one cell ID to the matrix. Explain the difference between a cell, a sample and a donor.
+Alternatively, save a matrix or Matrix object with row and column names as `counts.rds`. **RDS takes precedence if both count files exist.** Keep only the intended input representation so an old RDS cannot silently override a new TSV. This workflow converts counts to dense form and stops above 20 million entries; use an appropriate sparse workflow for larger studies.
+
+## Annotate honestly
+
+In cell metadata, `sample_id` must identify the originating sample where known. Use `unassigned` for an unavailable `reference_label`. Add donor, condition and batch columns when supported by documentation; the checker does not validate their biological meaning. If a sample mapping is genuinely unavailable, use `unknown` and restrict interpretation.
+
+Use `TRUE/FALSE` mitochondrial flags from an organism- and identifier-matched annotation. Ensembl IDs should not be classified by assuming they start with `MT-`. The current input contract requires at least one flagged mitochondrial gene. If your organism or assay makes that metric inappropriate, pause and adapt the workflow explicitly rather than flagging an arbitrary gene to pass validation.
+
+Metadata IDs must match matrix IDs exactly. Do not collapse duplicate gene symbols without documenting a valid aggregation rule. For merged libraries, ensure cell barcodes remain globally unique in both matrix and metadata.
+
+## Your task
+
+Create a local source note recording data origin, acquisition date, preprocessing, count units, annotation version and any ID changes. Trace one cell and one gene across their files. Remove or protect participant-identifying fields before sharing data or AI prompts.
+
+**Before moving on:** the file structure is documented and no missing annotation or sample information has been invented.

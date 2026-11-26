@@ -1,6 +1,8 @@
 # Verify and Explain: Synthetic practice
 
-Use Cell001, then repeat with Cell047 (low depth) and Cell048 (high mitochondrial fraction).
+## Check a retained cell and two exclusions
+
+Run each command from the main project folder:
 
 ```bash
 Rscript scripts/R/verify_cell.R synthetic Cell001
@@ -8,27 +10,58 @@ Rscript scripts/R/verify_cell.R synthetic Cell047
 Rscript scripts/R/verify_cell.R synthetic Cell048
 ```
 
-The verifier reads raw inputs independently; it does not call the analysis QC or normalization functions. It recalculates total counts, detected genes, mitochondrial percentage, the retained decision, and one positive gene's normalized expression when retained. A disagreement stops execution. This checks arithmetic for one cell; it does not verify the entire scientific analysis.
-
-Manually check the same cell:
-
-1. Sum its gene counts: total counts.
-2. Count genes with counts greater than zero: detected genes.
-3. Sum counts flagged mitochondrial, divide by total counts, multiply by 100.
-4. For one positive gene, calculate `log(1 + 10000 * gene_count / total_counts)`.
-
-For a zero-total cell the mitochondrial percentage is undefined (NA), and the cell is excluded.
-
-**Explain:** write one observation from QC and one from PCA. Quote actual cell counts or variance percentages. Explain whether exclusions or technical factors could influence the pattern. Do not invent a result before running the analysis.
-
-**AI prompt:** “Review my observation against these exact saved values. Separate what the plot shows from my interpretation, and flag claims requiring more evidence.”
-
-The v2 values differ from the earlier 60-gene, 48-cell dataset. Use the expected values below only after recreating v2 inputs and rerunning the workflow.
+For the revised practice inputs, expect:
 
 | Cell | Total counts | Detected genes | Mitochondrial % | Retained |
 |---|---:|---:|---:|---|
-| Cell001 | 18543 | 848 | 3.575473 | TRUE |
+| Cell001 | 18,543 | 848 | 3.575473 | TRUE |
 | Cell047 | 85 | 71 | 1.176471 | FALSE |
-| Cell048 | 3762 | 498 | 47.049442 | FALSE |
+| Cell048 | 3,762 | 498 | 47.049442 | FALSE |
 
-For Cell001, Gene001 has raw count 125 and expected normalized expression `log(1 + 10000 * 125 / 18543) = 4.225532` (rounded).
+Check your saved table rather than comparing only rounded console text. A `PASS` with `retained FALSE` confirms an exclusion; it does not mean the cell should be retained.
+
+## Recalculate Cell001 yourself
+
+Cell001 has **663 mitochondrial counts** out of 18,543 total counts:
+
+\[
+100\times\frac{663}{18{,}543}=3.575473\%\quad\text{(rounded)}.
+\]
+
+Gene001 has raw count **125**:
+
+\[
+\log\left(1+10{,}000\frac{125}{18{,}543}\right)=4.225532\quad\text{(rounded)}.
+\]
+
+The following is **R code**. Open R from the project folder, run it, then exit with `q(save = "no")` before returning to terminal commands.
+
+```r
+counts <- read.delim("data/synthetic/counts.tsv", check.names = FALSE)
+genes <- read.delim("data/synthetic/gene-metadata.tsv")
+x <- counts$Cell001
+mito <- genes$is_mito[match(counts$gene_id, genes$gene_id)]
+sum(x)
+sum(x > 0)
+100 * sum(x[mito]) / sum(x)
+gene_count <- x[match("Gene001", counts$gene_id)]
+log1p(10000 * gene_count / sum(x))
+y <- readRDS("results/synthetic/normalized.rds")
+y["Gene001", "Cell001"]
+```
+
+Compare the manual results with `tables/cell-qc.tsv` and the saved transformed value. Cell047 fails both depth and detected-gene cutoffs; Cell048 fails the mitochondrial cutoff.
+
+## What the verifier establishes
+
+It independently reads raw inputs and recalculates totals, detected genes, mitochondrial percentage and the QC decision. For a retained cell it checks the first positive gene's transformed value. It does not call the workflow's QC functions. It also rejects input files whose bytes changed after analysis. Even harmless TSV reformatting can therefore require a rerun.
+
+This checks selected arithmetic and file consistency, not every matrix entry, PCA correctness or biological interpretation. It uses the cutoffs recorded with the results; a change to `config/qc.tsv` still requires you to rerun the workflow.
+
+## Explain with limits
+
+A defensible observation is: “Ten of 200 simulated cells fail the configured QC rules. Known simulated populations separate mainly along PC1, with variation within each population.” Add the actual variance percentages from your output. Do not call the separation statistically significant or claim biological cell-type discovery.
+
+**Your task:** record a manual value, saved value and verdict for Cell001, then explain both exclusions in one sentence each. Name one aspect of the analysis that these checks do not verify.
+
+**Optional AI prompt:** “Compare my calculation and interpretation with these exact saved values. Flag unsupported claims; do not invent a statistical test.”

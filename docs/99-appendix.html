@@ -144,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single Cell Analysis with R</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single-Cell Analysis with R</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -335,6 +335,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#workflow-troubleshooting" id="toc-workflow-troubleshooting" class="nav-link" data-scroll-target="#workflow-troubleshooting">Workflow troubleshooting</a></li>
   <li><a href="#methods-and-boundaries" id="toc-methods-and-boundaries" class="nav-link" data-scroll-target="#methods-and-boundaries">Methods and boundaries</a></li>
   <li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources">Sources</a></li>
+  <li><a href="#terms-used-in-the-practical" id="toc-terms-used-in-the-practical" class="nav-link" data-scroll-target="#terms-used-in-the-practical">Terms used in the practical</a></li>
+  <li><a href="#read-beyond-the-introductory-workflow" id="toc-read-beyond-the-introductory-workflow" class="nav-link" data-scroll-target="#read-beyond-the-introductory-workflow">Read beyond the introductory workflow</a></li>
   </ul>
 </nav>
     </div>
@@ -460,6 +462,64 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="https://mac.r-project.org/bin/">R-for-macOS system libraries</a>.</li>
 <li><a href="https://quarto.org/docs/books/">Quarto books</a>.</li>
 </ul>
+</section>
+<section id="terms-used-in-the-practical" class="level2">
+<h2 class="anchored" data-anchor-id="terms-used-in-the-practical">Terms used in the practical</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>Meaning in this workflow</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Total counts</td>
+<td>Sum over all genes in the input main-experiment matrix for one cell</td>
+</tr>
+<tr class="even">
+<td>Detected genes</td>
+<td>Number of genes with count greater than zero in a cell</td>
+</tr>
+<tr class="odd">
+<td>Mitochondrial percentage</td>
+<td>Fraction of that cell’s counts assigned to flagged mitochondrial genes, multiplied by 100</td>
+</tr>
+<tr class="even">
+<td>Retained cell</td>
+<td>A cell passing all configured QC rules; this is not a universal quality guarantee</td>
+</tr>
+<tr class="odd">
+<td>Counts per 10,000</td>
+<td>Raw counts divided by the cell total and multiplied by 10,000 before logging</td>
+</tr>
+<tr class="even">
+<td><code>log1p</code></td>
+<td>Natural logarithm of one plus a value</td>
+</tr>
+<tr class="odd">
+<td>PCA score</td>
+<td>A cell’s coordinate on a component calculated from selected transformed genes</td>
+</tr>
+<tr class="even">
+<td>Reference label</td>
+<td>An existing annotation or known simulation setting; not a prediction made here</td>
+</tr>
+<tr class="odd">
+<td>Input checksum</td>
+<td>A fingerprint used to detect changed file bytes, not a validation of biological correctness</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="read-beyond-the-introductory-workflow" class="level2">
+<h2 class="anchored" data-anchor-id="read-beyond-the-introductory-workflow">Read beyond the introductory workflow</h2>
+<p>The <a href="https://bioconductor.org/books/release/OSCA.basic/quality-control.html">OSCA QC chapter</a> discusses QC choices for single-cell data. The <a href="https://bioconductor.org/books/release/OSCA.basic/normalization.html">OSCA normalization chapter</a> explains scaling and more detailed normalization approaches. This practical uses its own explicitly documented cutoffs and counts-per-10,000 transformation; it is not an implementation of every OSCA procedure.</p>
+<p>For a subsequent biological study, plan the design and metadata review before adding a cell-type classifier, batch correction or a condition test. Those methods answer additional questions and introduce assumptions that the current QC/PCA script does not evaluate.</p>
 
 
 </section>

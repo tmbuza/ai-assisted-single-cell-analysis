@@ -145,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single Cell Analysis with R</span></a>
+  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single-Cell Analysis with R</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -322,8 +322,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#select-a-real-cell-id" id="toc-select-a-real-cell-id" class="nav-link active" data-scroll-target="#select-a-real-cell-id">Select a real cell ID</a></li>
+  <li><a href="#make-an-independent-check" id="toc-make-an-independent-check" class="nav-link" data-scroll-target="#make-an-independent-check">Make an independent check</a></li>
+  <li><a href="#know-what-a-pass-means" id="toc-know-what-a-pass-means" class="nav-link" data-scroll-target="#know-what-a-pass-means">Know what a PASS means</a></li>
+  <li><a href="#explain-your-result" id="toc-explain-your-result" class="nav-link" data-scroll-target="#explain-your-result">Explain your result</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -347,21 +356,61 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Copy an exact retained cell_id from <code>results/your-study/tables/cell-qc.tsv</code> and replace REPLACE_WITH_CELL_ID below. Repeat with an excluded cell if present.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> scripts/R/verify_cell.R your-study REPLACE_WITH_CELL_ID</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The verifier reads raw inputs independently; it does not call the analysis QC or normalization functions. It recalculates total counts, detected genes, mitochondrial percentage, the retained decision, and one positive gene’s normalized expression when retained. A disagreement stops execution. This checks arithmetic for one cell; it does not verify the entire scientific analysis.</p>
-<p>Manually check the same cell:</p>
-<ol type="1">
-<li>Sum its gene counts: total counts.</li>
-<li>Count genes with counts greater than zero: detected genes.</li>
-<li>Sum counts flagged mitochondrial, divide by total counts, multiply by 100.</li>
-<li>For one positive gene, calculate <code>log(1 + 10000 * gene_count / total_counts)</code>.</li>
-</ol>
-<p>For a zero-total cell the mitochondrial percentage is undefined (NA), and the cell is excluded.</p>
-<p><strong>Explain:</strong> write one observation from QC and one from PCA. Quote actual cell counts or variance percentages. Explain whether exclusions or technical factors could influence the pattern. Do not invent a result before running the analysis.</p>
-<p><strong>AI prompt:</strong> “Review my observation against these exact saved values. Separate what the plot shows from my interpretation, and flag claims requiring more evidence.”</p>
+<section id="select-a-real-cell-id" class="level2">
+<h2 class="anchored" data-anchor-id="select-a-real-cell-id">Select a real cell ID</h2>
+<p>Open <code>results/your-study/tables/cell-qc.tsv</code>. Choose a retained cell and copy its exact <code>cell_id</code>. In the terminal command below, replace <code>PASTE_EXACT_CELL_ID</code> with that value and keep the quotes:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> scripts/R/verify_cell.R your-study <span class="st">"PASTE_EXACT_CELL_ID"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Repeat for an excluded cell if one exists. If every cell is retained, document that fact and verify another retained cell. Do not create an artificial exclusion in your real inputs.</p>
+</section>
+<section id="make-an-independent-check" class="level2">
+<h2 class="anchored" data-anchor-id="make-an-independent-check">Make an independent check</h2>
+<p>From the raw count matrix and mitochondrial flags, calculate:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Quantity</th>
+<th>Calculation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Total counts</td>
+<td>Sum all gene counts for the selected cell</td>
+</tr>
+<tr class="even">
+<td>Detected genes</td>
+<td>Count genes with raw count greater than zero</td>
+</tr>
+<tr class="odd">
+<td>Mitochondrial percentage</td>
+<td>100 × flagged mitochondrial counts / total counts</td>
+</tr>
+<tr class="even">
+<td>Retained-gene transformed value</td>
+<td><code>log(1 + 10000 * gene_count / total_counts)</code></td>
+</tr>
+</tbody>
+</table>
+<p>For a retained cell choose a positive-count gene; an all-zero value would give a trivial normalization check. Find the corresponding saved value in <code>results/your-study/normalized.rds</code>. The <a href="../../examples/synthetic/05-verify-and-explain.html">synthetic</a> and <a href="../../examples/zeisel/05-verify-and-explain.html">Zeisel</a> pages show R-console examples for TSV and sparse RDS inputs respectively. Adapt their file paths and IDs to your study.</p>
+<p>For a zero-total cell, the mitochondrial percentage is undefined and the cell is excluded. Excluded cells do not have columns in the normalized matrix, so check their raw metrics and retention rather than trying to read transformed values for them.</p>
+</section>
+<section id="know-what-a-pass-means" class="level2">
+<h2 class="anchored" data-anchor-id="know-what-a-pass-means">Know what a PASS means</h2>
+<p>The verifier independently recalculates per-cell metrics, retention using the saved cutoffs and one transformed positive-gene value for retained cells. It rejects raw inputs whose file bytes changed since analysis. It does not validate the study design or check that a recently edited configuration has been rerun; compare <code>config/qc.tsv</code> with saved <code>tables/parameters.tsv</code> yourself.</p>
+<p>Write a small record with cell ID, metric/gene, manual value, saved value and verdict. Round only for presentation. A discrepancy requires investigation before reporting.</p>
+</section>
+<section id="explain-your-result" class="level2">
+<h2 class="anchored" data-anchor-id="explain-your-result">Explain your result</h2>
+<p>Write one QC observation and one PCA observation with actual values. Separate each observation from a possible explanation and the evidence needed to evaluate it. If donor or batch mapping is unavailable, say so explicitly.</p>
+<p><strong>Optional AI prompt:</strong> “Compare my verification record and interpretation with these saved outputs. Identify claims the evidence does not support, without supplying missing results.”</p>
+<p><strong>Before moving on:</strong> at least one retained cell is checked independently, any available exclusion is explained and no unresolved discrepancy is hidden.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

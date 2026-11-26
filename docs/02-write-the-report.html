@@ -145,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single Cell Analysis with R</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single-Cell Analysis with R</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -330,6 +330,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#create-the-starter" id="toc-create-the-starter" class="nav-link active" data-scroll-target="#create-the-starter">1. Create the starter</a></li>
   <li><a href="#edit-your-report" id="toc-edit-your-report" class="nav-link" data-scroll-target="#edit-your-report">2. Edit your report</a></li>
   <li><a href="#render-and-read" id="toc-render-and-read" class="nav-link" data-scroll-target="#render-and-read">3. Render and read</a></li>
+  <li><a href="#make-each-claim-traceable" id="toc-make-each-claim-traceable" class="nav-link" data-scroll-target="#make-each-claim-traceable">Make each claim traceable</a></li>
   </ul>
 </nav>
     </div>
@@ -383,6 +384,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Replace the report filename when using another dataset. The HTML stays in <code>reports/</code>; its figures are embedded for convenient sharing. Confirm that both display and that no bracketed starter text remains. Inspect the report for private metadata before sharing.</p>
 <p>The complete <code>reports/</code> folder is ignored by Git. Do not add reports to <code>_quarto.yml</code> or commit learner writing. The book’s seven-step examples remain separate from these reports.</p>
+</section>
+<section id="make-each-claim-traceable" class="level2">
+<h2 class="anchored" data-anchor-id="make-each-claim-traceable">Make each claim traceable</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Claim in your report</th>
+<th>Where to check it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Input and retained cell counts</td>
+<td><code>tables/cell-qc.tsv</code>; sum the retained flags</td>
+</tr>
+<tr class="even">
+<td>The thresholds used</td>
+<td><code>tables/parameters.tsv</code></td>
+</tr>
+<tr class="odd">
+<td>A cell’s QC metrics</td>
+<td>Its exact <code>cell_id</code> row and an independent raw-count calculation</td>
+</tr>
+<tr class="even">
+<td>A transformed gene value</td>
+<td>The raw count formula and <code>normalized.rds</code></td>
+</tr>
+<tr class="odd">
+<td>Variance explained by PCA</td>
+<td><code>tables/pca-variance.tsv</code>; fractions × 100</td>
+</tr>
+<tr class="even">
+<td>Which genes entered PCA</td>
+<td><code>tables/selected-genes.tsv</code></td>
+</tr>
+<tr class="odd">
+<td>Which files and software were used</td>
+<td>Input checksums, source provenance and <code>session-info.txt</code></td>
+</tr>
+</tbody>
+</table>
+<p>The table paths above are inside <code>results/DATASET/</code>. State rounded values in the report, but compare full values during verification. A verification record can be compact: cell ID, quantity/gene, manual value, saved value and verdict.</p>
+<p>An observation describes what the output shows. An interpretation proposes what it means. A limitation explains why that meaning is not established or how far it can be generalized. Keep all three visible. Neither a successful script nor AI approval replaces a scientific argument.</p>
+<p>Before sharing, read the rendered report as though you had not run the code: can you identify the question, reconstruct the key check and understand the strongest supported conclusion without guessing?</p>
 
 
 </section>

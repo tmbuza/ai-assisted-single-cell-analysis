@@ -145,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single Cell Analysis with R</span></a>
+  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single-Cell Analysis with R</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -322,8 +322,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#generate-the-documented-outputs" id="toc-generate-the-documented-outputs" class="nav-link active" data-scroll-target="#generate-the-documented-outputs">Generate the documented outputs</a></li>
+  <li><a href="#understand-what-transfers-from-the-examples" id="toc-understand-what-transfers-from-the-examples" class="nav-link" data-scroll-target="#understand-what-transfers-from-the-examples">Understand what transfers from the examples</a></li>
+  <li><a href="#inspect-before-interpreting" id="toc-inspect-before-interpreting" class="nav-link" data-scroll-target="#inspect-before-interpreting">Inspect before interpreting</a></li>
+  <li><a href="#your-task" id="toc-your-task" class="nav-link" data-scroll-target="#your-task">Your task</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -347,13 +356,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="generate-the-documented-outputs" class="level2">
+<h2 class="anchored" data-anchor-id="generate-the-documented-outputs">Generate the documented outputs</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> scripts/R/run_workflow.R your-study</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Read <code>results/your-study/tables/cell-qc.tsv</code> before interpreting the plots. The retained column records the QC decision for every input cell, including zero-count cells, which are excluded.</p>
-<p>For each retained cell, divide each raw gene count by that cell’s total, multiply by 10,000, then apply <code>log(1 + value)</code>. The workflow selects up to 500 genes with highest variance after this transformation. PCA centers genes but does not scale them to unit variance. Reference labels do not enter feature selection or PCA.</p>
-<p>This transparent normalization is for introductory exploration. It does not model technical noise, resolve doublets, remove ambient RNA or correct batches. Review those issues before extending a real analysis. Mitochondrial genes remain eligible for PCA, so inspect whether QC drives the leading components.</p>
-<p><strong>Your task:</strong> record input and retained cell counts, cutoffs and selected-gene count. A large exclusion fraction is a reason to investigate, not automatically a reason to relax thresholds.</p>
+<p>The script creates <code>results/your-study/figures/</code> and <code>results/your-study/tables/</code>. It saves <code>normalized.rds</code> and <code>session-info.txt</code> directly in <code>results/your-study/</code>. Keep these distinct from raw inputs and learner reports.</p>
+<p>If fewer than three cells pass QC, the script stops before PCA. Inspect the saved QC table and your source data; do not relax thresholds blindly. Successful completion means the requested calculations finished, not that your study design has been validated.</p>
+</section>
+<section id="understand-what-transfers-from-the-examples" class="level2">
+<h2 class="anchored" data-anchor-id="understand-what-transfers-from-the-examples">Understand what transfers from the examples</h2>
+<p>The mathematics is unchanged: QC uses raw counts; retained cells are scaled to 10,000 before natural-log <code>log1p</code>; up to 500 positive-variance genes enter centered, unscaled PCA. Published labels and your added sample/donor columns are not used to adjust the PCA. Mitochondrial genes remain eligible for selection.</p>
+<p>Normalization changes numerical scale. It does not restore missing measurements, prove biological comparability or remove all technical effects. This script does not fit a treatment model, resolve doublets, correct batches or infer cell types.</p>
+</section>
+<section id="inspect-before-interpreting" class="level2">
+<h2 class="anchored" data-anchor-id="inspect-before-interpreting">Inspect before interpreting</h2>
+<p>Read <code>tables/cell-qc.tsv</code>, then view both QC panels. If sample IDs are available, compare retained counts by sample rather than relying only on an overall percentage. For example, this is <strong>R-console code</strong>:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>qc <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"results/your-study/tables/cell-qc.tsv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(qc, <span class="fu">table</span>(sample_id, retained))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Exit R before using terminal commands again. Disproportionate loss from one sample can affect later comparisons and deserves investigation.</p>
+<p>Next inspect PCA and <code>tables/pca-variance.tsv</code>. Multiply fractions by 100 for axis percentages. A clear visual pattern is a question to investigate; it is not an automatically identified cell type or a significant difference.</p>
+</section>
+<section id="your-task" class="level2">
+<h2 class="anchored" data-anchor-id="your-task">Your task</h2>
+<p>Record input and retained cell counts, exclusions by sample, the cutoffs and leading variance percentages. State whether you will retain or revise the provisional QC choices and why. If revising, rerun this analysis and verification before drafting final claims.</p>
+<p><strong>Before moving on:</strong> the result files correspond to the input version and cutoff decisions you intend to explain.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

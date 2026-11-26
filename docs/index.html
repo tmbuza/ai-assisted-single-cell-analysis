@@ -83,7 +83,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-title">AI-Assisted Single Cell Analysis with R</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-title">AI-Assisted Single-Cell Analysis with R</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -110,7 +110,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">AI-Assisted Single Cell Analysis with R</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">AI-Assisted Single-Cell Analysis with R</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -329,8 +329,39 @@ ul.task-list li input[type="checkbox"] {
 <p>This first practical covers cell quality control (QC), counts per 10,000, log transformation and principal component analysis (PCA). It does not assign new cell types or test treatment effects. Cells from one donor are not independent biological replicates.</p>
 <p><strong>Human → AI → Human:</strong> decide the question yourself; ask AI to explain a command or critique a claim; check its answer against your files and calculations. Never accept a biological claim solely because AI generated it.</p>
 <p>Begin with <a href="./00-setup.html">setup</a>, then follow synthetic practice. The same commands and file conventions apply to the real example and your own study.</p>
+<section id="choose-your-starting-point" class="level2">
+<h2 class="anchored" data-anchor-id="choose-your-starting-point">Choose your starting point</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Learning path</th>
+<th>What changes from the previous example?</th>
+<th>Start here</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Synthetic practice</td>
+<td>Known construction, deliberate QC failures and exact worked calculations</td>
+<td><a href="./examples/synthetic/00-define.html">Define</a></td>
+</tr>
+<tr class="even">
+<td>Zeisel mouse brain</td>
+<td>Published measurements, source metadata and limits of a convenience subset</td>
+<td><a href="./examples/zeisel/00-define.html">Define</a></td>
+</tr>
+<tr class="odd">
+<td>Your own study</td>
+<td>Your question, input preparation, justified QC decisions and interpretation</td>
+<td><a href="./examples/your-study/00-define.html">Define</a></td>
+</tr>
+</tbody>
+</table>
+<p>Complete the paths in this order on your first visit. A later return can begin at the relevant step, but changing inputs or cutoffs means rerunning checks, analysis and verification.</p>
+<p>Your main deliverable is not just a plot. It is a short report in which a reader can trace a claim to its input, method, saved output and check. You will learn the same habits with simulated counts before applying them to a real study.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

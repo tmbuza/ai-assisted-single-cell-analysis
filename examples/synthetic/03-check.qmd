@@ -1,13 +1,39 @@
 # Check: Synthetic practice
 
+## Validate the files
+
 ```bash
 Rscript scripts/R/check_inputs.R synthetic
 ```
 
-The check rejects invalid counts, duplicate or mismatched IDs, missing sample IDs and invalid mitochondrial flags. Matching metadata are reordered to matrix order rather than assumed to be aligned.
+Expected output includes **1,000 genes, 200 cells and four sample ID values**, followed by an identifier/raw-count check success message.
 
-Before proceeding, inspect `config/qc.tsv`. The synthetic row supplies minimum counts, minimum detected genes and maximum mitochondrial percentage. These are **illustrative teaching cutoffs**, not universal biological rules. Record any change and inspect how it affects retained cells. Mitochondrial percentages may reflect biology as well as damage.
+The checker rejects missing or duplicate identifiers, mismatched metadata IDs, nonnumeric values, negative or fractional counts and missing counts. It checks required metadata columns and logical mitochondrial flags. When IDs match but appear in different orders, it aligns metadata to matrix order.
 
-**Your task:** confirm donor, condition and batch information where available. Unknown sample mapping permits descriptive exploration only. A passing file check does not establish biological replication.
+A successful check means the files meet this script's input contract. It does not establish biological replication, meaningful labels or appropriate thresholds.
 
-**AI prompt:** “Explain these QC cutoffs and suggest what evidence I should inspect before changing them. Do not label cells as damaged solely from one metric.”
+## Review the QC rules
+
+Open `config/qc.tsv`. The synthetic row should contain:
+
+| Rule | Value | A cell passes when… |
+|---|---:|---|
+| `min_counts` | 500 | Total counts are at least 500 |
+| `min_genes` | 200 | At least 200 genes have positive counts |
+| `max_mito_pct` | 30 | Mitochondrial counts are at most 30% of total counts |
+
+A cell must pass **all three** and have a positive total. A zero-total cell is excluded; its mitochondrial percentage is undefined (`NA`). The parameters are recorded during Run.
+
+These cutoffs were chosen for this teaching dataset. They are not a recommendation for every organism, technology or tissue. A high mitochondrial fraction may motivate investigation; the flag alone does not prove that a real cell is damaged.
+
+## Predict two decisions
+
+Cell047 was deliberately generated with only **85 total counts**. Even before plotting, you can predict that it fails the minimum-count rule. Cell048 has adequate counts but a deliberately high mitochondrial fraction; check the right QC panel before explaining its exclusion.
+
+## Your task
+
+Record the matrix dimensions and the three cutoffs. State which checks are automated and which depend on understanding the study. If a check fails, correct the input or investigate the cause; do not bypass it simply to produce a plot.
+
+**Optional AI prompt:** “Explain these three QC rules in plain language. Ask what evidence I should inspect before transferring them to another dataset.”
+
+**Before moving on:** the input check passes and you understand the retention rule you are about to apply.

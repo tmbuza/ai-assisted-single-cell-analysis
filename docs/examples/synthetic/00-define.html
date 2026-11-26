@@ -110,7 +110,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single Cell Analysis with R</span></a>
+  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single-Cell Analysis with R</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -287,8 +287,16 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#the-question" id="toc-the-question" class="nav-link active" data-scroll-target="#the-question">The question</a></li>
+  <li><a href="#what-you-will-learn" id="toc-what-you-will-learn" class="nav-link" data-scroll-target="#what-you-will-learn">What you will learn</a></li>
+  <li><a href="#your-task" id="toc-your-task" class="nav-link" data-scroll-target="#your-task">Your task</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -312,11 +320,31 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Can we recover the deliberately introduced expression pattern after checking cell quality? The 200 cells and two simulated patterns are teaching constructs, not biological evidence.</p>
-<p><strong>Your task:</strong> write the question and one conclusion these data cannot support.</p>
-<p><strong>AI prompt:</strong> “Critique the scope of my question. What metadata would I need? Do not invent missing study details.”</p>
+<section id="the-question" class="level2">
+<h2 class="anchored" data-anchor-id="the-question">The question</h2>
+<p><strong>After basic cell quality checks, are the two simulated expression populations distinguishable in an exploratory PCA?</strong></p>
+<p>Begin with data whose construction is known. You can check whether the workflow produces the intended outputs before applying it to a study with unknown biology.</p>
+<p>The practice dataset has <strong>1,000 genes and 200 cells</strong>. Two populations, Simulated A and Simulated B, have different expected expression for selected genes. Cells also vary in total counts and expression within each population. Five cells have deliberately low counts; five have deliberately high mitochondrial fractions.</p>
+<p>These are simulated gene counts, not measurements from an organism. The four <code>Practice</code> sample IDs are bookkeeping labels, not real donors or biological replicates. The simulation is not fitted to the Zeisel dataset.</p>
+</section>
+<section id="what-you-will-learn" class="level2">
+<h2 class="anchored" data-anchor-id="what-you-will-learn">What you will learn</h2>
+<p>You will trace a cell through the count matrix, check its metadata, examine QC decisions, interpret PCA and independently recalculate one result. The final output is a short report that explains both an observation and its limits.</p>
+<p>The analysis can show whether the constructed patterns remain visible after this QC and normalization. It cannot discover a new biological cell type, establish a treatment effect or demonstrate how a real tissue behaves.</p>
+</section>
+<section id="your-task" class="level2">
+<h2 class="anchored" data-anchor-id="your-task">Your task</h2>
+<p>Before running anything, write two sentences:</p>
+<ol type="1">
+<li>“My question is …”</li>
+<li>“Even if the PCA separates the populations, I cannot conclude …”</li>
+</ol>
+<p>Then predict how a low-count cell might affect a normalized value. You will revisit this after checking Cell047.</p>
+<p><strong>Optional AI prompt:</strong> “Critique the scope of my question about simulated single-cell counts. Separate a calculation I can verify from a biological claim these data cannot support.”</p>
+<p><strong>Before moving on:</strong> you should be able to explain why known simulation labels help evaluate a workflow without constituting biological evidence.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

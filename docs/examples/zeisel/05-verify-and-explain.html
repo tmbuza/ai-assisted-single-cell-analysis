@@ -145,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single Cell Analysis with R</span></a>
+  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single-Cell Analysis with R</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -327,7 +327,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#worked-verification" id="toc-worked-verification" class="nav-link active" data-scroll-target="#worked-verification">Worked verification</a></li>
+  <li><a href="#verify-the-worked-cell" id="toc-verify-the-worked-cell" class="nav-link active" data-scroll-target="#verify-the-worked-cell">Verify the worked cell</a></li>
+  <li><a href="#recalculate-from-the-source-matrix" id="toc-recalculate-from-the-source-matrix" class="nav-link" data-scroll-target="#recalculate-from-the-source-matrix">Recalculate from the source matrix</a></li>
+  <li><a href="#explain-what-passed" id="toc-explain-what-passed" class="nav-link" data-scroll-target="#explain-what-passed">Explain what passed</a></li>
+  <li><a href="#your-task" id="toc-your-task" class="nav-link" data-scroll-target="#your-task">Your task</a></li>
   </ul>
 </nav>
     </div>
@@ -353,23 +356,82 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Verify the cell used in this worked example. Confirm that its ID appears in <code>results/zeisel/tables/cell-qc.tsv</code>. If your downloaded source uses different IDs, choose an exact retained cell_id from that table instead.</p>
+<section id="verify-the-worked-cell" class="level2">
+<h2 class="anchored" data-anchor-id="verify-the-worked-cell">Verify the worked cell</h2>
+<p>Confirm that <code>1772071015_C02</code> appears in <code>results/zeisel/tables/cell-qc.tsv</code>, then run:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> scripts/R/verify_cell.R zeisel 1772071015_C02</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The verifier reads raw inputs independently; it does not call the analysis QC or normalization functions. It recalculates total counts, detected genes, mitochondrial percentage, the retained decision, and one positive gene’s normalized expression when retained. A disagreement stops execution. This checks arithmetic for one cell; it does not verify the entire scientific analysis.</p>
-<p>Manually check the same cell:</p>
-<ol type="1">
-<li>Sum its gene counts: total counts.</li>
-<li>Count genes with counts greater than zero: detected genes.</li>
-<li>Sum counts flagged mitochondrial, divide by total counts, multiply by 100.</li>
-<li>For one positive gene, calculate <code>log(1 + 10000 * gene_count / total_counts)</code>.</li>
-</ol>
-<p>For a zero-total cell the mitochondrial percentage is undefined (NA), and the cell is excluded.</p>
-<p><strong>Explain:</strong> write one observation from QC and one from PCA. Quote actual cell counts or variance percentages. Explain whether exclusions or technical factors could influence the pattern. Do not invent a result before running the analysis.</p>
-<p><strong>AI prompt:</strong> “Review my observation against these exact saved values. Separate what the plot shows from my interpretation, and flag claims requiring more evidence.”</p>
-<section id="worked-verification" class="level2">
-<h2 class="anchored" data-anchor-id="worked-verification">Worked verification</h2>
-<p>For the tested source subset, cell <code>1772071015_C02</code> has total counts <strong>22,354</strong>, <strong>4,871</strong> detected genes and <strong>3.462468%</strong> mitochondrial counts. It is retained. The verifier checks normalized expression for the first positive gene; in this input that is <strong>Tshz1</strong>, with value <strong>0.8510231</strong> (rounded). If input bytes or package data change, investigate the difference rather than forcing values to match.</p>
-<p>All 400 cells in this convenience subset passed the illustrative QC cutoffs. That does not establish that every cell is biologically high quality. Repeat the verifier with another retained cell; there are no excluded cells to verify in this particular run.</p>
+<p>The checked source subset gives:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Quantity</th>
+<th style="text-align: right;">Verified value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Total counts</td>
+<td style="text-align: right;">22,354</td>
+</tr>
+<tr class="even">
+<td>Detected genes</td>
+<td style="text-align: right;">4,871</td>
+</tr>
+<tr class="odd">
+<td>Mitochondrial counts</td>
+<td style="text-align: right;">774</td>
+</tr>
+<tr class="even">
+<td>Mitochondrial percentage</td>
+<td style="text-align: right;">3.462468%</td>
+</tr>
+<tr class="odd">
+<td>Retained</td>
+<td style="text-align: right;">TRUE</td>
+</tr>
+<tr class="even">
+<td>Tshz1 raw count</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td>Tshz1 transformed expression</td>
+<td style="text-align: right;">0.8510231</td>
+</tr>
+</tbody>
+</table>
+<p>Console percentages are rounded. If your source has different IDs or values, first inspect provenance and the saved input files rather than editing them to match this table.</p>
+</section>
+<section id="recalculate-from-the-source-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="recalculate-from-the-source-matrix">Recalculate from the source matrix</h2>
+<p>The two worked calculations are:</p>
+<p>[ 100=3.462468%, ]</p>
+<p>[ (1+10{,}000)=0.8510231. ]</p>
+<p>This is <strong>R code</strong>, to run in an R console opened from the main project folder:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matrix)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"data/zeisel/counts.rds"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>genes <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"data/zeisel/gene-metadata.tsv"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(counts[, <span class="st">"1772071015_C02"</span>])</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(x) <span class="ot">&lt;-</span> <span class="fu">rownames</span>(counts)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>mito <span class="ot">&lt;-</span> genes<span class="sc">$</span>is_mito[<span class="fu">match</span>(<span class="fu">names</span>(x), genes<span class="sc">$</span>gene_id)]</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(x)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(x <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(x[mito])</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span> <span class="sc">*</span> <span class="fu">sum</span>(x[mito]) <span class="sc">/</span> <span class="fu">sum</span>(x)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>x[<span class="st">"Tshz1"</span>]</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">log1p</span>(<span class="dv">10000</span> <span class="sc">*</span> x[<span class="st">"Tshz1"</span>] <span class="sc">/</span> <span class="fu">sum</span>(x))</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"results/zeisel/normalized.rds"</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>y[<span class="st">"Tshz1"</span>, <span class="st">"1772071015_C02"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Exit R with <code>q(save = "no")</code> before using terminal commands again. Compare these calculations with the saved QC row and transformed value.</p>
+</section>
+<section id="explain-what-passed" class="level2">
+<h2 class="anchored" data-anchor-id="explain-what-passed">Explain what passed</h2>
+<p>The independent script does not call the workflow’s QC functions. It checks raw-input file consistency, per-cell arithmetic, retention against saved cutoffs and one positive gene’s transformed value for retained cells. It does not validate donor mapping or the biological meaning of PCA.</p>
+<p>All 400 cells pass the configured rules in this run, so there is no excluded-cell case to verify here. Repeat with a second exact cell ID from the saved table; do not invent a failure to mirror synthetic practice.</p>
+</section>
+<section id="your-task" class="level2">
+<h2 class="anchored" data-anchor-id="your-task">Your task</h2>
+<p>Write a verification record with the ID, one manual calculation, its saved counterpart and the verdict. Then write one QC observation and one PCA observation. Add that source-order selection and unknown donor mapping limit interpretation.</p>
+<p><strong>Optional AI prompt:</strong> “Check this paragraph against my verified numbers. Separate arithmetic evidence, a visual observation and a biological claim requiring more data.”</p>
 
 
 </section>

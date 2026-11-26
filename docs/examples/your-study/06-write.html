@@ -145,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single Cell Analysis with R</span></a>
+  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single-Cell Analysis with R</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -322,8 +322,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#create-your-study-report" id="toc-create-your-study-report" class="nav-link active" data-scroll-target="#create-your-study-report">Create your study report</a></li>
+  <li><a href="#turn-notes-into-a-defensible-account" id="toc-turn-notes-into-a-defensible-account" class="nav-link" data-scroll-target="#turn-notes-into-a-defensible-account">Turn notes into a defensible account</a></li>
+  <li><a href="#render-and-inspect" id="toc-render-and-inspect" class="nav-link" data-scroll-target="#render-and-inspect">Render and inspect</a></li>
+  <li><a href="#final-learner-review" id="toc-final-learner-review" class="nav-link" data-scroll-target="#final-learner-review">Final learner review</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -347,16 +356,73 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Create your report starter from the main project folder:</p>
+<section id="create-your-study-report" class="level2">
+<h2 class="anchored" data-anchor-id="create-your-study-report">Create your study report</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> scripts/R/create_report.R your-study</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Open <code>reports/your-study-report.qmd</code> and replace the bracketed instructions with your own checked results. Follow <a href="../../02-write-the-report.html">Write the report</a> for what to include.</p>
-<p>When the report is ready:</p>
+<p>Open <code>reports/your-study-report.qmd</code>. Use your own values throughout; synthetic and Zeisel numbers are worked examples, not values to transfer into your report. The helper preserves existing writing.</p>
+</section>
+<section id="turn-notes-into-a-defensible-account" class="level2">
+<h2 class="anchored" data-anchor-id="turn-notes-into-a-defensible-account">Turn notes into a defensible account</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Section</th>
+<th>Evidence to include</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Question and data</td>
+<td>Source, organism, assay, raw-count units, samples/donors and known design limits</td>
+</tr>
+<tr class="even">
+<td>Methods</td>
+<td>Input checks, annotation, justified QC rules, transformation and PCA choices</td>
+</tr>
+<tr class="odd">
+<td>Results</td>
+<td>Actual cell counts, sample-specific retention where known, figures and variance percentages</td>
+</tr>
+<tr class="even">
+<td>Verification</td>
+<td>An exact cell ID, manual/saved values and verifier outcome</td>
+</tr>
+<tr class="odd">
+<td>Interpretation</td>
+<td>Observations, possible explanations and evidence still needed</td>
+</tr>
+<tr class="even">
+<td>AI use</td>
+<td>The assistance received and your checks of it</td>
+</tr>
+<tr class="odd">
+<td>Next step</td>
+<td>A justified follow-up matched to the unresolved question</td>
+</tr>
+</tbody>
+</table>
+<p>An observation such as “one sample lost a larger fraction of cells” can be reported if the saved table supports it. An explanation such as “that sample was damaged” requires additional evidence. Similarly, separated PCA regions do not by themselves establish a condition effect.</p>
+<p>Keep the denominator visible: “X of Y input cells passed the configured rules.” If QC choices were revised, describe the final rationale and note the decision process. Do not select only the most attractive plot from several undocumented runs.</p>
+</section>
+<section id="render-and-inspect" class="level2">
+<h2 class="anchored" data-anchor-id="render-and-inspect">Render and inspect</h2>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> reports</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render your-study-report.qmd</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Read <code>reports/your-study-report.html</code> and confirm the figures display. The whole <code>reports/</code> folder is ignored by Git; the helper never overwrites an existing report. If you created a report before figures moved into <code>figures/</code>, update its image links to <code>../results/your-study/figures/qc.png</code> and <code>../results/your-study/figures/pca.png</code>.</p>
+<p>Read <code>reports/your-study-report.html</code>. Both figures should display using paths under <code>../results/your-study/figures/</code>. Confirm every number against its source, remove bracketed starter instructions and record software/input provenance. Embedded images make HTML convenient to share but do not remove private information from it; inspect content before distribution.</p>
+</section>
+<section id="final-learner-review" class="level2">
+<h2 class="anchored" data-anchor-id="final-learner-review">Final learner review</h2>
+<p>Can another reader find your raw input source, understand the retention rule, repeat one cell calculation and distinguish your observations from interpretation? If not, revise the relevant section before sharing.</p>
+<p><strong>Your task:</strong> identify the strongest supported conclusion and the most important limitation. State one next action that would address that limitation rather than simply repeat the same plot.</p>
+<p>Keep the report and generated HTML inside ignored <code>reports/</code>. Publish or share a reviewed report deliberately; do not add private learner outputs to the book’s chapter list.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

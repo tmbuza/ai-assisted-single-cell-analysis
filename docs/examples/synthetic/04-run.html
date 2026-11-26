@@ -145,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single Cell Analysis with R</span></a>
+  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single-Cell Analysis with R</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -322,8 +322,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#run-once-then-inspect" id="toc-run-once-then-inspect" class="nav-link active" data-scroll-target="#run-once-then-inspect">Run once, then inspect</a></li>
+  <li><a href="#what-the-script-calculates" id="toc-what-the-script-calculates" class="nav-link" data-scroll-target="#what-the-script-calculates">What the script calculates</a></li>
+  <li><a href="#find-the-evidence" id="toc-find-the-evidence" class="nav-link" data-scroll-target="#find-the-evidence">Find the evidence</a></li>
+  <li><a href="#your-task" id="toc-your-task" class="nav-link" data-scroll-target="#your-task">Your task</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -347,13 +356,69 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="run-once-then-inspect" class="level2">
+<h2 class="anchored" data-anchor-id="run-once-then-inspect">Run once, then inspect</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> scripts/R/run_workflow.R synthetic</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Read <code>results/synthetic/tables/cell-qc.tsv</code> before interpreting the plots. The retained column records the QC decision for every input cell, including zero-count cells, which are excluded.</p>
-<p>For each retained cell, divide each raw gene count by that cell’s total, multiply by 10,000, then apply <code>log(1 + value)</code>. The workflow selects up to 500 genes with highest variance after this transformation. PCA centers genes but does not scale them to unit variance. Reference labels do not enter feature selection or PCA.</p>
-<p>This transparent normalization is for introductory exploration. It does not model technical noise, resolve doublets, remove ambient RNA or correct batches. Review those issues before extending a real analysis. Mitochondrial genes remain eligible for PCA, so inspect whether QC drives the leading components.</p>
-<p><strong>Your task:</strong> record input and retained cell counts, cutoffs and selected-gene count. A large exclusion fraction is a reason to investigate, not automatically a reason to relax thresholds.</p>
+<p>Expected summary: <strong>190 of 200 cells retained</strong>. Messages saying <code>null device</code> followed by <code>1</code> are normal: R has finished writing a figure.</p>
+<p>Start with <code>results/synthetic/tables/cell-qc.tsv</code>. It includes every input cell, the three QC metrics and <code>retained</code>. Excluded cells remain in this table but do not enter normalization or PCA.</p>
+</section>
+<section id="what-the-script-calculates" class="level2">
+<h2 class="anchored" data-anchor-id="what-the-script-calculates">What the script calculates</h2>
+<p>For a retained cell, let (T) be its total raw counts and (x_g) a gene’s count. The saved transformed value is:</p>
+<p>[ y_g=(1+10{,}000). ]</p>
+<p>Dividing by the cell total adjusts each cell to a common total of 10,000 before transformation. <code>log</code> is the natural logarithm; <code>log1p(z)</code> calculates <code>log(1 + z)</code>. The saved log-transformed values no longer sum to 10,000. This simple scaling does not remove every technical effect or justify treatment comparisons.</p>
+<p>The script computes gene variance across retained cells, selects up to <strong>500 genes with positive variance</strong>, and runs PCA after centering genes. It does not scale genes to unit variance. It does not remove mitochondrial genes from feature selection, so technical or QC-related variation can remain important.</p>
+<p>Population labels do not enter normalization, feature selection or PCA. They are used to colour synthetic points after scores are calculated.</p>
+</section>
+<section id="find-the-evidence" class="level2">
+<h2 class="anchored" data-anchor-id="find-the-evidence">Find the evidence</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Look at…</th>
+<th>Check…</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>tables/cell-qc.tsv</code></td>
+<td>Retained/excluded decisions for all 200 cells</td>
+</tr>
+<tr class="even">
+<td><code>tables/parameters.tsv</code></td>
+<td>The cutoffs actually used</td>
+</tr>
+<tr class="odd">
+<td><code>tables/selected-genes.tsv</code></td>
+<td>Which genes entered PCA and their variances</td>
+</tr>
+<tr class="even">
+<td><code>tables/pca.tsv</code></td>
+<td>One score row per retained cell</td>
+</tr>
+<tr class="odd">
+<td><code>tables/pca-variance.tsv</code></td>
+<td>Fractions; multiply by 100 for percentages</td>
+</tr>
+<tr class="even">
+<td><code>normalized.rds</code></td>
+<td>Transformed values for all genes in retained cells</td>
+</tr>
+</tbody>
+</table>
+<p>All paths in the table are inside <code>results/synthetic/</code>. The workflow records input checksums and session information as well.</p>
+</section>
+<section id="your-task" class="level2">
+<h2 class="anchored" data-anchor-id="your-task">Your task</h2>
+<p>Record 200 input cells, 190 retained cells and 10 exclusions. Return to Preview and describe the two figures using your generated outputs. If the numbers differ, confirm the seed, input version and cutoffs before writing an interpretation.</p>
+<p><strong>Before moving on:</strong> the figures exist, their source tables are identifiable, and you are ready to verify a calculation independently.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

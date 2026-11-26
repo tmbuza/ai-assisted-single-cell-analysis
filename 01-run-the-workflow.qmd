@@ -29,3 +29,13 @@ Follow each example from Define to Write. Use `synthetic`, `zeisel` or `your-stu
 Run commands one at a time. Continue only after success. Recreate inputs only when needed; after changing inputs or QC cutoffs, rerun Check, Run and Verify before interpreting results. The verifier detects changed input bytes. A successful command checks calculation, not scientific interpretation.
 
 Keep learner-generated reports in the ignored `reports/` folder. [Write the report](02-write-the-report.qmd) explains how to create one without adding it to the book.
+
+## Three habits to carry through every example
+
+**Keep decisions separate from calculations.** The script applies your cutoffs; you justify them. It calculates PCA; you decide what the design and metadata allow you to say about it.
+
+**Keep inputs, results and writing distinct.** Raw files belong in `data/DATASET/`, generated outputs in `results/DATASET/` and learner writing in `reports/`. A report should identify the run it describes. Rerunning the script does not rewrite your report's prose.
+
+**Use AI at a specific point.** First make your own prediction or observation. Then ask AI to explain a command or question a claim using supplied evidence. Finally compare its response with the actual files and revise your own explanation. Share only data you are permitted to disclose; do not send participant identifiers.
+
+At each step, keep a brief note of what you did, what you observed and what remains uncertain. Those notes become the Methods, Results and Limitations sections of the report.

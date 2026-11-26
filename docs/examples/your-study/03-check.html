@@ -145,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single Cell Analysis with R</span></a>
+  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single-Cell Analysis with R</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -322,8 +322,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#validate-structure" id="toc-validate-structure" class="nav-link active" data-scroll-target="#validate-structure">Validate structure</a></li>
+  <li><a href="#review-the-design-manually" id="toc-review-the-design-manually" class="nav-link" data-scroll-target="#review-the-design-manually">Review the design manually</a></li>
+  <li><a href="#choose-and-record-qc-cutoffs" id="toc-choose-and-record-qc-cutoffs" class="nav-link" data-scroll-target="#choose-and-record-qc-cutoffs">Choose and record QC cutoffs</a></li>
+  <li><a href="#your-task" id="toc-your-task" class="nav-link" data-scroll-target="#your-task">Your task</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -347,13 +356,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="validate-structure" class="level2">
+<h2 class="anchored" data-anchor-id="validate-structure">Validate structure</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> scripts/R/check_inputs.R your-study</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The check rejects invalid counts, duplicate or mismatched IDs, missing sample IDs and invalid mitochondrial flags. Matching metadata are reordered to matrix order rather than assumed to be aligned.</p>
-<p>Before proceeding, inspect <code>config/qc.tsv</code>. The your-study row supplies minimum counts, minimum detected genes and maximum mitochondrial percentage. These are <strong>illustrative teaching cutoffs</strong>, not universal biological rules. Record any change and inspect how it affects retained cells. Mitochondrial percentages may reflect biology as well as damage.</p>
-<p><strong>Your task:</strong> confirm donor, condition and batch information where available. Unknown sample mapping permits descriptive exploration only. A passing file check does not establish biological replication.</p>
-<p><strong>AI prompt:</strong> “Explain these QC cutoffs and suggest what evidence I should inspect before changing them. Do not label cells as damaged solely from one metric.”</p>
+<p>Record the reported gene and cell counts and sample ID values. Compare them with what you expected from your source. A surprising count is a reason to inspect preparation, not merely a new fact to accept.</p>
+<p>The script checks numeric raw counts, finite nonnegative integers, required columns, nonempty unique matrix/metadata IDs, exact matching sets and logical mitochondrial flags. It aligns metadata by ID. It does not validate donor assignment, gene annotation accuracy, participant consent, experimental design or batch/condition confounding.</p>
+</section>
+<section id="review-the-design-manually" class="level2">
+<h2 class="anchored" data-anchor-id="review-the-design-manually">Review the design manually</h2>
+<p>Confirm that cells map to the intended samples and that sample IDs have not been mistaken for donors. Inspect whether a condition occurs only in one processing batch or one donor. Extra metadata columns are retained for review; they do not become covariates in this introductory PCA.</p>
+</section>
+<section id="choose-and-record-qc-cutoffs" class="level2">
+<h2 class="anchored" data-anchor-id="choose-and-record-qc-cutoffs">Choose and record QC cutoffs</h2>
+<p>Open <code>config/qc.tsv</code>. The <code>your-study</code> row initially contains <strong>500 counts, 200 detected genes and 30% maximum mitochondrial counts</strong>. These are starting values in a teaching configuration, not validated criteria for your study.</p>
+<p>Inspect source preprocessing and published assay guidance before deciding whether these are appropriate. A first documented run can show the distributions, but its retained set remains provisional until you review the QC panels. If you revise cutoffs, record the old and new values and rationale, then rerun Check, Run and Verify. Never choose cutoffs to manufacture PCA separation.</p>
+<p>A cell passes only if all thresholds pass and its total is positive. The current workflow has no upper-count/doublet rule. High-count cells therefore need investigation even when they pass.</p>
+</section>
+<section id="your-task" class="level2">
+<h2 class="anchored" data-anchor-id="your-task">Your task</h2>
+<p>Write a check record with dimensions, ID-matching outcome, annotation source, known mapping gaps and your cutoff rationale. If a structural check fails, fix the source or preparation and rerun it before proceeding.</p>
+<p><strong>Optional AI prompt:</strong> “Review my input-check record and proposed QC criteria. Identify assumptions and missing evidence without inventing metadata or optimizing for a desired plot.”</p>
+<p><strong>Before moving on:</strong> file checks pass and any provisional choices or unresolved design limits are visible in your notes.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -1,19 +1,36 @@
 # Preview: Zeisel mouse brain
 
-Plots are saved in `results/zeisel/figures/` as `qc.png` and `pca.png`. Tab-separated tables, including `cell-qc.tsv` and `pca.tsv`, are saved in `results/zeisel/tables/`. The saved R object `normalized.rds` remains in `results/zeisel/`. Supporting files record selected genes, variance explained, parameters, input checksums and the R session.
+## Expect variation without assuming identities
 
-The two QC panels show counts versus detected genes and counts versus mitochondrial percentage. Blue cells pass all configured cutoffs; red cells fail one or more. Dashed lines show cutoffs. PCA summarizes expression variation among retained cells. Nearby points have similar profiles in the selected gene space; separation alone does not identify cell types or demonstrate significance.
+The output names and calculations match synthetic practice. The inputs and interpretation change.
 
-After running this example, return here to inspect its generated figures:
+| Output | What to inspect |
+|---|---|
+| `results/zeisel/tables/cell-qc.tsv` | Counts, detected genes, mitochondrial percentage and retention for every exported cell |
+| `results/zeisel/figures/qc.png` | Broad variation in depth and whether either QC panel suggests a concern |
+| `results/zeisel/figures/pca.png` | Expression variation among the retained cells |
+| `results/zeisel/tables/pca-variance.tsv` | Fractions of selected-gene variance captured by PCs |
 
-![Cell quality overview](../../results/zeisel/figures/qc.png)
+Run the example first, then return to these figures.
 
-![Exploratory PCA](../../results/zeisel/figures/pca.png)
+## QC: passing is a specific decision
 
-**Your task:** identify what each axis measures before interpreting a pattern. Missing images mean the analysis has not generated them yet.
+![QC for the 400-cell Zeisel teaching subset.](../../results/zeisel/figures/qc.png)
 
-## What the worked result shows
+In the checked run, **all 400 exported cells pass** the illustrative cutoffs. Count totals and detected genes vary widely, and cells with greater count depth generally have more detected genes. The mitochondrial panel provides a separate check; the counts-versus-genes panel alone cannot reveal every QC concern.
 
-All 400 cells in this source-order subset pass the illustrative QC cutoffs. Counts and detected genes vary widely. In the checked run, PC1 explains about 19.5% and PC2 about 9.9% of variance in selected transformed genes. The PCA shows separated regions and variation within them; this alone does not assign cell types or rule out technical effects. Confirm percentages against your own tables/pca-variance.tsv.
+“All pass these cutoffs” is a precise result. “All are high-quality cells” would claim more than these checks establish. The exported data are already a processed, published cell dataset, not raw droplets requiring cell calling.
 
-These plots summarize a convenience subset, not the full tissue. Passing these cutoffs does not check doublets, ambient RNA or donor/batch effects.
+## PCA: structure needs explanation
+
+![Exploratory PCA of retained Zeisel cells.](../../results/zeisel/figures/pca.png)
+
+Each point represents a retained cell. In the checked run, PC1 explains about **19.5%** and PC2 about **9.9%** of variation in the selected transformed genes. The plotted cells occupy separated regions and show variation within those regions. The axes together capture about 29.4%, not all expression variation.
+
+The figure does not label those regions as cell types. Differences could reflect biology, count-related effects or other technical factors; this analysis does not separate those explanations. All points use the same colour deliberately.
+
+## Your task
+
+Write one QC observation and one PCA observation using axis names and a saved number. Then add a limitation that follows from unvalidated donor mapping or the source-order subset. Do not name an apparent group from its position alone.
+
+**Before moving on:** you know which outputs describe QC, which describe transformed expression, and why neither establishes a condition effect.

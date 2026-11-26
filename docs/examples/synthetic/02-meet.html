@@ -145,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single Cell Analysis with R</span></a>
+  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single-Cell Analysis with R</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -322,8 +322,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#prepare-the-inputs" id="toc-prepare-the-inputs" class="nav-link active" data-scroll-target="#prepare-the-inputs">Prepare the inputs</a></li>
+  <li><a href="#understand-the-three-tables" id="toc-understand-the-three-tables" class="nav-link" data-scroll-target="#understand-the-three-tables">Understand the three tables</a></li>
+  <li><a href="#understand-what-was-constructed" id="toc-understand-what-was-constructed" class="nav-link" data-scroll-target="#understand-what-was-constructed">Understand what was constructed</a></li>
+  <li><a href="#your-task" id="toc-your-task" class="nav-link" data-scroll-target="#your-task">Your task</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -347,14 +356,61 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Prepare the inputs from the main project folder:</p>
+<section id="prepare-the-inputs" class="level2">
+<h2 class="anchored" data-anchor-id="prepare-the-inputs">Prepare the inputs</h2>
+<p>From the main project folder, run:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> scripts/R/prepare_synthetic.R</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The matrix stores genes in rows and cells in columns. <code>cell-metadata.tsv</code> connects each cell to a sample and an optional reference label. <code>gene-metadata.tsv</code> flags mitochondrial genes explicitly.</p>
-<p>Read <a href="../../data/your-study/README.md">the input contract</a>. The synthetic labels describe the simulation settings.</p>
-<p><strong>Your task:</strong> open both metadata tables; trace one cell ID to the matrix. Explain the difference between a cell, a sample and a donor.</p>
-<p>This v2 dataset contains 1,000 genes and 200 cells. Seed <code>20261125</code> reproduces the random draws using the RNG settings in the script. Negative-binomial counts give cell-to-cell variation and zeros; unequal library sizes vary total counts. Four artificial sample labels are balanced across two simulated populations. The simulation is not fitted to the real dataset. See <code>data/synthetic/provenance.txt</code> for the construction and deliberate QC failures.</p>
+<p>This recreates the practice inputs using seed <strong>20261125</strong> and explicitly selected R random-number settings. It overwrites synthetic TSV inputs; it does not prepare the real dataset or your personal study. If <code>data/synthetic/counts.rds</code> exists, move it aside first: the reader gives RDS priority, and the generator stops to avoid competing inputs.</p>
+</section>
+<section id="understand-the-three-tables" class="level2">
+<h2 class="anchored" data-anchor-id="understand-the-three-tables">Understand the three tables</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 40%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>File in <code>data/synthetic/</code></th>
+<th style="text-align: right;">Rows</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>counts.tsv</code></td>
+<td style="text-align: right;">1,000 genes</td>
+<td><code>gene_id</code>, followed by 200 cell columns</td>
+</tr>
+<tr class="even">
+<td><code>cell-metadata.tsv</code></td>
+<td style="text-align: right;">200 cells</td>
+<td><code>cell_id</code>, <code>sample_id</code>, <code>reference_label</code>, <code>simulation_note</code></td>
+</tr>
+<tr class="odd">
+<td><code>gene-metadata.tsv</code></td>
+<td style="text-align: right;">1,000 genes</td>
+<td><code>gene_id</code>, <code>is_mito</code></td>
+</tr>
+</tbody>
+</table>
+<p>A count-matrix entry is a simulated nonnegative integer. A zero is an observed zero count in the simulation; it is not a missing value. <code>NA</code> would mean unavailable data and is rejected by this workflow.</p>
+<p>Cells are columns, genes are rows. <code>Cell001</code> therefore names a column in the count matrix and one row in the cell metadata. Do not transpose the matrix to make it resemble the metadata.</p>
+</section>
+<section id="understand-what-was-constructed" class="level2">
+<h2 class="anchored" data-anchor-id="understand-what-was-constructed">Understand what was constructed</h2>
+<p>Genes 1–20 are flagged mitochondrial. Genes 21–100 have increased expected expression in A; genes 101–180 have increased expected expression in B. Random count variation, unequal depths and cell-specific expression variation make individual profiles different. The simulation uses negative-binomial draws for ordinary cells, allowing more variability than a fixed profile copied across cells.</p>
+<p><code>reference_label</code> and <code>simulation_note</code> describe construction settings. QC decisions use counts and mitochondrial flags, not those labels. Known populations colour the PCA only after its scores have been calculated. <code>provenance.txt</code> records the construction and R version.</p>
+</section>
+<section id="your-task" class="level2">
+<h2 class="anchored" data-anchor-id="your-task">Your task</h2>
+<p>Open each TSV in VS Code. Find Cell001 in the matrix and metadata. Find Gene001 in the gene table and confirm that <code>is_mito</code> is <code>TRUE</code>. Identify one cell marked low depth and one marked high mitochondrial fraction.</p>
+<p>Explain the difference between <code>sample_id</code> and <code>reference_label</code>: one identifies an artificial source label, the other a simulated expression population. Neither supplies measured donor replication.</p>
+<p><strong>Before moving on:</strong> you can trace a count to the correct cell and gene without relying on row order alone.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

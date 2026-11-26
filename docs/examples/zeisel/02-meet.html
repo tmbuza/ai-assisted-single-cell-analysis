@@ -145,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single Cell Analysis with R</span></a>
+  <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted Single-Cell Analysis with R</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -322,8 +322,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#retrieve-and-export-the-source" id="toc-retrieve-and-export-the-source" class="nav-link active" data-scroll-target="#retrieve-and-export-the-source">Retrieve and export the source</a></li>
+  <li><a href="#locate-the-evidence" id="toc-locate-the-evidence" class="nav-link" data-scroll-target="#locate-the-evidence">Locate the evidence</a></li>
+  <li><a href="#your-task" id="toc-your-task" class="nav-link" data-scroll-target="#your-task">Your task</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -347,13 +355,62 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Prepare the inputs from the main project folder:</p>
+<section id="retrieve-and-export-the-source" class="level2">
+<h2 class="anchored" data-anchor-id="retrieve-and-export-the-source">Retrieve and export the source</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> scripts/R/prepare_zeisel.R</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The matrix stores genes in rows and cells in columns. <code>cell-metadata.tsv</code> connects each cell to a sample and an optional reference label. <code>gene-metadata.tsv</code> flags mitochondrial genes explicitly.</p>
-<p>Read <a href="../../data/your-study/README.md">the input contract</a>. The published labels are context only; the PCA never uses them.</p>
-<p><strong>Your task:</strong> open both metadata tables; trace one cell ID to the matrix. Explain the difference between a cell, a sample and a donor.</p>
+<p>The first retrieval needs internet access and may download substantially more data than the 400 cells finally exported. The package can reuse its local data cache on later runs. The script exports the inputs again when rerun, so rerun Check, Run and Verify afterward rather than interpreting old results.</p>
+<p>The retrieval call is <code>scRNAseq::ZeiselBrainData(ensembl = FALSE, location = FALSE)</code>. The main assay contains UMI counts. Spike-ins and repeats are stored as alternative experiments and are not included in the teaching count matrix. The original <code>featureType</code> annotation identifies mitochondrial features. See the <a href="https://bioconductor.org/packages/scRNAseq/">package documentation</a>.</p>
+</section>
+<section id="locate-the-evidence" class="level2">
+<h2 class="anchored" data-anchor-id="locate-the-evidence">Locate the evidence</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>File in <code>data/zeisel/</code></th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>counts.rds</code></td>
+<td>Sparse, gene-by-cell main-experiment count matrix</td>
+</tr>
+<tr class="even">
+<td><code>cell-metadata.tsv</code></td>
+<td>Teaching cell IDs, unknown sample mapping and published labels</td>
+</tr>
+<tr class="odd">
+<td><code>gene-metadata.tsv</code></td>
+<td>Matching gene IDs and mitochondrial flags</td>
+</tr>
+<tr class="even">
+<td><code>source-cell-metadata.tsv</code></td>
+<td>Original column metadata for the exported cells</td>
+</tr>
+<tr class="odd">
+<td><code>source-gene-metadata.tsv</code></td>
+<td>Original main-experiment feature metadata</td>
+</tr>
+<tr class="even">
+<td><code>provenance.txt</code>, <code>checksums.tsv</code></td>
+<td>Retrieval settings, versions, selection and file checksums</td>
+</tr>
+</tbody>
+</table>
+<p>For the checked package/data combination, the export has <strong>20,006 genes and 400 cells</strong>. Confirm your own dimensions. Package versions, source data and annotation choices can affect what is retrieved.</p>
+<p>The teaching <code>reference_label</code> comes from the published <code>level1class</code> field. The script does not infer donor IDs from cell names; it records <code>sample_id = unknown</code> instead. Preserve that distinction even when the source has fields that appear suggestive.</p>
+</section>
+<section id="your-task" class="level2">
+<h2 class="anchored" data-anchor-id="your-task">Your task</h2>
+<p>Find cell <code>1772071015_C02</code> in the teaching cell metadata and the full source metadata. Find <code>Tshz1</code> in the gene metadata. Open <code>provenance.txt</code> and record the retrieval function, exported dimensions, package version and selection rule.</p>
+<p><strong>Before moving on:</strong> you can explain why a sparse RDS matrix and a TSV metadata table describe the same cells, and why “unknown sample mapping” must stay visible in your report.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

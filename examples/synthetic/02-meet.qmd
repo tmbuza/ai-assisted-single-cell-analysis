@@ -1,15 +1,37 @@
 # Meet: Synthetic practice
 
-Prepare the inputs from the main project folder:
+## Prepare the inputs
+
+From the main project folder, run:
 
 ```bash
 Rscript scripts/R/prepare_synthetic.R
 ```
 
-The matrix stores genes in rows and cells in columns. `cell-metadata.tsv` connects each cell to a sample and an optional reference label. `gene-metadata.tsv` flags mitochondrial genes explicitly.
+This recreates the practice inputs using seed **20261125** and explicitly selected R random-number settings. It overwrites synthetic TSV inputs; it does not prepare the real dataset or your personal study. If `data/synthetic/counts.rds` exists, move it aside first: the reader gives RDS priority, and the generator stops to avoid competing inputs.
 
-Read [the input contract](../../data/your-study/README.md). The synthetic labels describe the simulation settings.
+## Understand the three tables
 
-**Your task:** open both metadata tables; trace one cell ID to the matrix. Explain the difference between a cell, a sample and a donor.
+| File in `data/synthetic/` | Rows | Meaning |
+|---|---:|---|
+| `counts.tsv` | 1,000 genes | `gene_id`, followed by 200 cell columns |
+| `cell-metadata.tsv` | 200 cells | `cell_id`, `sample_id`, `reference_label`, `simulation_note` |
+| `gene-metadata.tsv` | 1,000 genes | `gene_id`, `is_mito` |
 
-This v2 dataset contains 1,000 genes and 200 cells. Seed `20261125` reproduces the random draws using the RNG settings in the script. Negative-binomial counts give cell-to-cell variation and zeros; unequal library sizes vary total counts. Four artificial sample labels are balanced across two simulated populations. The simulation is not fitted to the real dataset. See `data/synthetic/provenance.txt` for the construction and deliberate QC failures.
+A count-matrix entry is a simulated nonnegative integer. A zero is an observed zero count in the simulation; it is not a missing value. `NA` would mean unavailable data and is rejected by this workflow.
+
+Cells are columns, genes are rows. `Cell001` therefore names a column in the count matrix and one row in the cell metadata. Do not transpose the matrix to make it resemble the metadata.
+
+## Understand what was constructed
+
+Genes 1–20 are flagged mitochondrial. Genes 21–100 have increased expected expression in A; genes 101–180 have increased expected expression in B. Random count variation, unequal depths and cell-specific expression variation make individual profiles different. The simulation uses negative-binomial draws for ordinary cells, allowing more variability than a fixed profile copied across cells.
+
+`reference_label` and `simulation_note` describe construction settings. QC decisions use counts and mitochondrial flags, not those labels. Known populations colour the PCA only after its scores have been calculated. `provenance.txt` records the construction and R version.
+
+## Your task
+
+Open each TSV in VS Code. Find Cell001 in the matrix and metadata. Find Gene001 in the gene table and confirm that `is_mito` is `TRUE`. Identify one cell marked low depth and one marked high mitochondrial fraction.
+
+Explain the difference between `sample_id` and `reference_label`: one identifies an artificial source label, the other a simulated expression population. Neither supplies measured donor replication.
+
+**Before moving on:** you can trace a count to the correct cell and gene without relying on row order alone.

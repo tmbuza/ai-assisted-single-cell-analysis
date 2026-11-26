@@ -1,7 +1,30 @@
 # Define: Synthetic practice
 
-Can we recover the deliberately introduced expression pattern after checking cell quality? The 200 cells and two simulated patterns are teaching constructs, not biological evidence.
+## The question
 
-**Your task:** write the question and one conclusion these data cannot support.
+**After basic cell quality checks, are the two simulated expression populations distinguishable in an exploratory PCA?**
 
-**AI prompt:** “Critique the scope of my question. What metadata would I need? Do not invent missing study details.”
+Begin with data whose construction is known. You can check whether the workflow produces the intended outputs before applying it to a study with unknown biology.
+
+The practice dataset has **1,000 genes and 200 cells**. Two populations, Simulated A and Simulated B, have different expected expression for selected genes. Cells also vary in total counts and expression within each population. Five cells have deliberately low counts; five have deliberately high mitochondrial fractions.
+
+These are simulated gene counts, not measurements from an organism. The four `Practice` sample IDs are bookkeeping labels, not real donors or biological replicates. The simulation is not fitted to the Zeisel dataset.
+
+## What you will learn
+
+You will trace a cell through the count matrix, check its metadata, examine QC decisions, interpret PCA and independently recalculate one result. The final output is a short report that explains both an observation and its limits.
+
+The analysis can show whether the constructed patterns remain visible after this QC and normalization. It cannot discover a new biological cell type, establish a treatment effect or demonstrate how a real tissue behaves.
+
+## Your task
+
+Before running anything, write two sentences:
+
+1. “My question is …”
+2. “Even if the PCA separates the populations, I cannot conclude …”
+
+Then predict how a low-count cell might affect a normalized value. You will revisit this after checking Cell047.
+
+**Optional AI prompt:** “Critique the scope of my question about simulated single-cell counts. Separate a calculation I can verify from a biological claim these data cannot support.”
+
+**Before moving on:** you should be able to explain why known simulation labels help evaluate a workflow without constituting biological evidence.
